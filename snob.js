@@ -5,7 +5,6 @@ const axios = require('axios');
 
 // Required Config & Parameter Variables:
 const config = require('./config.js');
-const args = process.argv.slice(2);
 
 // Setting Up RPC:
 const avax = new ethers.providers.JsonRpcProvider(config.rpc);
@@ -71,6 +70,13 @@ const getStakers = async () => {
 
 /* ====================================================================================================================================================== */
 
+// Function to get average SNOB locked time:
+const getAvgLockedTime = async () => {
+  // <TODO>
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to fetch all stats:
 const fetch = async () => {
 
@@ -81,6 +87,7 @@ const fetch = async () => {
   let treasuryBalance = await getTreasuryBalance();
   let staked = await getStaked();
   // let stakers = await getStakers();
+  // let avgLockedTime = await getAvgLockedTime();
 
   // Printing Data:
   console.log('==============================');

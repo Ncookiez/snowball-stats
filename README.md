@@ -14,10 +14,13 @@ Repository to track some token and user stats for Snowball.
 - Treasury SNOB balance.
 - Locked / staked SNOB supply.
 - Circulating SNOB supply.
-- Number of unique wallets staking SNOB.
+- Number of unique wallets staking SNOB. (Not added yet)
+- Average SNOB Locked Time (Not added yet)
 
-### Compounding Stats:
-- Number of unique wallets transacting with our Compounding Strategies in a certain period of time.
+### Compounder Stats:
+- Number of unique wallets that interacted with our compounding strategies. (Not added yet)
+- Number of unique wallets that interacted with our compounding strategies in the last 30 days. (Not added yet)
+- Number of unique wallets that interacted with our compounding strategies in any given period of time. (Not added yet)
 
 ---
 
@@ -33,7 +36,7 @@ Getting SNOB Stats:
 npm run snob
 ```
 
-Getting Compounding Stats:
+Getting Compounder Stats:
 ```
-npm run compounding
+npm run compounder
 ```
