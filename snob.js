@@ -31,14 +31,6 @@ const getTotalSupply = async () => {
 
 /* ====================================================================================================================================================== */
 
-// Function to get SNOB market cap:
-const getMarketCap = async (price, totalSupply) => {
-  let marketCap = (price * totalSupply);
-  return marketCap;
-}
-
-/* ====================================================================================================================================================== */
-
 // Function to get # of SNOB holders:
 const getHolders = async () => {
   let query = 'https://api.covalenthq.com/v1/43114/tokens/' + config.snob + '/token_holders/?page-size=50000&key=' + config.ckey;
@@ -51,7 +43,14 @@ const getHolders = async () => {
 
 // Function to get SNOB in treasury:
 const getTreasuryBalance = async () => {
-  // <TODO>
+  let treasuryBalance = 0;
+  let contract = new ethers.Contract(config.snob, config.minABI, avax);
+  let promises = config.treasury.map(address => (async () => {
+    let addressBalance = parseInt(await contract.balanceOf(address));
+    treasuryBalance += addressBalance;
+  })());
+  await Promise.all(promises);
+  return treasuryBalance / (10**18);
 }
 
 /* ====================================================================================================================================================== */
@@ -83,9 +82,8 @@ const fetch = async () => {
   // Fetching Data:
   let price = await getPrice();
   let totalSupply = await getTotalSupply();
-  let marketCap = await getMarketCap(price, totalSupply);
   let holders = await getHolders();
-  // let treasury = await getTreasuryBalance();
+  let treasuryBalance = await getTreasuryBalance();
   // let staked = await getStaked();
   // let circulating = await getCirculating();
   // let stakers = await getStakers();
@@ -96,8 +94,9 @@ const fetch = async () => {
   console.log('==============================');
   console.log('- SNOB Price:', '$' + price);
   console.log('- Total SNOB Supply:', totalSupply.toLocaleString(undefined, {maximumFractionDigits: 0}));
-  console.log('- SNOB Market Cap:', '$' + marketCap.toLocaleString(undefined, {maximumFractionDigits: 0}));
+  console.log('- SNOB Market Cap:', '$' + (price * totalSupply).toLocaleString(undefined, {maximumFractionDigits: 0}));
   console.log('- SNOB Holders:', holders.toLocaleString(undefined, {maximumFractionDigits: 0}));
+  console.log('- Treasury:', '$' + (price * treasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + treasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' SNOB)');
 
 }
 
