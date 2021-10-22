@@ -25,8 +25,8 @@ const getPrice = async () => {
 // Function to get total SNOB supply:
 const getTotalSupply = async () => {
   let contract = new ethers.Contract(config.snob, config.minABI, avax);
-  let supply = ((await contract.totalSupply()) / (10**18));
-  return supply;
+  let supply = await contract.totalSupply();
+  return supply / (10**18);
 }
 
 /* ====================================================================================================================================================== */
@@ -57,14 +57,9 @@ const getTreasuryBalance = async () => {
 
 // Function to get staked SNOB supply:
 const getStaked = async () => {
-  // <TODO>
-}
-
-/* ====================================================================================================================================================== */
-
-// Function to get circulating SNOB supply:
-const getCirculating = async () => {
-  // <TODO>
+  let contract = new ethers.Contract(config.snob, config.minABI, avax);
+  let balance = parseInt(await contract.balanceOf(config.xsnob));
+  return balance / (10**18);
 }
 
 /* ====================================================================================================================================================== */
@@ -84,8 +79,7 @@ const fetch = async () => {
   let totalSupply = await getTotalSupply();
   let holders = await getHolders();
   let treasuryBalance = await getTreasuryBalance();
-  // let staked = await getStaked();
-  // let circulating = await getCirculating();
+  let staked = await getStaked();
   // let stakers = await getStakers();
 
   // Printing Data:
@@ -97,6 +91,8 @@ const fetch = async () => {
   console.log('- SNOB Market Cap:', '$' + (price * totalSupply).toLocaleString(undefined, {maximumFractionDigits: 0}));
   console.log('- SNOB Holders:', holders.toLocaleString(undefined, {maximumFractionDigits: 0}));
   console.log('- Treasury:', '$' + (price * treasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + treasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' SNOB)');
+  console.log('- Staked SNOB:', staked.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + ((staked / totalSupply) * 100).toFixed(2) + '%)');
+  console.log('- Circulating SNOB Supply:', (totalSupply - treasuryBalance - staked).toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + (((totalSupply - treasuryBalance - staked) / totalSupply) * 100).toFixed(2) + '%)');
 
 }
 
