@@ -1,0 +1,13 @@
+{
+  "name": "snowball-stats",
+  "version": "1.0.1",
+  "description": "Tracking some token and users stats for Snowball.",
+  "scripts": {
+    "snob": "node snob.js"
+  },
+  "author": "Ncookie",
+  "dependencies": {
+    "axios": "^0.23.0",
+    "ethers": "^5.5.1"
+  }
+}
