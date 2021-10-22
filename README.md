@@ -9,8 +9,6 @@ Repository to track some token and user stats for Snowball.
 ### SNOB Stats:
 - SNOB price.
 - Number of unique wallets holding SNOB.
-- Total number of SNOB transactions made.
-- Number of SNOB transactions made in the last 30 days.
 - SNOB market cap.
 - Total SNOB supply.
 - Treasury SNOB balance.

@@ -22,33 +22,29 @@ const getPrice = async () => {
 
 /* ====================================================================================================================================================== */
 
-// Function to get # of SNOB holders:
-const getHolders = async () => {
-  // <TODO>
-}
-
-/* ====================================================================================================================================================== */
-
-// Function to get info on SNOB transactions:
-const getTXs = async () => {
-  // <TODO - Total TX Count>
-  // <TODO - TXs in Last 30 Days>
+// Function to get total SNOB supply:
+const getTotalSupply = async () => {
+  let contract = new ethers.Contract(config.snob, config.minABI, avax);
+  let supply = ((await contract.totalSupply()) / (10**18));
+  return supply;
 }
 
 /* ====================================================================================================================================================== */
 
 // Function to get SNOB market cap:
-const getMarketCap = async () => {
-  // <TODO>
+const getMarketCap = async (price, totalSupply) => {
+  let marketCap = (price * totalSupply);
+  return marketCap;
 }
 
 /* ====================================================================================================================================================== */
 
-// Function to get total SNOB supply:
-const getTotalSupply = async () => {
-  let contract = new ethers.Contract(config.snob, config.minABI, avax);
-  let supply = ((await contract.totalSupply()) / (10**18)).toFixed(2);
-  return supply;
+// Function to get # of SNOB holders:
+const getHolders = async () => {
+  let query = 'https://api.covalenthq.com/v1/43114/tokens/' + config.snob + '/token_holders/?page-size=50000&key=' + config.ckey;
+  let result = await axios.get(query);
+  let holders = result.data.data.items.length;
+  return holders;
 }
 
 /* ====================================================================================================================================================== */
@@ -86,10 +82,9 @@ const fetch = async () => {
 
   // Fetching Data:
   let price = await getPrice();
-  // let holders = await getHolders();
-  // let txInfo = await getTxs();
-  // let marketCap = await getMarketCap();
   let totalSupply = await getTotalSupply();
+  let marketCap = await getMarketCap(price, totalSupply);
+  let holders = await getHolders();
   // let treasury = await getTreasuryBalance();
   // let staked = await getStaked();
   // let circulating = await getCirculating();
@@ -99,8 +94,10 @@ const fetch = async () => {
   console.log('==============================');
   console.log('||        SNOB Stats        ||');
   console.log('==============================');
-  console.log('- SNOB Price:', price);
-  console.log('- Total SNOB Supply:', totalSupply);
+  console.log('- SNOB Price:', '$' + price);
+  console.log('- Total SNOB Supply:', totalSupply.toLocaleString(undefined, {maximumFractionDigits: 0}));
+  console.log('- SNOB Market Cap:', '$' + marketCap.toLocaleString(undefined, {maximumFractionDigits: 0}));
+  console.log('- SNOB Holders:', holders.toLocaleString(undefined, {maximumFractionDigits: 0}));
 
 }
 
