@@ -7,13 +7,16 @@ Repository to track some token and user stats for Snowball.
 ## Stats Tracked:
 
 ### SNOB Stats:
-- Current SNOB price.
-- Current circulating SNOB supply.
+- SNOB price.
 - Number of unique wallets holding SNOB.
-
-### xSNOB Stats:
-- Amount of SNOB tokens staked for xSNOB.
-- Number of unique wallets holding xSNOB.
+- Total number of SNOB transactions made.
+- Number of SNOB transactions made in the last 30 days.
+- SNOB market cap.
+- Total SNOB supply.
+- Treasury SNOB balance.
+- Locked / staked SNOB supply.
+- Circulating SNOB supply.
+- Number of unique wallets staking SNOB.
 
 ### Compounding Stats:
 - Number of unique wallets transacting with our Compounding Strategies in a certain period of time.
@@ -30,11 +33,6 @@ npm i
 Getting SNOB Stats:
 ```
 npm run snob
-```
-
-Getting xSNOB Stats:
-```
-npm run xsnob
 ```
 
 Getting Compounding Stats:
