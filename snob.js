@@ -78,30 +78,26 @@ const getStakerInfo = async () => {
   let stakerInfo = [];
   let page = 0;
   let hasNextPage = false;
-  try {
-    do {
-      let query = 'https://api.covalenthq.com/v1/43114/address/' + config.xsnob + '/transactions_v2/?page-size=1000&page-number=' + page++ + '&key=' + config.ckey;
-      let result = await axios.get(query);
-      if(!result.data.error) {
-        hasNextPage = result.data.data.pagination.has_more;
-        result.data.data.items.forEach(async (tx) => {
-          if(tx.successful && tx.from_address.toLowerCase() != config.xsnob.toLowerCase() && !wallets.includes(tx.from_address)) {
-            wallets.push(tx.from_address);
-            let stake = await contract.locked(tx.from_address);
-            let amount = parseInt(stake.amount) / (10**18);
-            let unlock = parseInt(stake.end);
-            if(amount > 0) {
-              stakerInfo.push({ wallet: tx.from_address, amount, unlock });
-            }
+  do {
+    let query = 'https://api.covalenthq.com/v1/43114/address/' + config.xsnob + '/transactions_v2/?page-size=1000&page-number=' + page++ + '&key=' + config.ckey;
+    let result = await axios.get(query);
+    if(!result.data.error) {
+      hasNextPage = result.data.data.pagination.has_more;
+      result.data.data.items.forEach(async (tx) => {
+        if(tx.successful && tx.from_address.toLowerCase() != config.xsnob.toLowerCase() && !wallets.includes(tx.from_address)) {
+          wallets.push(tx.from_address);
+          let stake = await contract.locked(tx.from_address);
+          let amount = parseInt(stake.amount) / (10**18);
+          let unlock = parseInt(stake.end);
+          if(amount > 0) {
+            stakerInfo.push({ wallet: tx.from_address, amount, unlock });
           }
-        });
-      } else {
-        hasNextPage = false;
-      }
-    } while(hasNextPage);
-  } catch {
-    console.log('Error: Likely RPC-Related. Wait a bit before retrying.');
-  }
+        }
+      });
+    } else {
+      hasNextPage = false;
+    }
+  } while(hasNextPage);
   return stakerInfo;
 }
 

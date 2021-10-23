@@ -46,3 +46,5 @@ Getting Compounder Stats:
 ```
 npm run compounder
 ```
+
+If you encounter any RPC errors, wait 5 minutes before trying again. Some of these stats require a lot of calls to be made.
