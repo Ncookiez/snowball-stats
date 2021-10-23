@@ -164,7 +164,6 @@ const fetch = async () => {
   let avgLockedAmount = await getAvgLockedAmount(stakerInfo);
   let avgLockedTime = await getAvgLockedTime(stakerInfo);
   let avgOutputAmount = await getAvgOutputAmount(avgLockedAmount, avgLockedTime);
-  let avgScaledLockedTime = await getAvgScaledLockedTime(stakerInfo);
 
   // Printing Data:
   console.log('  ==============================');
