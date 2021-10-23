@@ -142,15 +142,9 @@ const getAvgLockedTime = async (info) => {
 /* ====================================================================================================================================================== */
 
 // Function to get average xSNOB amount held by stakers:
-const getAvgOutputAmount = async (info) => {
-  return 0;
-}
-
-/* ====================================================================================================================================================== */
-
-// Function to get average SNOB locked time:
-const getAvgScaledLockedTime = async (info) => {
-  return 0;
+const getAvgOutputAmount = async (avgAmount, avgTime) => {
+  let avgOutput = avgAmount * (avgTime / 2);
+  return avgOutput;
 }
 
 /* ====================================================================================================================================================== */
@@ -169,7 +163,7 @@ const fetch = async () => {
   let numStakers = await getStakers(stakerInfo);
   let avgLockedAmount = await getAvgLockedAmount(stakerInfo);
   let avgLockedTime = await getAvgLockedTime(stakerInfo);
-  let avgOutputAmount = await getAvgOutputAmount(stakerInfo);
+  let avgOutputAmount = await getAvgOutputAmount(avgLockedAmount, avgLockedTime);
   let avgScaledLockedTime = await getAvgScaledLockedTime(stakerInfo);
 
   // Printing Data:
@@ -186,8 +180,7 @@ const fetch = async () => {
   console.log('  - xSNOB Holders:', numStakers.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Users');
   console.log('  - Average SNOB Amount Staked:', avgLockedAmount.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
   console.log('  - Average SNOB Locked Time:', avgLockedTime.toLocaleString(undefined, {maximumFractionDigits: 2}), 'Years');
-  console.log('  - Average xSNOB Amount Held:', avgOutputAmount.toLocaleString(undefined, {maximumFractionDigits: 2}), 'xSNOB');
-  console.log('  - Average Scaled SNOB Locked Time:', avgScaledLockedTime);
+  console.log('  - Average xSNOB Amount Held:', avgOutputAmount.toLocaleString(undefined, {maximumFractionDigits: 0}), 'xSNOB');
 
 }
 
