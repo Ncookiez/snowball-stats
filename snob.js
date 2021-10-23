@@ -137,10 +137,60 @@ const getAvgLockedTime = async (info) => {
 
 /* ====================================================================================================================================================== */
 
+// Function to get total xSNOB supply:
+const getOutputSupply = async (numStakers, avgAmount, avgTime) => {
+  let supply = numStakers * (avgAmount * (avgTime / 2));
+  return supply;
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to get average xSNOB amount held by stakers:
 const getAvgOutputAmount = async (avgAmount, avgTime) => {
   let avgOutput = avgAmount * (avgTime / 2);
   return avgOutput;
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to get number of stakers with 100k+ xSNOB:
+const getNumStakers100k = async (info) => {
+  let stakers = info.filter(stake => (stake.amount * ((stake.unlock - time) / 60 / 60 / 24 / 365 / 2)) > 100000);
+  return stakers.length;
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to get number of stakers with unlocked SNOB still in contract:
+const getForgetfulStakers = async (info) => {
+  let stakers = info.filter(stake => stake.unlock < time);
+  return stakers.length;
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to get amount of unlocked SNOB still in contract:
+const getForgottenStakes = async (info) => {
+  let stakers = info.filter(stake => stake.unlock < time);
+  let amountForgotten = 0;
+  stakers.forEach(stake => {
+    amountForgotten += stake.amount;
+  });
+  return amountForgotten;
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to get top 5 richest xSNOB holders:
+const getRichList = async (info) => {
+  let oldStakers = info.filter(stake => stake.unlock > time);
+  let stakers = [];
+  oldStakers.forEach(stake => {
+    let xsnob = stake.amount * ((stake.unlock - time) / 60 / 60 / 24 / 365 / 2);
+    stakers.push({ wallet: stake.wallet, xsnob });
+  });
+  stakers.sort((a, b) => b.xsnob - a.xsnob);
+  return stakers.slice(0, 5);
 }
 
 /* ====================================================================================================================================================== */
@@ -159,7 +209,12 @@ const fetch = async () => {
   let numStakers = await getStakers(stakerInfo);
   let avgLockedAmount = await getAvgLockedAmount(stakerInfo);
   let avgLockedTime = await getAvgLockedTime(stakerInfo);
+  let outputSupply = await getOutputSupply(numStakers, avgLockedAmount, avgLockedTime);
   let avgOutputAmount = await getAvgOutputAmount(avgLockedAmount, avgLockedTime);
+  let numStakers100k = await getNumStakers100k(stakerInfo);
+  let forgetfulStakers = await getForgetfulStakers(stakerInfo);
+  let forgottenStakes = await getForgottenStakes(stakerInfo);
+  let richList = await getRichList(stakerInfo);
 
   // Printing Data:
   console.log('  ==============================');
@@ -175,8 +230,15 @@ const fetch = async () => {
   console.log('  - xSNOB Holders:', numStakers.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Users');
   console.log('  - Average SNOB Amount Staked:', avgLockedAmount.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
   console.log('  - Average SNOB Locked Time:', avgLockedTime.toLocaleString(undefined, {maximumFractionDigits: 2}), 'Years');
+  console.log('  - Total xSNOB Supply:', outputSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'xSNOB');
   console.log('  - Average xSNOB Amount Held:', avgOutputAmount.toLocaleString(undefined, {maximumFractionDigits: 0}), 'xSNOB');
-
+  console.log('  - xSNOB Holders w/ 100k+:', numStakers100k.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Users');
+  console.log('  - Forgetful xSNOB Holders:', forgetfulStakers.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Users');
+  console.log('  - SNOB Forgotten:', forgottenStakes.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
+  console.log('  - Top 5 xSNOB Holders:');
+  richList.forEach(user => {
+    console.log('      >', user.wallet, '-', user.xsnob.toLocaleString(undefined, {maximumFractionDigits: 0}), 'xSNOB (' + ((user.xsnob / outputSupply) * 100).toFixed(2) + '% of possible votes)');
+  });
 }
 
 /* ====================================================================================================================================================== */

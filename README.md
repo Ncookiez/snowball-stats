@@ -17,11 +17,12 @@ Repository to track some token and user stats for Snowball.
 - Number of unique wallets staking SNOB.
 - Average SNOB amount staked.
 - Average SNOB locked time.
+- Total xSNOB supply.
 - Average xSNOB amount held by stakers.
-- Number of wallets with at least 100k xSNOB. (Not added yet)
-- Number of users forgetting to withdraw their unlocked SNOB. (Not added yet)
-- Amount of unlocked SNOB waiting to be withdrawn. (Not added yet)
-- Top 5 richest xSNOB holder balances. (Not added yet)
+- Number of wallets with at least 100k xSNOB.
+- Number of users forgetting to withdraw their unlocked SNOB.
+- Amount of unlocked SNOB waiting to be withdrawn.
+- Top 5 richest xSNOB holders.
 
 ### Compounder Stats:
 - Number of unique wallets that interacted with our compounding strategies. (Not added yet)
