@@ -14,8 +14,11 @@ Repository to track some token and user stats for Snowball.
 - Treasury SNOB balance.
 - Locked / staked SNOB supply.
 - Circulating SNOB supply.
-- Number of unique wallets staking SNOB. (Not added yet)
-- Average SNOB Locked Time (Not added yet)
+- Number of unique wallets staking SNOB.
+- Average SNOB amount staked. (Not added yet)
+- Average SNOB locked time. (Not added yet)
+- Average xSNOB amount held by stakers. (Not added yet)
+- Average scaled SNOB locked time (relative to amount staked). (Not added yet)
 
 ### Compounder Stats:
 - Number of unique wallets that interacted with our compounding strategies. (Not added yet)
