@@ -19,6 +19,7 @@ const getPrice = async () => {
   let query = 'https://api.coingecko.com/api/v3/simple/token_price/avalanche?contract_addresses=' + config.snob + '&vs_currencies=usd';
   let result = await axios.get(query);
   let price = result.data[config.snob.toLowerCase()].usd.toFixed(4);
+  console.log('Price loaded...');
   return price;
 }
 
@@ -28,6 +29,7 @@ const getPrice = async () => {
 const getTotalSupply = async () => {
   let contract = new ethers.Contract(config.snob, config.minABI, avax);
   let supply = await contract.totalSupply();
+  console.log('Total supply loaded...');
   return supply / (10**18);
 }
 
@@ -38,6 +40,7 @@ const getHolders = async () => {
   let query = 'https://api.covalenthq.com/v1/43114/tokens/' + config.snob + '/token_holders/?page-size=50000&key=' + config.ckey;
   let result = await axios.get(query);
   let holders = result.data.data.items.length;
+  console.log('Holders loaded...');
   return holders;
 }
 
@@ -47,6 +50,7 @@ const getHolders = async () => {
 const getTreasuryBalance = async () => {
   let contract = new ethers.Contract(config.snob, config.minABI, avax);
   let treasuryBalance = parseInt(await contract.balanceOf(config.treasury));
+  console.log('Treasury balance loaded...');
   return treasuryBalance / (10**18);
 }
 
@@ -56,6 +60,7 @@ const getTreasuryBalance = async () => {
 const getStaked = async () => {
   let contract = new ethers.Contract(config.snob, config.minABI, avax);
   let balance = parseInt(await contract.balanceOf(config.xsnob));
+  console.log('Locked supply loaded...');
   return balance / (10**18);
 }
 
@@ -66,6 +71,7 @@ const getCirculatingSupply = async (total, treasury, staked) => {
   let contract = new ethers.Contract(config.snob, config.minABI, avax);
   let devFundBalance = parseInt(await contract.balanceOf(config.devFund));
   let circulatingSupply = total - treasury - staked - (devFundBalance / (10**18));
+  console.log('Circulating supply loaded...');
   return circulatingSupply;
 }
 
@@ -83,17 +89,23 @@ const getStakerInfo = async () => {
     let result = await axios.get(query);
     if(!result.data.error) {
       hasNextPage = result.data.data.pagination.has_more;
-      result.data.data.items.forEach(async (tx) => {
+      let promises = result.data.data.items.map(tx => (async () => {
         if(tx.successful && tx.from_address.toLowerCase() != config.xsnob.toLowerCase() && !wallets.includes(tx.from_address)) {
           wallets.push(tx.from_address);
-          let stake = await contract.locked(tx.from_address);
-          let amount = parseInt(stake.amount) / (10**18);
-          let unlock = parseInt(stake.end);
-          if(amount > 0) {
-            stakerInfo.push({ wallet: tx.from_address, amount, unlock });
+          try {
+            let stake = await contract.locked(tx.from_address);
+            let amount = parseInt(stake.amount) / (10**18);
+            let unlock = parseInt(stake.end);
+            if(amount > 0) {
+              stakerInfo.push({ wallet: tx.from_address, amount, unlock });
+            }
+          } catch {
+            console.log('RPC ERROR: Call Rejected - Could not fetch xSNOB info for', tx.from_address);
           }
         }
-      });
+      })());
+      await Promise.all(promises);
+      console.log(`xSNOB info loaded... (Page ${page})`)
     } else {
       hasNextPage = false;
     }
@@ -217,7 +229,7 @@ const fetch = async () => {
   let richList = await getRichList(stakerInfo);
 
   // Printing Data:
-  console.log('  ==============================');
+  console.log('\n  ==============================');
   console.log('  ||        SNOB Stats        ||');
   console.log('  ==============================\n');
   console.log('  - SNOB Price:', '$' + price);
