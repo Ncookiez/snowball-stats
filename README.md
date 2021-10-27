@@ -27,7 +27,7 @@ Repository to track some token and user stats for Snowball.
 ### Compounder Stats:
 - Number of unique wallets that interacted with our compounding strategies.
 - Number of unique wallets that interacted with our compounding strategies in the last 30 days.
-- Number of unique wallets that interacted with our compounding strategies in any given period of time. (Not added yet)
+- Number of unique wallets that interacted with our compounding strategies in any given period of time.
 
 ---
 
@@ -47,5 +47,17 @@ Getting Compounder Stats:
 ```
 npm run comp
 ```
+
+Getting Compounder Stats + Time-Specific Unique Users:
+```
+npm run comp <start_time> <end_time>
+```
+
+Example:
+```
+npm run comp 1632780910 1635362110
+```
+
+You can use the link [here](https://www.unixtimestamp.com/) to get Unix timestamps.
 
 If you encounter any RPC errors, wait 5 minutes before trying again, or change the RPC on `config.js`.
