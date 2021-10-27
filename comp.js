@@ -20,9 +20,12 @@ let maxTime = 0;
 if(args.length > 0) {
   try {
     minTime = parseInt(args[0]);
-    maxTime = parseInt(args[1]);
-    if(!isNaN(minTime) && !isNaN(maxTime)) {
+    if(!isNaN(minTime)) {
       timeControls = true;
+    }
+    maxTime = parseInt(args[1]);
+    if(isNaN(maxTime)) {
+      maxTime = time;
     }
   } catch {
     console.log('ERROR: Invalid Arguments');
@@ -54,7 +57,7 @@ const getGauges = async () => {
   let contract = new ethers.Contract(config.gaugeProxy, config.gaugeProxyABI, avax);
   let tokens = await contract.tokens();
   let gauges = [];
-  let gauge_promises = tokens.map(token => (async () => {
+  let gauge_promises = tokens.slice(0, 2).map(token => (async () => {
     try {
       let gauge = await contract.getGauge(token);
       if(gauge != '0x0000000000000000000000000000000000000000') {

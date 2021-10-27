@@ -58,6 +58,8 @@ Example:
 npm run comp 1632780910 1635362110
 ```
 
+Entering only a start time but not an end time is also an option. The current time will be used for the end time.
+
 You can use the link [here](https://www.unixtimestamp.com/) to get Unix timestamps.
 
 If you encounter any RPC errors, wait 5 minutes before trying again, or change the RPC on `config.js`.
