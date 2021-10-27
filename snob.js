@@ -3,7 +3,7 @@
 const { ethers } = require('ethers');
 const axios = require('axios');
 
-// Required Config & Parameter Variables:
+// Required Config Variables:
 const config = require('./config.js');
 
 // Setting Up RPC:
@@ -105,7 +105,7 @@ const getStakerInfo = async () => {
         }
       })());
       await Promise.all(promises);
-      console.log(`xSNOB info loaded... (Page ${page})`)
+      console.log(`xSNOB info loaded... (Page ${page})`);
     } else {
       hasNextPage = false;
     }

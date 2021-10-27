@@ -1,6 +1,7 @@
 
 // RPC:
 exports.rpc = 'https://api.avax.network/ext/bc/C/rpc';
+// exports.rpc = 'https://avax-mainnet.gateway.pokt.network/v1/lb/605238bf6b986eea7cf36d5e/ext/bc/C/rpc';
 
 // Addresses:
 exports.snob = '0xC38f41A296A4493Ff429F1238e030924A1542e50';
@@ -20,4 +21,8 @@ exports.minABI = [
 ];
 exports.xsnobABI = [
   { constant: true, inputs: [{ name: "", type: "address" }], name: "locked", outputs: [{ name: "amount", type: "uint128" }, { name: "end", type: "uint256" }], type: "function" }
+];
+exports.gaugeProxyABI = [
+  { constant: true, inputs: [], name: "tokens", outputs: [{ name: "", type: "address[]" }], type: "function" },
+  { constant: true, inputs: [{ name: "", type: "address" }], name: "getGauge", outputs: [{ name: "", type: "address" }], type: "function" }
 ];

@@ -45,7 +45,7 @@ npm run snob
 
 Getting Compounder Stats:
 ```
-npm run compounder
+npm run comp
 ```
 
 If you encounter any RPC errors, wait 5 minutes before trying again. Some of these stats require a lot of calls to be made.
