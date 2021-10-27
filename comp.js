@@ -54,7 +54,7 @@ const getGauges = async () => {
   let contract = new ethers.Contract(config.gaugeProxy, config.gaugeProxyABI, avax);
   let tokens = await contract.tokens();
   let gauges = [];
-  let gauge_promises = tokens.slice(0, 2).map(token => (async () => {
+  let gauge_promises = tokens.map(token => (async () => {
     try {
       let gauge = await contract.getGauge(token);
       if(gauge != '0x0000000000000000000000000000000000000000') {
