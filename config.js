@@ -1,7 +1,7 @@
 
 // RPC:
-exports.rpc = 'https://api.avax.network/ext/bc/C/rpc';
-// exports.rpc = 'https://avax-mainnet.gateway.pokt.network/v1/lb/605238bf6b986eea7cf36d5e/ext/bc/C/rpc';
+// exports.rpc = 'https://api.avax.network/ext/bc/C/rpc';
+exports.rpc = 'https://avax-mainnet.gateway.pokt.network/v1/lb/605238bf6b986eea7cf36d5e/ext/bc/C/rpc';
 
 // Addresses:
 exports.snob = '0xC38f41A296A4493Ff429F1238e030924A1542e50';
