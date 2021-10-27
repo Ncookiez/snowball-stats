@@ -25,8 +25,8 @@ Repository to track some token and user stats for Snowball.
 - Top 5 richest xSNOB holders.
 
 ### Compounder Stats:
-- Number of unique wallets that interacted with our compounding strategies. (Not added yet)
-- Number of unique wallets that interacted with our compounding strategies in the last 30 days. (Not added yet)
+- Number of unique wallets that interacted with our compounding strategies.
+- Number of unique wallets that interacted with our compounding strategies in the last 30 days.
 - Number of unique wallets that interacted with our compounding strategies in any given period of time. (Not added yet)
 
 ---
@@ -48,4 +48,4 @@ Getting Compounder Stats:
 npm run comp
 ```
 
-If you encounter any RPC errors, wait 5 minutes before trying again. Some of these stats require a lot of calls to be made.
+If you encounter any RPC errors, wait 5 minutes before trying again, or change the RPC on `config.js`.
