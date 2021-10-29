@@ -85,7 +85,7 @@ const getStakerInfo = async () => {
   let page = 0;
   let hasNextPage = false;
   do {
-    let query = 'https://api.covalenthq.com/v1/43114/address/' + config.xsnob + '/transactions_v2/?page-size=1000&page-number=' + page++ + '&key=' + config.ckey;
+    let query = 'https://api.covalenthq.com/v1/43114/address/' + config.xsnob + '/transactions_v2/?no-logs=true&page-size=1000&page-number=' + page++ + '&key=' + config.ckey;
     let result = await axios.get(query);
     if(!result.data.error) {
       hasNextPage = result.data.data.pagination.has_more;
@@ -116,7 +116,7 @@ const getStakerInfo = async () => {
 /* ====================================================================================================================================================== */
 
 // Function to get # of SNOB stakers:
-const getStakers = async (info) => {
+const getStakers = (info) => {
   let stakers = info.filter(stake => stake.unlock > time);
   return stakers.length;
 }
@@ -124,7 +124,7 @@ const getStakers = async (info) => {
 /* ====================================================================================================================================================== */
 
 // Function to get average SNOB locked amount:
-const getAvgLockedAmount = async (info) => {
+const getAvgLockedAmount = (info) => {
   let stakers = info.filter(stake => stake.unlock > time);
   let sum = 0;
   stakers.forEach(stake => {
@@ -137,7 +137,7 @@ const getAvgLockedAmount = async (info) => {
 /* ====================================================================================================================================================== */
 
 // Function to get average SNOB locked time:
-const getAvgLockedTime = async (info) => {
+const getAvgLockedTime = (info) => {
   let stakers = info.filter(stake => stake.unlock > time);
   let sum = 0;
   stakers.forEach(stake => {
@@ -150,7 +150,7 @@ const getAvgLockedTime = async (info) => {
 /* ====================================================================================================================================================== */
 
 // Function to get total xSNOB supply:
-const getOutputSupply = async (numStakers, avgAmount, avgTime) => {
+const getOutputSupply = (numStakers, avgAmount, avgTime) => {
   let supply = numStakers * (avgAmount * (avgTime / 2));
   return supply;
 }
@@ -158,7 +158,7 @@ const getOutputSupply = async (numStakers, avgAmount, avgTime) => {
 /* ====================================================================================================================================================== */
 
 // Function to get average xSNOB amount held by stakers:
-const getAvgOutputAmount = async (avgAmount, avgTime) => {
+const getAvgOutputAmount = (avgAmount, avgTime) => {
   let avgOutput = avgAmount * (avgTime / 2);
   return avgOutput;
 }
@@ -166,7 +166,7 @@ const getAvgOutputAmount = async (avgAmount, avgTime) => {
 /* ====================================================================================================================================================== */
 
 // Function to get number of stakers with 100k+ xSNOB:
-const getNumStakers100k = async (info) => {
+const getNumStakers100k = (info) => {
   let stakers = info.filter(stake => (stake.amount * ((stake.unlock - time) / 60 / 60 / 24 / 365 / 2)) > 100000);
   return stakers.length;
 }
@@ -174,7 +174,7 @@ const getNumStakers100k = async (info) => {
 /* ====================================================================================================================================================== */
 
 // Function to get number of stakers with unlocked SNOB still in contract:
-const getForgetfulStakers = async (info) => {
+const getForgetfulStakers = (info) => {
   let stakers = info.filter(stake => stake.unlock < time);
   return stakers.length;
 }
@@ -182,7 +182,7 @@ const getForgetfulStakers = async (info) => {
 /* ====================================================================================================================================================== */
 
 // Function to get amount of unlocked SNOB still in contract:
-const getForgottenStakes = async (info) => {
+const getForgottenStakes = (info) => {
   let stakers = info.filter(stake => stake.unlock < time);
   let amountForgotten = 0;
   stakers.forEach(stake => {
@@ -194,7 +194,7 @@ const getForgottenStakes = async (info) => {
 /* ====================================================================================================================================================== */
 
 // Function to get top 5 richest xSNOB holders:
-const getRichList = async (info) => {
+const getRichList = (info) => {
   let oldStakers = info.filter(stake => stake.unlock > time);
   let stakers = [];
   oldStakers.forEach(stake => {
@@ -203,6 +203,70 @@ const getRichList = async (info) => {
   });
   stakers.sort((a, b) => b.xsnob - a.xsnob);
   return stakers.slice(0, 5);
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to get voter info:
+const getVoterInfo = async () => {
+  let wallets = [];
+  let votes = 0;
+  let page_1 = 0;
+  let hasNextPage = false;
+  do {
+    let query = 'https://api.covalenthq.com/v1/43114/address/' + config.gaugeProxy + '/transactions_v2/?no-logs=true&page-size=1000&page-number=' + page_1++ + '&key=' + config.ckey;
+    let result = await axios.get(query);
+    if(!result.data.error) {
+      hasNextPage = result.data.data.pagination.has_more;
+      let promises = result.data.data.items.map(tx => (async () => {
+        if(tx.successful && tx.from_address.toLowerCase() != config.gaugeProxy.toLowerCase() && tx.from_address.toLowerCase() != config.operations.toLowerCase() && tx.from_address.toLowerCase() != '0xc9a51fB9057380494262fd291aED74317332C0a2'.toLowerCase()) {
+          if(!wallets.includes(tx.from_address)) {
+            wallets.push(tx.from_address);
+          }
+          votes++;
+        }
+      })());
+      await Promise.all(promises);
+      console.log(`Voter info loaded... (Page ${page_1})`);
+    } else {
+      hasNextPage = false;
+    }
+  } while(hasNextPage);
+  let page_2 = 0;
+  hasNextPage = false;
+  do {
+    let query = 'https://api.covalenthq.com/v1/43114/address/' + config.oldGaugeProxy + '/transactions_v2/?no-logs=true&page-size=1000&page-number=' + page_2++ + '&key=' + config.ckey;
+    let result = await axios.get(query);
+    if(!result.data.error) {
+      hasNextPage = result.data.data.pagination.has_more;
+      let promises = result.data.data.items.map(tx => (async () => {
+        if(tx.successful && tx.from_address.toLowerCase() != config.oldGaugeProxy.toLowerCase() && tx.from_address.toLowerCase() != config.operations.toLowerCase() && tx.from_address.toLowerCase() != '0xc9a51fB9057380494262fd291aED74317332C0a2'.toLowerCase()) {
+          if(!wallets.includes(tx.from_address)) {
+            wallets.push(tx.from_address);
+          }
+          votes++;
+        }
+      })());
+      await Promise.all(promises);
+      console.log(`Voter info loaded... (Page ${page_1 + page_2})`);
+    } else {
+      hasNextPage = false;
+    }
+  } while(hasNextPage);
+  return { voters: wallets, votes};
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to get number of current stakers that have voted:
+const getStakingVoters = (voterInfo, stakerInfo) => {
+  let numStakingVoters = 0;
+  stakerInfo.forEach(stake => {
+    if(voterInfo.voters.includes(stake.wallet)) {
+      numStakingVoters++;
+    }
+  });
+  return numStakingVoters;
 }
 
 /* ====================================================================================================================================================== */
@@ -218,15 +282,17 @@ const fetch = async () => {
   let staked = await getStaked();
   let circulatingSupply = await getCirculatingSupply(totalSupply, treasuryBalance, staked);
   let stakerInfo = await getStakerInfo();
-  let numStakers = await getStakers(stakerInfo);
-  let avgLockedAmount = await getAvgLockedAmount(stakerInfo);
-  let avgLockedTime = await getAvgLockedTime(stakerInfo);
-  let outputSupply = await getOutputSupply(numStakers, avgLockedAmount, avgLockedTime);
-  let avgOutputAmount = await getAvgOutputAmount(avgLockedAmount, avgLockedTime);
-  let numStakers100k = await getNumStakers100k(stakerInfo);
-  let forgetfulStakers = await getForgetfulStakers(stakerInfo);
-  let forgottenStakes = await getForgottenStakes(stakerInfo);
-  let richList = await getRichList(stakerInfo);
+  let voterInfo = await getVoterInfo();
+  let numStakers = getStakers(stakerInfo);
+  let avgLockedAmount = getAvgLockedAmount(stakerInfo);
+  let avgLockedTime = getAvgLockedTime(stakerInfo);
+  let outputSupply = getOutputSupply(numStakers, avgLockedAmount, avgLockedTime);
+  let avgOutputAmount = getAvgOutputAmount(avgLockedAmount, avgLockedTime);
+  let numStakers100k = getNumStakers100k(stakerInfo);
+  let forgetfulStakers = getForgetfulStakers(stakerInfo);
+  let forgottenStakes = getForgottenStakes(stakerInfo);
+  let richList = getRichList(stakerInfo);
+  let currentStakingVotes = getStakingVoters(voterInfo, stakerInfo);
 
   // Printing Data:
   console.log('\n  ==============================');
@@ -251,6 +317,9 @@ const fetch = async () => {
   richList.forEach(user => {
     console.log('      >', user.wallet, '-', user.xsnob.toLocaleString(undefined, {maximumFractionDigits: 0}), 'xSNOB (' + ((user.xsnob / outputSupply) * 100).toFixed(2) + '% of possible votes)');
   });
+  console.log('  - Allocation Voters:', voterInfo.voters.length.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Users');
+  console.log('  - Total Allocation Votes:', voterInfo.votes.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Votes');
+  console.log('  - % of Current Stakers Voted:', ((currentStakingVotes / numStakers) * 100).toFixed(2) + '%');
 }
 
 /* ====================================================================================================================================================== */

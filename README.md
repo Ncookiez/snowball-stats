@@ -24,7 +24,7 @@ Repository to track some token and user stats for Snowball.
 - Amount of unlocked SNOB waiting to be withdrawn.
 - Top 5 richest xSNOB holders.
 
-### Compounder Stats:
+### Compounder Stats (WIP):
 - Number of unique wallets that interacted with our compounding strategies.
 - Number of unique wallets that interacted with our compounding strategies in the last 30 days.
 - Number of unique wallets that interacted with our compounding strategies in any given period of time.
