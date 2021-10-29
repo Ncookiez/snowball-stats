@@ -50,12 +50,15 @@ Entering only a start time but not an end time is also an option. The current ti
 
 You can use the link [here](https://www.unixtimestamp.com/) to get Unix timestamps.
 
-### Harvest Stats (WIP):
+### Distribution Stats:
 
-- Work in progress...
+- Total SNOB distributed.
+- Average SNOB distribution.
+- List of each week's SNOB distribution.
+- APR of last SNOB distribution.
 
 ```
-npm run harvest
+npm run dist
 ```
 
 ---

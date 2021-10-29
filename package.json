@@ -1,11 +1,11 @@
 {
   "name": "snowball-stats",
-  "version": "1.0.6",
+  "version": "1.1.4",
   "description": "Tracking some token and users stats for Snowball.",
   "scripts": {
     "snob": "node snob.js",
     "comp": "node comp.js",
-    "harvest": "node harvest.js"
+    "dist": "node dist.js"
   },
   "author": "Ncookie",
   "dependencies": {
