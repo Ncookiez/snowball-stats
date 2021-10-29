@@ -115,6 +115,16 @@ const getStakerInfo = async () => {
 
 /* ====================================================================================================================================================== */
 
+// Function to get total xSNOB supply:
+const getOutputSupply = async () => {
+  let contract = new ethers.Contract(config.xsnob, config.xsnobABI, avax);
+  let supply = parseInt(await contract.totalSupply());
+  console.log('Total xSNOB Supply loaded...');
+  return supply / (10**18);
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to get # of SNOB stakers:
 const getStakers = (info) => {
   let stakers = info.filter(stake => stake.unlock > time);
@@ -137,22 +147,9 @@ const getAvgLockedAmount = (info) => {
 /* ====================================================================================================================================================== */
 
 // Function to get average SNOB locked time:
-const getAvgLockedTime = (info) => {
-  let stakers = info.filter(stake => stake.unlock > time);
-  let sum = 0;
-  stakers.forEach(stake => {
-    sum += (stake.unlock - time);
-  });
-  let avgLockedTime = sum / stakers.length / 60 / 60 / 24 / 365;
+const getAvgLockedTime = (snob, xsnob) => {
+  let avgLockedTime = (xsnob / snob) * 2;
   return avgLockedTime;
-}
-
-/* ====================================================================================================================================================== */
-
-// Function to get total xSNOB supply:
-const getOutputSupply = (numStakers, avgAmount, avgTime) => {
-  let supply = numStakers * (avgAmount * (avgTime / 2));
-  return supply;
 }
 
 /* ====================================================================================================================================================== */
@@ -281,12 +278,12 @@ const fetch = async () => {
   let treasuryBalance = await getTreasuryBalance();
   let staked = await getStaked();
   let circulatingSupply = await getCirculatingSupply(totalSupply, treasuryBalance, staked);
+  let outputSupply = await getOutputSupply();
   let stakerInfo = await getStakerInfo();
   let voterInfo = await getVoterInfo();
   let numStakers = getStakers(stakerInfo);
   let avgLockedAmount = getAvgLockedAmount(stakerInfo);
-  let avgLockedTime = getAvgLockedTime(stakerInfo);
-  let outputSupply = getOutputSupply(numStakers, avgLockedAmount, avgLockedTime);
+  let avgLockedTime = getAvgLockedTime(staked, outputSupply);
   let avgOutputAmount = getAvgOutputAmount(avgLockedAmount, avgLockedTime);
   let numStakers100k = getNumStakers100k(stakerInfo);
   let forgetfulStakers = getForgetfulStakers(stakerInfo);

@@ -7,6 +7,7 @@ Repository to track some token and user stats for Snowball.
 ## Stats Tracked:
 
 ### SNOB Stats:
+
 - SNOB price.
 - Number of unique wallets holding SNOB.
 - SNOB market cap.
@@ -27,42 +28,36 @@ Repository to track some token and user stats for Snowball.
 - Total number of SNOB allocation votes.
 - Percentage of current SNOB stakers that have voted on SNOB allocations.
 
-### Compounder Stats (WIP):
-- Number of unique wallets that interacted with our compounding strategies.
-- Number of unique wallets that interacted with our compounding strategies in the last 30 days.
-- Number of unique wallets that interacted with our compounding strategies in any given period of time.
-
----
-
-## Running Project Locally:
-
-Installing Dependencies:
-```
-npm i
-```
-
-Getting SNOB Stats:
 ```
 npm run snob
 ```
 
-Getting Compounder Stats:
+### Compounder Stats (WIP):
+
+- Number of unique wallets that interacted with our compounding strategies.
+- Number of unique wallets that interacted with our compounding strategies in the last 30 days.
+- Number of unique wallets that interacted with our compounding strategies in any given period of time.
+
 ```
 npm run comp
 ```
 
-Getting Compounder Stats + Time-Specific Unique Users:
 ```
 npm run comp <start_time> <end_time>
-```
-
-Example:
-```
-npm run comp 1632780910 1635362110
 ```
 
 Entering only a start time but not an end time is also an option. The current time will be used for the end time.
 
 You can use the link [here](https://www.unixtimestamp.com/) to get Unix timestamps.
+
+### Harvest Stats (WIP):
+
+- Work in progress...
+
+```
+npm run harvest
+```
+
+---
 
 If you encounter any RPC errors, wait 5 minutes before trying again, or change the RPC on `config.js`.
