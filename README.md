@@ -23,6 +23,9 @@ Repository to track some token and user stats for Snowball.
 - Number of users forgetting to withdraw their unlocked SNOB.
 - Amount of unlocked SNOB waiting to be withdrawn.
 - Top 5 richest xSNOB holders.
+- Number of SNOB allocation voters.
+- Total number of SNOB allocation votes.
+- Percentage of current SNOB stakers that have voted on SNOB allocations.
 
 ### Compounder Stats (WIP):
 - Number of unique wallets that interacted with our compounding strategies.
