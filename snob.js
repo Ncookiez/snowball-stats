@@ -85,28 +85,33 @@ const getStakerInfo = async () => {
   let page = 0;
   let hasNextPage = false;
   do {
-    let query = 'https://api.covalenthq.com/v1/43114/address/' + config.xsnob + '/transactions_v2/?no-logs=true&page-size=1000&page-number=' + page++ + '&key=' + config.ckey;
-    let result = await axios.get(query);
-    if(!result.data.error) {
-      hasNextPage = result.data.data.pagination.has_more;
-      let promises = result.data.data.items.map(tx => (async () => {
-        if(tx.successful && tx.from_address.toLowerCase() != config.xsnob.toLowerCase() && !wallets.includes(tx.from_address)) {
-          wallets.push(tx.from_address);
-          try {
-            let stake = await contract.locked(tx.from_address);
-            let amount = parseInt(stake.amount) / (10**18);
-            let unlock = parseInt(stake.end);
-            if(amount > 0) {
-              stakerInfo.push({ wallet: tx.from_address, amount, unlock });
+    try {
+      let query = 'https://api.covalenthq.com/v1/43114/address/' + config.xsnob + '/transactions_v2/?no-logs=true&page-size=1000&page-number=' + page++ + '&key=' + config.ckey;
+      let result = await axios.get(query);
+      if(!result.data.error) {
+        hasNextPage = result.data.data.pagination.has_more;
+        let promises = result.data.data.items.map(tx => (async () => {
+          if(tx.successful && tx.from_address.toLowerCase() != config.xsnob.toLowerCase() && !wallets.includes(tx.from_address)) {
+            wallets.push(tx.from_address);
+            try {
+              let stake = await contract.locked(tx.from_address);
+              let amount = parseInt(stake.amount) / (10**18);
+              let unlock = parseInt(stake.end);
+              if(amount > 0) {
+                stakerInfo.push({ wallet: tx.from_address, amount, unlock });
+              }
+            } catch {
+              console.log('RPC ERROR: Call Rejected - Could not fetch xSNOB info for', tx.from_address);
             }
-          } catch {
-            console.log('RPC ERROR: Call Rejected - Could not fetch xSNOB info for', tx.from_address);
           }
-        }
-      })());
-      await Promise.all(promises);
-      console.log(`xSNOB info loaded... (Page ${page})`);
-    } else {
+        })());
+        await Promise.all(promises);
+        console.log(`xSNOB info loaded... (Page ${page})`);
+      } else {
+        hasNextPage = false;
+      }
+    } catch {
+      console.log('API ERROR: Covalent is likely down.');
       hasNextPage = false;
     }
   } while(hasNextPage);
