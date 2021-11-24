@@ -34,6 +34,12 @@ Repository to track some token and user stats for Snowball.
 npm run snob
 ```
 
+```
+npm run snob basic
+```
+
+Entering the `basic` parameters will only run some of the simplest queries. This script will run very quickly.
+
 ### Compounder Stats (WIP):
 
 - Number of unique wallets that interacted with our compounding strategies.
