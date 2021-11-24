@@ -101,6 +101,19 @@ const getLastAPR = async (xsnob, distribution, token) => {
 
 /* ====================================================================================================================================================== */
 
+// Function to get all-time APR:
+const getAllTimeAPR = async (xsnob, numDistributions, totalSNOB, totalAXIAL) => {
+  let snobPrice = (await axios.get('https://api.coingecko.com/api/v3/simple/token_price/avalanche?contract_addresses=' + config.snob + '&vs_currencies=usd')).data[config.snob.toLowerCase()].usd;
+  let axialPrice = (await axios.get('https://api.coingecko.com/api/v3/simple/token_price/avalanche?contract_addresses=' + config.axial + '&vs_currencies=usd')).data[config.axial.toLowerCase()].usd;
+  let ratio = snobPrice / axialPrice;
+  let virtualTotalTokens = totalSNOB + (totalAXIAL / ratio);
+  let apr = (((virtualTotalTokens / numDistributions) * 52) / xsnob) * 100;
+  console.log('All-Time APR loaded...');
+  return apr;
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to pad date if necessary:
 const pad = (num) => {
   let str = num.toString();
@@ -119,14 +132,13 @@ const fetch = async () => {
   // Fetching Data:
   let distributions = await getDistributions();
   let xSNOBSupply = await getXSNOBSupply();
+  let totalDistribution = getTotalDistribution(distributions, 'snob');
+  let totalAxialDistribution = getTotalDistribution(distributions, 'axial');
   let lastAPR = await getLastAPR(xSNOBSupply, distributions.slice(-1)[0], 'snob');
   let lastAxialAPR = await getLastAPR(xSNOBSupply, distributions.slice(-1)[0], 'axial');
-  let totalDistribution = getTotalDistribution(distributions, 'snob');
+  let allTimeAPR = await getAllTimeAPR(xSNOBSupply, distributions.length, totalDistribution, totalAxialDistribution);
   let avgDistribution = getAvgDistribution(totalDistribution, distributions, 'snob');
-  let totalAxialDistribution = getTotalDistribution(distributions, 'axial');
   let avgAxialDistribution = getAvgDistribution(totalAxialDistribution, distributions, 'axial');
-
-  // <TODO> Calculate all-time APR. (SNOB, AXIAL and total) (Not in readme yet)
 
   // Printing Data:
   console.log('\n  ==============================');
@@ -144,6 +156,7 @@ const fetch = async () => {
   });
   console.log('  - Total xSNOB Supply:', xSNOBSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'xSNOB');
   console.log('  - Last Distribution Estimated APR:', (lastAPR + lastAxialAPR).toFixed(2) + '%', '(' + lastAPR.toFixed(2) + '% SNOB +', lastAxialAPR.toFixed(2) + '% AXIAL)');
+  console.log('  - All-Time Estimated APR:', allTimeAPR.toFixed(2) + '%');
 }
 
 /* ====================================================================================================================================================== */

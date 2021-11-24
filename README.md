@@ -66,6 +66,7 @@ You can use the link [here](https://www.unixtimestamp.com/) to get Unix timestam
 - Average AXIAL distribution.
 - List of each week's SNOB and AXIAL distribution.
 - APR of last SNOB and AXIAL distribution.
+- All-Time Staking APR.
 
 ```
 npm run dist
