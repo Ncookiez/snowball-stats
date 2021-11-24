@@ -38,7 +38,7 @@ npm run snob
 npm run snob basic
 ```
 
-Entering the `basic` parameters will only run some of the simplest queries. This script will run very quickly.
+Entering the `basic` optional parameter will only run some of the simplest queries. This script will run very quickly.
 
 ### Compounder Stats (WIP):
 
