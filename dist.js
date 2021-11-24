@@ -17,6 +17,7 @@ const week = 604800;
 // Function to get SNOB distributions:
 const getDistributions = async () => {
   let contract = new ethers.Contract(config.feeDistributor, config.feeDistributorABI, avax);
+  let axialContract = new ethers.Contract(config.axialFeeDistributor, config.feeDistributorABI, avax);
   let startTime = parseInt(await contract.start_time());
   let timestamps = [];
   let tempTime = startTime;
@@ -27,8 +28,9 @@ const getDistributions = async () => {
   let distributions = [];
   let promises = timestamps.map(timestamp => (async () => {
     try {
-      let tokens = parseInt(await contract.tokens_per_week(timestamp)) / (10**18);
-      distributions.push({ timestamp, tokens });
+      let snob = parseInt(await contract.tokens_per_week(timestamp)) / (10**18);
+      let axial = parseInt(await axialContract.tokens_per_week(timestamp)) / (10**18);
+      distributions.push({ timestamp, snob, axial });
     } catch {
       console.log('RPC ERROR: Call Rejected - Could not get SNOB distribution at', timestamp);
     }
@@ -39,48 +41,17 @@ const getDistributions = async () => {
   distributions.forEach(distribution => {
     distribution.week = i++;
   });
-  console.log('SNOB Distributions fetched...');
-  return distributions;
-}
-
-/* ====================================================================================================================================================== */
-
-// Function to get AXIAL distributions:
-const getAxialDistributions = async () => {
-  let contract = new ethers.Contract(config.axialFeeDistributor, config.feeDistributorABI, avax);
-  let startTime = parseInt(await contract.start_time());
-  let timestamps = [];
-  let tempTime = startTime;
-  while(tempTime < (time - week)) {
-    timestamps.push(tempTime);
-    tempTime += week;
-  }
-  let distributions = [];
-  let promises = timestamps.map(timestamp => (async () => {
-    try {
-      let tokens = parseInt(await contract.tokens_per_week(timestamp)) / (10**18);
-      distributions.push({ timestamp, tokens });
-    } catch {
-      console.log('RPC ERROR: Call Rejected - Could not get AXIAL distribution at', timestamp);
-    }
-  })());
-  await Promise.all(promises);
-  distributions.sort((a, b) => a.timestamp - b.timestamp);
-  let i = 1;
-  distributions.forEach(distribution => {
-    distribution.week = i++;
-  });
-  console.log('AXIAL Distributions fetched...');
+  console.log('Distributions fetched...');
   return distributions;
 }
 
 /* ====================================================================================================================================================== */
 
 // Function to get total distribution:
-const getTotalDistribution = (distributions) => {
+const getTotalDistribution = (distributions, token) => {
   let sum = 0;
   distributions.forEach(distribution => {
-    sum += distribution.tokens;
+    sum += distribution[token];
   });
   return sum;
 }
@@ -88,8 +59,14 @@ const getTotalDistribution = (distributions) => {
 /* ====================================================================================================================================================== */
 
 // Function to get average distribution:
-const getAvgDistribution = (total, distributions) => {
-  let avgDistribution = total / distributions.length;
+const getAvgDistribution = (total, distributions, token) => {
+  let count = 0;
+  distributions.forEach(distribution => {
+    if(distribution[token] > 0) {
+      count++;
+    }
+  });
+  let avgDistribution = total / count;
   return avgDistribution;
 }
 
@@ -107,7 +84,7 @@ const getXSNOBSupply = async () => {
 
 // Function to get last distribution APR:
 const getLastAPR = (xsnob, distribution) => {
-  let apr = ((distribution.tokens * 52) / xsnob) * 100;
+  let apr = ((distribution.snob * 52) / xsnob) * 100;
   return apr;
 }
 
@@ -130,35 +107,29 @@ const fetch = async () => {
 
   // Fetching Data:
   let distributions = await getDistributions();
-  let axialDistributions = await getAxialDistributions();
   let xSNOBSupply = await getXSNOBSupply();
-  let totalDistribution = getTotalDistribution(distributions);
-  let totalAxialDistribution = getTotalDistribution(axialDistributions);
-  let avgDistribution = getAvgDistribution(totalDistribution, distributions);
-  let avgAxialDistribution = getAvgDistribution(totalAxialDistribution, axialDistributions);
+  let totalDistribution = getTotalDistribution(distributions, 'snob');
+  let avgDistribution = getAvgDistribution(totalDistribution, distributions, 'snob');
+  let totalAxialDistribution = getTotalDistribution(distributions, 'axial');
+  let avgAxialDistribution = getAvgDistribution(totalAxialDistribution, distributions, 'axial');
   let lastAPR = getLastAPR(xSNOBSupply, distributions.slice(-1)[0]);
 
-  // <TODO> Add AXIAL dists to list.
   // <TODO> Calculate AXIAL APR and total APR.
-  // <TODO> Calculate all-time APR.
+  // <TODO> Calculate all-time APR. (SNOB, AXIAL and total) (Not in readme yet)
 
   // Printing Data:
   console.log('\n  ==============================');
   console.log('  ||    Distribution Stats    ||');
   console.log('  ==============================\n');
   console.log('  - Total SNOB Distributed:', totalDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
-  console.log('  - Total AXIAL Distributed:', totalAxialDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'AXIAL');
   console.log('  - Average SNOB Distribution:', avgDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
+  console.log('  - Total AXIAL Distributed:', totalAxialDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'AXIAL');
   console.log('  - Average AXIAL Distribution:', avgAxialDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'AXIAL');
   console.log('  - List of Distributions:');
   distributions.forEach(distribution => {
     let rawDate = new Date((distribution.timestamp + week) * 1000);
     let date = pad(rawDate.getUTCDate()) + '/' + pad(rawDate.getUTCMonth()) + '/' + rawDate.getUTCFullYear();
-    if(distribution.week < 10) {
-      console.log('      > Week ', distribution.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + date + ') -', distribution.tokens.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
-    } else {
-      console.log('      > Week', distribution.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + date + ') -', distribution.tokens.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
-    }
+    console.log('      > Week' + (distribution.week < 10 ? ' ' : ''), distribution.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + date + ') -', distribution.snob.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB', (distribution.axial > 0 ? '& ' + distribution.axial.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' AXIAL' : ''));
   });
   console.log('  - Total xSNOB Supply:', xSNOBSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'xSNOB');
   console.log('  - Last Distribution Estimated APR:', lastAPR.toFixed(2) + '%');
