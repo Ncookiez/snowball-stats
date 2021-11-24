@@ -8,8 +8,9 @@ const config = require('./config.js');
 // Setting Up RPC:
 const avax = new ethers.providers.JsonRpcProvider(config.rpc);
 
-// Setting Current Time:
+// Setting Time Variables:
 const time = Math.round(Date.now() / 1000);
+const week = 604800;
 
 /* ====================================================================================================================================================== */
 
@@ -17,7 +18,6 @@ const time = Math.round(Date.now() / 1000);
 const getDistributions = async () => {
   let contract = new ethers.Contract(config.feeDistributor, config.feeDistributorABI, avax);
   let startTime = parseInt(await contract.start_time());
-  let week = 604800;
   let timestamps = [];
   let tempTime = startTime;
   while(tempTime < (time - week)) {
@@ -82,6 +82,18 @@ const getLastAPR = (xsnob, distribution) => {
 
 /* ====================================================================================================================================================== */
 
+// Function to pad date if necessary:
+const pad = (num) => {
+  let str = num.toString();
+  if(str.length < 2) {
+    return '0' + str;
+  } else {
+    return str;
+  }
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to fetch all stats:
 const fetch = async () => {
 
@@ -89,7 +101,7 @@ const fetch = async () => {
   let distributions = await getDistributions();
   let xSNOBSupply = await getXSNOBSupply();
   let totalDistribution = getTotalDistribution(distributions);
-  let avgDistribution = getAvgDistribution(totalDistribution, distributions);
+  let avgDistribution = getAvgDistribution(totalDistribution, distributions); //(new Date(tx.block_signed_at)).getTime()
   let lastAPR = getLastAPR(xSNOBSupply, distributions.slice(-1)[0]);
 
   // Printing Data:
@@ -100,10 +112,11 @@ const fetch = async () => {
   console.log('  - Average SNOB Distribution:', avgDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
   console.log('  - List of Distributions:');
   distributions.forEach(distribution => {
+    let date = new Date((distribution.timestamp + week) * 1000);
     if(distribution.week < 10) {
-      console.log('      > Week ', distribution.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '-', distribution.tokens.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
+      console.log('      > Week ', distribution.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + pad(date.getUTCDate()) + '/' + pad(date.getUTCMonth()) + '/' + date.getUTCFullYear() + ') -', distribution.tokens.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
     } else {
-      console.log('      > Week', distribution.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '-', distribution.tokens.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
+      console.log('      > Week', distribution.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + pad(date.getUTCDate()) + '/' + pad(date.getUTCMonth()) + '/' + date.getUTCFullYear() + ') -', distribution.tokens.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
     }
   });
   console.log('  - Total xSNOB Supply:', xSNOBSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'xSNOB');

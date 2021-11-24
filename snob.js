@@ -6,8 +6,9 @@ const axios = require('axios');
 // Required Config Variables:
 const config = require('./config.js');
 
-// Setting Up RPC:
+// Setting Up RPCs:
 const avax = new ethers.providers.JsonRpcProvider(config.rpc);
+const avax_backup = new ethers.providers.JsonRpcProvider(config.rpc_backup);
 
 // Setting Current Time:
 const time = Math.round(Date.now() / 1000);
@@ -101,7 +102,18 @@ const getStakerInfo = async () => {
                 stakerInfo.push({ wallet: tx.from_address, amount, unlock });
               }
             } catch {
-              console.log('RPC ERROR: Call Rejected - Could not fetch xSNOB info for', tx.from_address);
+              try {
+                console.log('Using backup RPC...');
+                let contract = new ethers.Contract(config.xsnob, config.xsnobABI, avax_backup);
+                let stake = await contract.locked(tx.from_address);
+                let amount = parseInt(stake.amount) / (10**18);
+                let unlock = parseInt(stake.end);
+                if(amount > 0) {
+                  stakerInfo.push({ wallet: tx.from_address, amount, unlock });
+                }
+              } catch {
+                console.log('RPC ERROR: Call Rejected - Could not fetch xSNOB info for', tx.from_address);
+              }
             }
           }
         })());
