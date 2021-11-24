@@ -65,4 +65,4 @@ npm run dist
 
 ---
 
-If you encounter any RPC errors, wait 5 minutes before trying again, or change the RPC on `config.js`.
+If you encounter any RPC errors, wait a minute before trying again, or change the RPCs listed on `config.js`.
