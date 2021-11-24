@@ -10,8 +10,8 @@ Repository to track some token and user stats for Snowball.
 
 - SNOB price.
 - Number of unique wallets holding SNOB.
-- SNOB market cap.
 - Total SNOB supply.
+- SNOB market cap.
 - Treasury SNOB balance.
 - Locked / staked SNOB supply.
 - Circulating SNOB supply.
@@ -70,6 +70,19 @@ You can use the link [here](https://www.unixtimestamp.com/) to get Unix timestam
 
 ```
 npm run dist
+```
+
+### Axial Stats:
+
+- AXIAL price.
+- Total AXIAL supply.
+- AXIAL market cap.
+- Treasury AXIAL balance.
+- Axial's Treasury AXIAL balance.
+- Circulating AXIAL supply.
+
+```
+npm run axial
 ```
 
 ---
