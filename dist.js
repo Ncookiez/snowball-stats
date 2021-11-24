@@ -1,6 +1,7 @@
 
 // Required Packages:
 const { ethers } = require('ethers');
+const axios = require('axios');
 
 // Required Config Variables:
 const config = require('./config.js');
@@ -28,8 +29,8 @@ const getDistributions = async () => {
   let distributions = [];
   let promises = timestamps.map(timestamp => (async () => {
     try {
-      let snob = parseInt(await contract.tokens_per_week(timestamp)) / (10**18);
-      let axial = parseInt(await axialContract.tokens_per_week(timestamp)) / (10**18);
+      let snob = parseInt(await contract.tokens_per_week(timestamp)) / (10 ** 18);
+      let axial = parseInt(await axialContract.tokens_per_week(timestamp)) / (10 ** 18);
       distributions.push({ timestamp, snob, axial });
     } catch {
       console.log('RPC ERROR: Call Rejected - Could not get SNOB distribution at', timestamp);
@@ -77,15 +78,25 @@ const getXSNOBSupply = async () => {
   let contract = new ethers.Contract(config.xsnob, config.xsnobABI, avax);
   let supply = parseInt(await contract.totalSupply());
   console.log('Total xSNOB Supply loaded...');
-  return supply / (10**18);
+  return supply / (10 ** 18);
 }
 
 /* ====================================================================================================================================================== */
 
 // Function to get last distribution APR:
-const getLastAPR = (xsnob, distribution) => {
-  let apr = ((distribution.snob * 52) / xsnob) * 100;
-  return apr;
+const getLastAPR = async (xsnob, distribution, token) => {
+  if(token === 'snob') {
+    let apr = ((distribution[token] * 52) / xsnob) * 100;
+    console.log('Last SNOB APR loaded...');
+    return apr;
+  } else if(token === 'axial') {
+    let snobPrice = (await axios.get('https://api.coingecko.com/api/v3/simple/token_price/avalanche?contract_addresses=' + config.snob + '&vs_currencies=usd')).data[config.snob.toLowerCase()].usd;
+    let axialPrice = (await axios.get('https://api.coingecko.com/api/v3/simple/token_price/avalanche?contract_addresses=' + config.axial + '&vs_currencies=usd')).data[config.axial.toLowerCase()].usd;
+    let ratio = snobPrice / axialPrice;
+    let apr = (((distribution[token] / ratio) * 52) / xsnob) * 100;
+    console.log('Last AXIAL APR loaded...');
+    return apr;
+  }
 }
 
 /* ====================================================================================================================================================== */
@@ -108,13 +119,13 @@ const fetch = async () => {
   // Fetching Data:
   let distributions = await getDistributions();
   let xSNOBSupply = await getXSNOBSupply();
+  let lastAPR = await getLastAPR(xSNOBSupply, distributions.slice(-1)[0], 'snob');
+  let lastAxialAPR = await getLastAPR(xSNOBSupply, distributions.slice(-1)[0], 'axial');
   let totalDistribution = getTotalDistribution(distributions, 'snob');
   let avgDistribution = getAvgDistribution(totalDistribution, distributions, 'snob');
   let totalAxialDistribution = getTotalDistribution(distributions, 'axial');
   let avgAxialDistribution = getAvgDistribution(totalAxialDistribution, distributions, 'axial');
-  let lastAPR = getLastAPR(xSNOBSupply, distributions.slice(-1)[0]);
 
-  // <TODO> Calculate AXIAL APR and total APR.
   // <TODO> Calculate all-time APR. (SNOB, AXIAL and total) (Not in readme yet)
 
   // Printing Data:
@@ -132,7 +143,7 @@ const fetch = async () => {
     console.log('      > Week' + (distribution.week < 10 ? ' ' : ''), distribution.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + date + ') -', distribution.snob.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB', (distribution.axial > 0 ? '& ' + distribution.axial.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' AXIAL' : ''));
   });
   console.log('  - Total xSNOB Supply:', xSNOBSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'xSNOB');
-  console.log('  - Last Distribution Estimated APR:', lastAPR.toFixed(2) + '%');
+  console.log('  - Last Distribution Estimated APR:', (lastAPR + lastAxialAPR).toFixed(2) + '%', '(' + lastAPR.toFixed(2) + '% SNOB +', lastAxialAPR.toFixed(2) + '% AXIAL)');
 }
 
 /* ====================================================================================================================================================== */

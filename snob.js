@@ -40,7 +40,7 @@ const getTotalSupply = async () => {
   let contract = new ethers.Contract(config.snob, config.minABI, avax);
   let supply = await contract.totalSupply();
   console.log('Total supply loaded...');
-  return supply / (10**18);
+  return supply / (10 ** 18);
 }
 
 /* ====================================================================================================================================================== */
@@ -61,7 +61,7 @@ const getTreasuryBalance = async () => {
   let contract = new ethers.Contract(config.snob, config.minABI, avax);
   let treasuryBalance = parseInt(await contract.balanceOf(config.treasury));
   console.log('Treasury balance loaded...');
-  return treasuryBalance / (10**18);
+  return treasuryBalance / (10 ** 18);
 }
 
 /* ====================================================================================================================================================== */
@@ -71,7 +71,7 @@ const getStaked = async () => {
   let contract = new ethers.Contract(config.snob, config.minABI, avax);
   let balance = parseInt(await contract.balanceOf(config.xsnob));
   console.log('Locked supply loaded...');
-  return balance / (10**18);
+  return balance / (10 ** 18);
 }
 
 /* ====================================================================================================================================================== */
@@ -80,7 +80,7 @@ const getStaked = async () => {
 const getCirculatingSupply = async (total, treasury, staked) => {
   let contract = new ethers.Contract(config.snob, config.minABI, avax);
   let devFundBalance = parseInt(await contract.balanceOf(config.devFund));
-  let circulatingSupply = total - treasury - staked - (devFundBalance / (10**18));
+  let circulatingSupply = total - treasury - staked - (devFundBalance / (10 ** 18));
   console.log('Circulating supply loaded...');
   return circulatingSupply;
 }
@@ -105,7 +105,7 @@ const getStakerInfo = async () => {
             wallets.push(tx.from_address);
             try {
               let stake = await contract.locked(tx.from_address);
-              let amount = parseInt(stake.amount) / (10**18);
+              let amount = parseInt(stake.amount) / (10 ** 18);
               let unlock = parseInt(stake.end);
               if(amount > 0) {
                 stakerInfo.push({ wallet: tx.from_address, amount, unlock });
@@ -115,7 +115,7 @@ const getStakerInfo = async () => {
                 console.log('Using backup RPC...');
                 let contract = new ethers.Contract(config.xsnob, config.xsnobABI, avax_backup);
                 let stake = await contract.locked(tx.from_address);
-                let amount = parseInt(stake.amount) / (10**18);
+                let amount = parseInt(stake.amount) / (10 ** 18);
                 let unlock = parseInt(stake.end);
                 if(amount > 0) {
                   stakerInfo.push({ wallet: tx.from_address, amount, unlock });
@@ -146,7 +146,7 @@ const getOutputSupply = async () => {
   let contract = new ethers.Contract(config.xsnob, config.xsnobABI, avax);
   let supply = parseInt(await contract.totalSupply());
   console.log('Total xSNOB Supply loaded...');
-  return supply / (10**18);
+  return supply / (10 ** 18);
 }
 
 /* ====================================================================================================================================================== */
@@ -221,7 +221,7 @@ const getUnclaimedSNOB = async () => {
   let contract = new ethers.Contract(config.snob, config.minABI, avax);
   let unclaimedSNOB = parseInt(await contract.balanceOf(config.feeDistributor));
   console.log('Unclaimed SNOB Distribution loaded...');
-  return unclaimedSNOB / (10**18);
+  return unclaimedSNOB / (10 ** 18);
 }
 
 /* ====================================================================================================================================================== */
@@ -231,7 +231,7 @@ const getUnclaimedAXIAL = async () => {
   let contract = new ethers.Contract(config.axial, config.minABI, avax);
   let unclaimedAXIAL = parseInt(await contract.balanceOf(config.axialFeeDistributor));
   console.log('Unclaimed AXIAL Distribution loaded...');
-  return unclaimedAXIAL / (10**18);
+  return unclaimedAXIAL / (10 ** 18);
 }
 
 /* ====================================================================================================================================================== */
