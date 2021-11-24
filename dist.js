@@ -30,7 +30,7 @@ const getDistributions = async () => {
       let tokens = parseInt(await contract.tokens_per_week(timestamp)) / (10**18);
       distributions.push({ timestamp, tokens });
     } catch {
-      console.log('RPC ERROR: Call Rejected - Could not get distribution at', timestamp);
+      console.log('RPC ERROR: Call Rejected - Could not get SNOB distribution at', timestamp);
     }
   })());
   await Promise.all(promises);
@@ -45,7 +45,38 @@ const getDistributions = async () => {
 
 /* ====================================================================================================================================================== */
 
-// Function to get total SNOB distribution:
+// Function to get AXIAL distributions:
+const getAxialDistributions = async () => {
+  let contract = new ethers.Contract(config.axialFeeDistributor, config.feeDistributorABI, avax);
+  let startTime = parseInt(await contract.start_time());
+  let timestamps = [];
+  let tempTime = startTime;
+  while(tempTime < (time - week)) {
+    timestamps.push(tempTime);
+    tempTime += week;
+  }
+  let distributions = [];
+  let promises = timestamps.map(timestamp => (async () => {
+    try {
+      let tokens = parseInt(await contract.tokens_per_week(timestamp)) / (10**18);
+      distributions.push({ timestamp, tokens });
+    } catch {
+      console.log('RPC ERROR: Call Rejected - Could not get AXIAL distribution at', timestamp);
+    }
+  })());
+  await Promise.all(promises);
+  distributions.sort((a, b) => a.timestamp - b.timestamp);
+  let i = 1;
+  distributions.forEach(distribution => {
+    distribution.week = i++;
+  });
+  console.log('AXIAL Distributions fetched...');
+  return distributions;
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to get total distribution:
 const getTotalDistribution = (distributions) => {
   let sum = 0;
   distributions.forEach(distribution => {
@@ -56,7 +87,7 @@ const getTotalDistribution = (distributions) => {
 
 /* ====================================================================================================================================================== */
 
-// Function to get average SNOB distribution:
+// Function to get average distribution:
 const getAvgDistribution = (total, distributions) => {
   let avgDistribution = total / distributions.length;
   return avgDistribution;
@@ -99,24 +130,34 @@ const fetch = async () => {
 
   // Fetching Data:
   let distributions = await getDistributions();
+  let axialDistributions = await getAxialDistributions();
   let xSNOBSupply = await getXSNOBSupply();
   let totalDistribution = getTotalDistribution(distributions);
-  let avgDistribution = getAvgDistribution(totalDistribution, distributions); //(new Date(tx.block_signed_at)).getTime()
+  let totalAxialDistribution = getTotalDistribution(axialDistributions);
+  let avgDistribution = getAvgDistribution(totalDistribution, distributions);
+  let avgAxialDistribution = getAvgDistribution(totalAxialDistribution, axialDistributions);
   let lastAPR = getLastAPR(xSNOBSupply, distributions.slice(-1)[0]);
+
+  // <TODO> Add AXIAL dists to list.
+  // <TODO> Calculate AXIAL APR and total APR.
+  // <TODO> Calculate all-time APR.
 
   // Printing Data:
   console.log('\n  ==============================');
   console.log('  ||    Distribution Stats    ||');
   console.log('  ==============================\n');
   console.log('  - Total SNOB Distributed:', totalDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
+  console.log('  - Total AXIAL Distributed:', totalAxialDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'AXIAL');
   console.log('  - Average SNOB Distribution:', avgDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
+  console.log('  - Average AXIAL Distribution:', avgAxialDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'AXIAL');
   console.log('  - List of Distributions:');
   distributions.forEach(distribution => {
-    let date = new Date((distribution.timestamp + week) * 1000);
+    let rawDate = new Date((distribution.timestamp + week) * 1000);
+    let date = pad(rawDate.getUTCDate()) + '/' + pad(rawDate.getUTCMonth()) + '/' + rawDate.getUTCFullYear();
     if(distribution.week < 10) {
-      console.log('      > Week ', distribution.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + pad(date.getUTCDate()) + '/' + pad(date.getUTCMonth()) + '/' + date.getUTCFullYear() + ') -', distribution.tokens.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
+      console.log('      > Week ', distribution.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + date + ') -', distribution.tokens.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
     } else {
-      console.log('      > Week', distribution.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + pad(date.getUTCDate()) + '/' + pad(date.getUTCMonth()) + '/' + date.getUTCFullYear() + ') -', distribution.tokens.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
+      console.log('      > Week', distribution.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + date + ') -', distribution.tokens.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
     }
   });
   console.log('  - Total xSNOB Supply:', xSNOBSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'xSNOB');
