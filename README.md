@@ -23,6 +23,8 @@ Repository to track some token and user stats for Snowball.
 - Number of wallets with at least 100k xSNOB.
 - Number of users forgetting to withdraw their unlocked SNOB.
 - Amount of unlocked SNOB waiting to be withdrawn.
+- Amount of unclaimed SNOB rewards from xSNOB holders.
+- Amount of unclaimed AXIAL rewards from xSNOB holders.
 - Top 5 richest xSNOB holders.
 - Number of SNOB allocation voters.
 - Total number of SNOB allocation votes.
