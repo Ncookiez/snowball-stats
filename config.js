@@ -12,6 +12,8 @@ exports.operations = '0x096a46142C199C940FfEBf34F0fe2F2d674fDB1F';
 exports.treasury = '0x294aB3200ef36200db84C4128b7f1b4eec71E38a';
 exports.devFund = '0x88aDa02f6fCE2F1A833cd9B4999D62a7ebb70367';
 exports.feeDistributor = '0xad86ef5fd2ebc25bb9db41a1fe8d0f2a322c7839';
+exports.axial = '0xcf8419a615c57511807236751c0af38db4ba3351';
+exports.axialFeeDistributor = '0x084cfE7BA1C91d35Fec5015ca65E92Db41A3C9f7';
 
 // API Keys:
 exports.ckey = 'ckey_f49ab6dbd21f47a5a25eb922e0d';
