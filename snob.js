@@ -303,8 +303,9 @@ const getVoterInfo = async () => {
 
 // Function to get number of current stakers that have voted:
 const getStakingVoters = (voterInfo, stakerInfo) => {
+  let stakers = stakerInfo.filter(stake => stake.unlock > time);
   let numStakingVoters = 0;
-  stakerInfo.forEach(stake => {
+  stakers.forEach(stake => {
     if(voterInfo.voters.includes(stake.wallet)) {
       numStakingVoters++;
     }
