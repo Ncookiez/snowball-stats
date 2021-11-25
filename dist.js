@@ -151,7 +151,7 @@ const fetch = async () => {
   console.log('  - List of Distributions:');
   distributions.forEach(distribution => {
     let rawDate = new Date((distribution.timestamp + week) * 1000);
-    let date = pad(rawDate.getUTCDate()) + '/' + pad(rawDate.getUTCMonth()) + '/' + rawDate.getUTCFullYear();
+    let date = pad(rawDate.getUTCDate()) + '/' + pad(rawDate.getUTCMonth() + 1) + '/' + rawDate.getUTCFullYear();
     console.log('      > Week' + (distribution.week < 10 ? ' ' : ''), distribution.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + date + ') -', distribution.snob.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB', (distribution.axial > 0 ? '& ' + distribution.axial.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' AXIAL' : ''));
   });
   console.log('  - Total xSNOB Supply:', xSNOBSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'xSNOB');
