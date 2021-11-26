@@ -66,7 +66,7 @@ You can use the link [here](https://www.unixtimestamp.com/) to get Unix timestam
 - Average AXIAL distribution.
 - List of each week's SNOB and AXIAL distribution.
 - APR of last SNOB and AXIAL distribution.
-- All-Time Staking APR.
+- All-time staking APR.
 
 ```
 npm run dist
@@ -78,12 +78,24 @@ npm run dist
 - Total AXIAL supply.
 - AXIAL market cap.
 - Treasury AXIAL balance.
-- Axial's Treasury AXIAL balance.
+- Axial's treasury AXIAL balance.
 - Circulating AXIAL supply.
+- Total number of swap transactions.
+- Total all-time volume traded.
+- Number of swap transactions on each pool.
+- All-time volume traded on each pool.
+- Weekly volume traded on each pool.
+- Top 5 biggest swappers.
 
 ```
 npm run axial
 ```
+
+```
+npm run axial basic
+```
+
+Entering the `basic` optional parameter will only run some of the simplest queries. This script will run very quickly.
 
 ---
 
