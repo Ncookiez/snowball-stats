@@ -34,5 +34,6 @@ exports.gaugeProxyABI = [
 ];
 exports.feeDistributorABI = [
   { constant: true, inputs: [], name: "start_time", outputs: [{ name: "", type: "uint256" }], type: "function" },
-  { constant: true, inputs: [{ name: "arg0", type: "uint256" }], name: "tokens_per_week", outputs: [{ name: "", type: "uint256" }], type: "function" }
+  { constant: true, inputs: [{ name: "arg0", type: "uint256" }], name: "tokens_per_week", outputs: [{ name: "", type: "uint256" }], type: "function" },
+  { constant: true, inputs: [{ name: "arg0", type: "uint256" }], name: "ve_supply", outputs: [{ name: "", type: "uint256" }], type: "function" }
 ];
