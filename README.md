@@ -82,6 +82,7 @@ npm run dist
 - Circulating AXIAL supply.
 - Total number of swap transactions.
 - Total all-time volume traded.
+- Weekly volume traded.
 - Number of swap transactions on each pool.
 - All-time volume traded on each pool.
 - Weekly volume traded on each pool.

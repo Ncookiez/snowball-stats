@@ -112,7 +112,7 @@ const getTXs = async () => {
 
 /* ====================================================================================================================================================== */
 
-// Function to get number of transactions:
+// Function to get total number of transactions:
 const getNumTXs = (txs) => {
   let sum = 0;
   config.axialPools.forEach(pool => {
@@ -132,6 +132,21 @@ const getTotalSwapped = (txs) => {
     });
   });
   return sum;
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to get pool-specific number of transactions:
+const getPoolNumTXs = (txs) => {
+  let values = [];
+  config.axialPools.forEach(pool => {
+    values.push({
+      name: pool.name,
+      txCount: txs[pool.name].length
+    });
+  });
+  values.sort((a, b) => b.txCount - a.txCount);
+  return values;
 }
 
 /* ====================================================================================================================================================== */
@@ -192,9 +207,10 @@ const fetch = async () => {
     let txs = await getTXs();
     let numTXs = getNumTXs(txs);
     let totalSwapped = getTotalSwapped(txs);
-    // <TODO> Number of swap transactions on each pool.
-    let poolValueSwapped = getPoolValueSwapped(txs);
     // <TODO> let weeklyVolume = getWeeklyVolume(txs);
+    let poolNumTXs = getPoolNumTXs(txs);
+    let poolValueSwapped = getPoolValueSwapped(txs);
+    // <TODO> let poolWeeklyVolume = getPoolWeeklyVolume(txs);
     let biggestSwappers = getBiggestSwappers(txs);
 
     // Printing Data:
@@ -207,15 +223,19 @@ const fetch = async () => {
     console.log('  - Treasury:', '$' + (price * treasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + treasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' AXIAL)');
     console.log('  - Axial Treasury:', '$' + (price * axialTreasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + axialTreasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' AXIAL)');
     console.log('  - Circulating AXIAL Supply:', circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'AXIAL (' + ((circulatingSupply / totalSupply) * 100).toFixed(2) + '% of total supply)');
-    console.log('  - Total # of Swap Transactions:', numTXs.toLocaleString(undefined, {maximumFractionDigits: 0}));
+    console.log('  - Total # of Swap Transactions:', numTXs.toLocaleString(undefined, {maximumFractionDigits: 0}), 'TXs');
     console.log('  - Total Value Swapped:', '$' + totalSwapped.toLocaleString(undefined, {maximumFractionDigits: 0}));
+    console.log('  - Pool-Specific # of Swap Transactions:');
+    poolNumTXs.forEach(pool => {
+      console.log('      >', pool.name, '-', pool.txCount.toLocaleString(undefined, {maximumFractionDigits: 0}), 'TXs');
+    });
     console.log('  - Pool-Specific Value Swapped:');
     poolValueSwapped.forEach(pool => {
-      console.log('      >', pool.name, '- $', pool.amount.toLocaleString(undefined, {maximumFractionDigits: 0}));
+      console.log('      >', pool.name, '- $' + pool.amount.toLocaleString(undefined, {maximumFractionDigits: 0}));
     });
     console.log('  - Top 5 Biggest Swappers:');
     biggestSwappers.forEach(wallet => {
-      console.log('      >', wallet.address, '- $', wallet.amount.toLocaleString(undefined, {maximumFractionDigits: 0}), (wallet.address === config.paraswap ? '(ParaSwap Router)' : ''));
+      console.log('      >', wallet.address, '- $' + wallet.amount.toLocaleString(undefined, {maximumFractionDigits: 0}), (wallet.address === config.paraswap ? '(ParaSwap Router)' : ''));
     });
 
   // Basic Data (Loads Faster):
