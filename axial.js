@@ -9,6 +9,11 @@ const config = require('./config.js');
 // Setting Up RPCs:
 const avax = new ethers.providers.JsonRpcProvider(config.rpc);
 
+// Setting Time Variables:
+const time = Math.round(Date.now() / 1000);
+const start = 1636588800;
+const week = 604800;
+
 // Setting Up Optional Args:
 let basic = false;
 const args = process.argv.slice(2);
@@ -136,6 +141,41 @@ const getTotalSwapped = (txs) => {
 
 /* ====================================================================================================================================================== */
 
+// Function to get total weekly volume:
+const getWeeklyVolume = (txs) => {
+  let values = [];
+  let i = 0;
+  config.axialPools.forEach(pool => {
+    for(let tempTime = start; tempTime < time; tempTime += week) {
+      let weekTime = values.find(i => i.time === tempTime);
+      if(weekTime) {
+        let sum = 0;
+        txs[pool.name].forEach(tx => {
+          if(tx.time > tempTime && tx.time < tempTime + week) {
+            sum += tx.amount;
+          }
+        });
+        weekTime.volume += sum;
+      } else {
+        let sum = 0;
+        txs[pool.name].forEach(tx => {
+          if(tx.time > tempTime && tx.time < tempTime + week) {
+            sum += tx.amount;
+          }
+        });
+        values.push({
+          week: ++i,
+          time: tempTime,
+          volume: sum
+        });
+      }
+    }
+  });
+  return values;
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to get pool-specific number of transactions:
 const getPoolNumTXs = (txs) => {
   let values = [];
@@ -192,6 +232,18 @@ const getBiggestSwappers = (txs) => {
 
 /* ====================================================================================================================================================== */
 
+// Function to pad date if necessary:
+const pad = (num) => {
+  let str = num.toString();
+  if(str.length < 2) {
+    return '0' + str;
+  } else {
+    return str;
+  }
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to fetch all stats:
 const fetch = async () => {
 
@@ -207,7 +259,7 @@ const fetch = async () => {
     let txs = await getTXs();
     let numTXs = getNumTXs(txs);
     let totalSwapped = getTotalSwapped(txs);
-    // <TODO> let weeklyVolume = getWeeklyVolume(txs);
+    let weeklyVolume = getWeeklyVolume(txs);
     let poolNumTXs = getPoolNumTXs(txs);
     let poolValueSwapped = getPoolValueSwapped(txs);
     // <TODO> let poolWeeklyVolume = getPoolWeeklyVolume(txs);
@@ -225,6 +277,12 @@ const fetch = async () => {
     console.log('  - Circulating AXIAL Supply:', circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'AXIAL (' + ((circulatingSupply / totalSupply) * 100).toFixed(2) + '% of total supply)');
     console.log('  - Total # of Swap Transactions:', numTXs.toLocaleString(undefined, {maximumFractionDigits: 0}), 'TXs');
     console.log('  - Total Value Swapped:', '$' + totalSwapped.toLocaleString(undefined, {maximumFractionDigits: 0}));
+    console.log('  - Weekly Volume Swapped:');
+    weeklyVolume.forEach(item => {
+      let rawDate = new Date((item.time) * 1000);
+      let date = pad(rawDate.getUTCDate()) + '/' + pad(rawDate.getUTCMonth() + 1) + '/' + rawDate.getUTCFullYear();
+      console.log('      > Week' + (item.week < 10 ? '' : ''), item.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + date + ') - $' + item.volume.toLocaleString(undefined, {maximumFractionDigits: 0}));
+    });
     console.log('  - Pool-Specific # of Swap Transactions:');
     poolNumTXs.forEach(pool => {
       console.log('      >', pool.name, '-', pool.txCount.toLocaleString(undefined, {maximumFractionDigits: 0}), 'TXs');
