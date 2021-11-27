@@ -210,6 +210,46 @@ const getPoolValueSwapped = (txs) => {
 
 /* ====================================================================================================================================================== */
 
+// Function to get pool-specific weekly volume:
+const getPoolWeeklyVolume = (txs) => {
+  let values = [];
+  config.axialPools.forEach(pool => {
+    values.push({
+      name: pool.name,
+      weeks: []
+    });
+    let i = 0;
+    for(let tempTime = start; tempTime < time; tempTime += week) {
+      let poolValues = values.find(i => i.name === pool.name);
+      let weekTime = poolValues.weeks.find(i => i.time === tempTime);
+      if(weekTime) {
+        let sum = 0;
+        txs[pool.name].forEach(tx => {
+          if(tx.time > tempTime && tx.time < tempTime + week) {
+            sum += tx.amount;
+          }
+        });
+        weekTime.volume += sum;
+      } else {
+        let sum = 0;
+        txs[pool.name].forEach(tx => {
+          if(tx.time > tempTime && tx.time < tempTime + week) {
+            sum += tx.amount;
+          }
+        });
+        poolValues.weeks.push({
+          week: ++i,
+          time: tempTime,
+          volume: sum
+        });
+      }
+    }
+  });
+  return values;
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to get biggest swappers:
 const getBiggestSwappers = (txs) => {
   let wallets = [];
@@ -262,7 +302,7 @@ const fetch = async () => {
     let weeklyVolume = getWeeklyVolume(txs);
     let poolNumTXs = getPoolNumTXs(txs);
     let poolValueSwapped = getPoolValueSwapped(txs);
-    // <TODO> let poolWeeklyVolume = getPoolWeeklyVolume(txs);
+    let poolWeeklyVolume = getPoolWeeklyVolume(txs);
     let biggestSwappers = getBiggestSwappers(txs);
 
     // Printing Data:
@@ -290,6 +330,15 @@ const fetch = async () => {
     console.log('  - Pool-Specific Value Swapped:');
     poolValueSwapped.forEach(pool => {
       console.log('      >', pool.name, '- $' + pool.amount.toLocaleString(undefined, {maximumFractionDigits: 0}));
+    });
+    console.log('  - Pool-Specific Weekly Volume Swapped:');
+    poolWeeklyVolume.forEach(pool => {
+      console.log('      >', pool.name + ':');
+      pool.weeks.forEach(weeklyValue => {
+        let rawDate = new Date((weeklyValue.time) * 1000);
+        let date = pad(rawDate.getUTCDate()) + '/' + pad(rawDate.getUTCMonth() + 1) + '/' + rawDate.getUTCFullYear();
+        console.log('        - Week' + (weeklyValue.week < 10 ? '' : ''), weeklyValue.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + date + ') - $' + weeklyValue.volume.toLocaleString(undefined, {maximumFractionDigits: 0}));
+      });
     });
     console.log('  - Top 5 Biggest Swappers:');
     biggestSwappers.forEach(wallet => {

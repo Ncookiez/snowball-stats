@@ -1,6 +1,6 @@
 {
   "name": "snowball-stats",
-  "version": "1.4.8",
+  "version": "1.4.9",
   "description": "Tracking some token and users stats for Snowball.",
   "scripts": {
     "snob": "node snob.js",
