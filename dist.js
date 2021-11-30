@@ -33,7 +33,7 @@ const getDistributions = async () => {
       let snob = parseInt(await contract.tokens_per_week(timestamp)) / (10 ** 18);
       let axial = parseInt(await axialContract.tokens_per_week(timestamp)) / (10 ** 18);
       let xsnob = parseInt(await contract.ve_supply(timestamp)) / (10 ** 18);
-      let apr = await getAPR(xsnob, snob, axial);
+      let apr = await getAPR(xsnob, snob, axial, timestamp);
       distributions.push({ timestamp, snob, axial, apr });
     } catch {
       try {
@@ -43,7 +43,7 @@ const getDistributions = async () => {
         let snob = parseInt(await contract.tokens_per_week(timestamp)) / (10 ** 18);
         let axial = parseInt(await axialContract.tokens_per_week(timestamp)) / (10 ** 18);
         let xsnob = parseInt(await contract.ve_supply(timestamp)) / (10 ** 18);
-        let apr = await getAPR(xsnob, snob, axial);
+        let apr = await getAPR(xsnob, snob, axial, timestamp);
         distributions.push({ timestamp, snob, axial, apr });
       } catch {
         console.log('RPC ERROR: Call Rejected - Could not get SNOB distribution at', timestamp);
@@ -98,12 +98,17 @@ const getXSNOBSupply = async () => {
 /* ====================================================================================================================================================== */
 
 // Function to get distribution APR:
-const getAPR = async (xsnob, snob, axial) => {
+const getAPR = async (xsnob, snob, axial, timestamp) => {
   let snobAPR = ((snob * 52) / xsnob) * 100;
-  let snobPrice = (await axios.get('https://api.coingecko.com/api/v3/simple/token_price/avalanche?contract_addresses=' + config.snob + '&vs_currencies=usd')).data[config.snob.toLowerCase()].usd;
-  let axialPrice = (await axios.get('https://api.coingecko.com/api/v3/simple/token_price/avalanche?contract_addresses=' + config.axial + '&vs_currencies=usd')).data[config.axial.toLowerCase()].usd;
-  let ratio = snobPrice / axialPrice;
-  let axialAPR = (((axial / ratio) * 52) / xsnob) * 100;
+  let axialAPR = 0;
+  if(axial > 0) {
+    let rawDate = new Date((timestamp + week) * 1000);
+    let date = pad(rawDate.getUTCDate()) + '-' + pad(rawDate.getUTCMonth() + 1) + '-' + rawDate.getUTCFullYear();
+    let snobPrice = (await axios.get('https://api.coingecko.com/api/v3/coins/snowball-token/history?date=' + date + '&localization=false')).data.market_data.current_price.usd;
+    let axialPrice = (await axios.get('https://api.coingecko.com/api/v3/coins/axial-token/history?date=' + date + '&localization=false')).data.market_data.current_price.usd;
+    let ratio = snobPrice / axialPrice;
+    axialAPR = (((axial / ratio) * 52) / xsnob) * 100;
+  }
   return [snobAPR, axialAPR];
 }
 
@@ -150,10 +155,8 @@ const fetch = async () => {
   console.log('\n  ==============================');
   console.log('  ||    Distribution Stats    ||');
   console.log('  ==============================\n');
-  console.log('  - Total SNOB Distributed:', totalDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
-  console.log('  - Average SNOB Distribution:', avgDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
-  console.log('  - Total AXIAL Distributed:', totalAxialDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'AXIAL');
-  console.log('  - Average AXIAL Distribution:', avgAxialDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'AXIAL');
+  console.log('  - Total Distributed:', totalDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB &', totalAxialDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'AXIAL');
+  console.log('  - Average Distribution:', avgDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB &', avgAxialDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'AXIAL');
   console.log('  - List of Distributions:');
   distributions.forEach(distribution => {
     let rawDate = new Date((distribution.timestamp + week) * 1000);
