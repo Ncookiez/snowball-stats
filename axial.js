@@ -83,7 +83,7 @@ const getTXs = async () => {
     let hasNextPage = false;
     do {
       try {
-        let query = 'https://api.covalenthq.com/v1/43114/address/' + pool.swap + '/transactions_v2/?page-size=1000&page-number=' + page++ + '&key=' + config.ckey;
+        let query = 'https://api.covalenthq.com/v1/43114/address/' + pool.swap + '/transactions_v2/?page-size=10000&page-number=' + page++ + '&key=' + config.ckey;
         let result = await axios.get(query);
         if(!result.data.error) {
           hasNextPage = result.data.data.pagination.has_more;
@@ -146,7 +146,7 @@ const getWeeklyVolume = (txs) => {
   let values = [];
   let i = 0;
   config.axialPools.forEach(pool => {
-    for(let tempTime = start; tempTime < time; tempTime += week) {
+    for(let tempTime = start; tempTime < (time - week); tempTime += week) {
       let weekTime = values.find(i => i.time === tempTime);
       if(weekTime) {
         let sum = 0;
@@ -219,7 +219,7 @@ const getPoolWeeklyVolume = (txs) => {
       weeks: []
     });
     let i = 0;
-    for(let tempTime = start; tempTime < time; tempTime += week) {
+    for(let tempTime = start; tempTime < (time - week); tempTime += week) {
       let poolValues = values.find(i => i.name === pool.name);
       let weekTime = poolValues.weeks.find(i => i.time === tempTime);
       if(weekTime) {
@@ -258,10 +258,12 @@ const getBiggestSwappers = (txs) => {
       let wallet = wallets.find(i => i.address === tx.wallet);
       if(wallet) {
         wallet.amount += tx.amount;
+        wallet.txs += 1;
       } else {
         wallets.push({
           address: tx.wallet,
-          amount: tx.amount
+          amount: tx.amount,
+          txs: 1
         });
       }
     });
@@ -315,34 +317,29 @@ const fetch = async () => {
     console.log('  - Treasury:', '$' + (price * treasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + treasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' AXIAL)');
     console.log('  - Axial Treasury:', '$' + (price * axialTreasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + axialTreasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' AXIAL)');
     console.log('  - Circulating AXIAL Supply:', circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'AXIAL (' + ((circulatingSupply / totalSupply) * 100).toFixed(2) + '% of total supply)');
-    console.log('  - Total # of Swap Transactions:', numTXs.toLocaleString(undefined, {maximumFractionDigits: 0}), 'TXs');
     console.log('  - Total Value Swapped:', '$' + totalSwapped.toLocaleString(undefined, {maximumFractionDigits: 0}));
-    console.log('  - Weekly Volume Swapped:');
-    weeklyVolume.forEach(item => {
-      let rawDate = new Date((item.time) * 1000);
-      let date = pad(rawDate.getUTCDate()) + '/' + pad(rawDate.getUTCMonth() + 1) + '/' + rawDate.getUTCFullYear();
-      console.log('      > Week' + (item.week < 10 ? '' : ''), item.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + date + ') - $' + item.volume.toLocaleString(undefined, {maximumFractionDigits: 0}));
-    });
-    console.log('  - Pool-Specific # of Swap Transactions:');
-    poolNumTXs.forEach(pool => {
-      console.log('      >', pool.name, '-', pool.txCount.toLocaleString(undefined, {maximumFractionDigits: 0}), 'TXs');
-    });
-    console.log('  - Pool-Specific Value Swapped:');
     poolValueSwapped.forEach(pool => {
       console.log('      >', pool.name, '- $' + pool.amount.toLocaleString(undefined, {maximumFractionDigits: 0}));
     });
-    console.log('  - Pool-Specific Weekly Volume Swapped:');
-    poolWeeklyVolume.forEach(pool => {
-      console.log('      >', pool.name + ':');
-      pool.weeks.forEach(weeklyValue => {
-        let rawDate = new Date((weeklyValue.time) * 1000);
-        let date = pad(rawDate.getUTCDate()) + '/' + pad(rawDate.getUTCMonth() + 1) + '/' + rawDate.getUTCFullYear();
-        console.log('        - Week' + (weeklyValue.week < 10 ? '' : ''), weeklyValue.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + date + ') - $' + weeklyValue.volume.toLocaleString(undefined, {maximumFractionDigits: 0}));
+    console.log('  - Total # of Swap Transactions:', numTXs.toLocaleString(undefined, {maximumFractionDigits: 0}), 'TXs');
+    poolNumTXs.forEach(pool => {
+      console.log('      >', pool.name, '-', pool.txCount.toLocaleString(undefined, {maximumFractionDigits: 0}), 'TXs');
+    });
+    console.log('  - Weekly Value Swapped:');
+    weeklyVolume.forEach(item => {
+      let rawDate = new Date((item.time) * 1000);
+      let date = pad(rawDate.getUTCDate()) + '/' + pad(rawDate.getUTCMonth() + 1) + '/' + rawDate.getUTCFullYear();
+      let rawEndDate = new Date((item.time + week - 1) * 1000);
+      let endDate = pad(rawEndDate.getUTCDate()) + '/' + pad(rawEndDate.getUTCMonth() + 1) + '/' + rawEndDate.getUTCFullYear();
+      console.log('      > Week' + (item.week < 10 ? '' : ''), item.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + date + ' to ' + endDate + ') - $' + item.volume.toLocaleString(undefined, {maximumFractionDigits: 0}));
+      poolWeeklyVolume.forEach(pool => {
+        let weeklyValue = pool.weeks.find(i => i.week === item.week);
+        console.log('        -', pool.name, '- $' + weeklyValue.volume.toLocaleString(undefined, {maximumFractionDigits: 0}));
       });
     });
     console.log('  - Top 5 Biggest Swappers:');
     biggestSwappers.forEach(wallet => {
-      console.log('      >', wallet.address, '- $' + wallet.amount.toLocaleString(undefined, {maximumFractionDigits: 0}), (wallet.address === config.paraswap ? '(ParaSwap Router)' : ''));
+      console.log('      >', wallet.address, '- $' + wallet.amount.toLocaleString(undefined, {maximumFractionDigits: 0}),  `(${wallet.txs.toLocaleString(undefined, {maximumFractionDigits: 0})} TX${wallet.txs > 1 ? 's' : ''})`, (wallet.address === config.paraswap ? '(ParaSwap Router)' : ''));
     });
 
   // Basic Data (Loads Faster):

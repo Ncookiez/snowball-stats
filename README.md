@@ -86,7 +86,8 @@ npm run dist
 - Number of swap transactions on each pool.
 - All-time volume traded on each pool.
 - Weekly volume traded on each pool.
-- Top 5 biggest swappers.
+- Top 5 biggest swappers' volume traded.
+- Top 5 biggest swappers' number of transactions.
 
 ```
 npm run axial
