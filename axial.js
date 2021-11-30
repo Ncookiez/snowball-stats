@@ -13,13 +13,17 @@ const avax = new ethers.providers.JsonRpcProvider(config.rpc);
 const time = Math.round(Date.now() / 1000);
 const start = 1636588800;
 const week = 604800;
+const day = 86400;
 
 // Setting Up Optional Args:
 let basic = false;
+let daily = false;
 const args = process.argv.slice(2);
 if(args.length > 0) {
   if(args[0] === 'basic') {
     basic = true;
+  } else if(args[0] === 'daily') {
+    daily = true;
   }
 }
 
@@ -176,6 +180,41 @@ const getWeeklyVolume = (txs) => {
 
 /* ====================================================================================================================================================== */
 
+// Function to get total daily volume:
+const getDailyVolume = (txs) => {
+  let values = [];
+  let i = 0;
+  config.axialPools.forEach(pool => {
+    for(let tempTime = start; tempTime < (time - day); tempTime += day) {
+      let dayTime = values.find(i => i.time === tempTime);
+      if(dayTime) {
+        let sum = 0;
+        txs[pool.name].forEach(tx => {
+          if(tx.time > tempTime && tx.time < tempTime + day) {
+            sum += tx.amount;
+          }
+        });
+        dayTime.volume += sum;
+      } else {
+        let sum = 0;
+        txs[pool.name].forEach(tx => {
+          if(tx.time > tempTime && tx.time < tempTime + day) {
+            sum += tx.amount;
+          }
+        });
+        values.push({
+          day: ++i,
+          time: tempTime,
+          volume: sum
+        });
+      }
+    }
+  });
+  return values;
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to get pool-specific number of transactions:
 const getPoolNumTXs = (txs) => {
   let values = [];
@@ -250,6 +289,46 @@ const getPoolWeeklyVolume = (txs) => {
 
 /* ====================================================================================================================================================== */
 
+// Function to get pool-specific daily volume:
+const getPoolDailyVolume = (txs) => {
+  let values = [];
+  config.axialPools.forEach(pool => {
+    values.push({
+      name: pool.name,
+      days: []
+    });
+    let i = 0;
+    for(let tempTime = start; tempTime < (time - day); tempTime += day) {
+      let poolValues = values.find(i => i.name === pool.name);
+      let dayTime = poolValues.days.find(i => i.time === tempTime);
+      if(dayTime) {
+        let sum = 0;
+        txs[pool.name].forEach(tx => {
+          if(tx.time > tempTime && tx.time < tempTime + day) {
+            sum += tx.amount;
+          }
+        });
+        dayTime.volume += sum;
+      } else {
+        let sum = 0;
+        txs[pool.name].forEach(tx => {
+          if(tx.time > tempTime && tx.time < tempTime + day) {
+            sum += tx.amount;
+          }
+        });
+        poolValues.days.push({
+          day: ++i,
+          time: tempTime,
+          volume: sum
+        });
+      }
+    }
+  });
+  return values;
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to get biggest swappers:
 const getBiggestSwappers = (txs) => {
   let wallets = [];
@@ -290,7 +369,7 @@ const pad = (num) => {
 const fetch = async () => {
 
   // Full Data:
-  if(!basic) {
+  if(!basic && !daily) {
 
     // Fetching Data:
     let price = await getPrice();
@@ -335,6 +414,59 @@ const fetch = async () => {
       poolWeeklyVolume.forEach(pool => {
         let weeklyValue = pool.weeks.find(i => i.week === item.week);
         console.log('        -', pool.name, '- $' + weeklyValue.volume.toLocaleString(undefined, {maximumFractionDigits: 0}));
+      });
+    });
+    console.log('  - Top 5 Biggest Swappers:');
+    biggestSwappers.forEach(wallet => {
+      console.log('      >', wallet.address, '- $' + wallet.amount.toLocaleString(undefined, {maximumFractionDigits: 0}),  `(${wallet.txs.toLocaleString(undefined, {maximumFractionDigits: 0})} TX${wallet.txs > 1 ? 's' : ''})`, (wallet.address === config.paraswap ? '(ParaSwap Router)' : ''));
+    });
+
+  // Daily Data (Substitutes Weekly Data):
+  } else if(!basic && daily) {
+
+    // Fetching Data:
+    let price = await getPrice();
+    let totalSupply = await getTotalSupply();
+    let treasuryBalance = await getTreasuryBalance();
+    let axialTreasuryBalance = await getAxialTreasuryBalance();
+    let circulatingSupply = getCirculatingSupply(totalSupply, treasuryBalance, axialTreasuryBalance);
+    let txs = await getTXs();
+    let numTXs = getNumTXs(txs);
+    let totalSwapped = getTotalSwapped(txs);
+    let dailyVolume = getDailyVolume(txs);
+    let poolNumTXs = getPoolNumTXs(txs);
+    let poolValueSwapped = getPoolValueSwapped(txs);
+    let poolDailyVolume = getPoolDailyVolume(txs);
+    let biggestSwappers = getBiggestSwappers(txs);
+
+    // Printing Data:
+    console.log('\n  ===============================');
+    console.log('  ||        AXIAL Stats        ||');
+    console.log('  ===============================\n');
+    console.log('  - AXIAL Price:', '$' + price);
+    console.log('  - Total AXIAL Supply:', totalSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'AXIAL');
+    console.log('  - AXIAL Market Cap:', '$' + (price * totalSupply).toLocaleString(undefined, {maximumFractionDigits: 0}));
+    console.log('  - Treasury:', '$' + (price * treasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + treasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' AXIAL)');
+    console.log('  - Axial Treasury:', '$' + (price * axialTreasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + axialTreasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' AXIAL)');
+    console.log('  - Circulating AXIAL Supply:', circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'AXIAL (' + ((circulatingSupply / totalSupply) * 100).toFixed(2) + '% of total supply)');
+    console.log('  - Total Value Swapped:', '$' + totalSwapped.toLocaleString(undefined, {maximumFractionDigits: 0}));
+    poolValueSwapped.forEach(pool => {
+      console.log('      >', pool.name, '- $' + pool.amount.toLocaleString(undefined, {maximumFractionDigits: 0}));
+    });
+    console.log('  - Total # of Swap Transactions:', numTXs.toLocaleString(undefined, {maximumFractionDigits: 0}), 'TXs');
+    poolNumTXs.forEach(pool => {
+      console.log('      >', pool.name, '-', pool.txCount.toLocaleString(undefined, {maximumFractionDigits: 0}), 'TXs');
+    });
+    console.log('  - Daily Value Swapped:');
+    dailyVolume.forEach(item => {
+      let rawDate = new Date((item.time) * 1000);
+      let date = pad(rawDate.getUTCDate()) + '/' + pad(rawDate.getUTCMonth() + 1) + '/' + rawDate.getUTCFullYear();
+      console.log('      > Day', item.day.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + date + ') - $' + item.volume.toLocaleString(undefined, {maximumFractionDigits: 0}));
+      poolDailyVolume.forEach(pool => {
+        let dailyValue = pool.days.find(i => i.day === item.day);
+        if(dailyValue.volume > 0) {
+          console.log('        -', pool.name, '- $' + dailyValue.volume.toLocaleString(undefined, {maximumFractionDigits: 0}));
+        }
       });
     });
     console.log('  - Top 5 Biggest Swappers:');
