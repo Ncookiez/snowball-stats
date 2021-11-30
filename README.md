@@ -83,15 +83,23 @@ npm run dist
 - Total number of swap transactions.
 - Total all-time volume traded.
 - Weekly volume traded.
+- Daily volume traded.
 - Number of swap transactions on each pool.
 - All-time volume traded on each pool.
 - Weekly volume traded on each pool.
+- Daily volume traded on each pool.
 - Top 5 biggest swappers' volume traded.
 - Top 5 biggest swappers' number of transactions.
 
 ```
 npm run axial
 ```
+
+```
+npm run axial daily
+```
+
+Entering the `daily` optional parameter will substitute weekly data for daily data.
 
 ```
 npm run axial basic
