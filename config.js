@@ -20,7 +20,8 @@ exports.axialTreasury = '0x4980AD7cCB304f7d3c5053Aa1131eD1EDaf48809';
 exports.axialPools = [
   { name: 'AS4D', swap: '0x2a716c4933A20Cd8B9f9D9C39Ae7196A85c24228' },
   { name: 'AC4D', swap: '0x8c3c1C6F971C01481150CA7942bD2bbB9Bc27bC7' },
-  { name: 'AM3D', swap: '0x90c7b96AD2142166D001B27b5fbc128494CDfBc8' }
+  { name: 'AM3D', swap: '0x90c7b96AD2142166D001B27b5fbc128494CDfBc8' },
+  { name: 'AA3D', swap: '0x6EfbC734D91b229BE29137cf9fE531C1D3bf4Da6' }
 ]
 exports.paraswap = '0xdef171fe48cf0115b1d80b88dc8eab59176fee57';
 
