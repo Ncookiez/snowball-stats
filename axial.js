@@ -396,9 +396,9 @@ const fetch = async () => {
     console.log('  - Treasury:', '$' + (price * treasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + treasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' AXIAL)');
     console.log('  - Axial Treasury:', '$' + (price * axialTreasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + axialTreasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' AXIAL)');
     console.log('  - Circulating AXIAL Supply:', circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'AXIAL (' + ((circulatingSupply / totalSupply) * 100).toFixed(2) + '% of total supply)');
-    console.log('  - Total Value Swapped:', '$' + totalSwapped.toLocaleString(undefined, {maximumFractionDigits: 0}));
+    console.log('  - Total Value Swapped:', '$' + totalSwapped.toLocaleString(undefined, {maximumFractionDigits: 0}), '($' + (totalSwapped * 0.0004).toLocaleString(undefined, {maximumFractionDigits: 0}) + ' Swap Fees)');
     poolValueSwapped.forEach(pool => {
-      console.log('      >', pool.name, '- $' + pool.amount.toLocaleString(undefined, {maximumFractionDigits: 0}));
+      console.log('      >', pool.name, '- $' + pool.amount.toLocaleString(undefined, {maximumFractionDigits: 0}), '($' + (pool.amount * 0.0004).toLocaleString(undefined, {maximumFractionDigits: 0}) + ' Swap Fees)');
     });
     console.log('  - Total # of Swap Transactions:', numTXs.toLocaleString(undefined, {maximumFractionDigits: 0}), 'TXs');
     poolNumTXs.forEach(pool => {
@@ -410,10 +410,10 @@ const fetch = async () => {
       let date = pad(rawDate.getUTCDate()) + '/' + pad(rawDate.getUTCMonth() + 1) + '/' + rawDate.getUTCFullYear();
       let rawEndDate = new Date((item.time + week - 1) * 1000);
       let endDate = pad(rawEndDate.getUTCDate()) + '/' + pad(rawEndDate.getUTCMonth() + 1) + '/' + rawEndDate.getUTCFullYear();
-      console.log('      > Week' + (item.week < 10 ? '' : ''), item.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + date + ' to ' + endDate + ') - $' + item.volume.toLocaleString(undefined, {maximumFractionDigits: 0}));
+      console.log('      > Week' + (item.week < 10 ? '' : ''), item.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + date + ' to ' + endDate + ') - $' + item.volume.toLocaleString(undefined, {maximumFractionDigits: 0}), '($' + (item.volume * 0.0004).toLocaleString(undefined, {maximumFractionDigits: 0}) + ' Swap Fees)');
       poolWeeklyVolume.forEach(pool => {
         let weeklyValue = pool.weeks.find(i => i.week === item.week);
-        console.log('        -', pool.name, '- $' + weeklyValue.volume.toLocaleString(undefined, {maximumFractionDigits: 0}));
+        console.log('        -', pool.name, '- $' + weeklyValue.volume.toLocaleString(undefined, {maximumFractionDigits: 0}), '($' + (weeklyValue.volume * 0.0004).toLocaleString(undefined, {maximumFractionDigits: 0}) + ' Swap Fees)');
       });
     });
     console.log('  - Top 5 Biggest Swappers:');
@@ -449,9 +449,9 @@ const fetch = async () => {
     console.log('  - Treasury:', '$' + (price * treasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + treasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' AXIAL)');
     console.log('  - Axial Treasury:', '$' + (price * axialTreasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + axialTreasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' AXIAL)');
     console.log('  - Circulating AXIAL Supply:', circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'AXIAL (' + ((circulatingSupply / totalSupply) * 100).toFixed(2) + '% of total supply)');
-    console.log('  - Total Value Swapped:', '$' + totalSwapped.toLocaleString(undefined, {maximumFractionDigits: 0}));
+    console.log('  - Total Value Swapped:', '$' + totalSwapped.toLocaleString(undefined, {maximumFractionDigits: 0}), '($' + (totalSwapped * 0.0004).toLocaleString(undefined, {maximumFractionDigits: 0}) + ' Swap Fees )');
     poolValueSwapped.forEach(pool => {
-      console.log('      >', pool.name, '- $' + pool.amount.toLocaleString(undefined, {maximumFractionDigits: 0}));
+      console.log('      >', pool.name, '- $' + pool.amount.toLocaleString(undefined, {maximumFractionDigits: 0}), '($' + (pool.amount * 0.0004).toLocaleString(undefined, {maximumFractionDigits: 0}) + ' Swap Fees)');
     });
     console.log('  - Total # of Swap Transactions:', numTXs.toLocaleString(undefined, {maximumFractionDigits: 0}), 'TXs');
     poolNumTXs.forEach(pool => {
@@ -461,11 +461,11 @@ const fetch = async () => {
     dailyVolume.forEach(item => {
       let rawDate = new Date((item.time) * 1000);
       let date = pad(rawDate.getUTCDate()) + '/' + pad(rawDate.getUTCMonth() + 1) + '/' + rawDate.getUTCFullYear();
-      console.log('      > Day', item.day.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + date + ') - $' + item.volume.toLocaleString(undefined, {maximumFractionDigits: 0}));
+      console.log('      > Day', item.day.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + date + ') - $' + item.volume.toLocaleString(undefined, {maximumFractionDigits: 0}), '($' + (item.volume * 0.0004).toLocaleString(undefined, {maximumFractionDigits: 0}) + ' Swap Fees)');
       poolDailyVolume.forEach(pool => {
         let dailyValue = pool.days.find(i => i.day === item.day);
         if(dailyValue.volume > 0) {
-          console.log('        -', pool.name, '- $' + dailyValue.volume.toLocaleString(undefined, {maximumFractionDigits: 0}));
+          console.log('        -', pool.name, '- $' + dailyValue.volume.toLocaleString(undefined, {maximumFractionDigits: 0}), '($' + (dailyValue.volume * 0.0004).toLocaleString(undefined, {maximumFractionDigits: 0}) + ' Swap Fees)');
         }
       });
     });

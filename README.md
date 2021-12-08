@@ -90,6 +90,7 @@ npm run dist
 - Daily volume traded on each pool.
 - Top 5 biggest swappers' volume traded.
 - Top 5 biggest swappers' number of transactions.
+- Swap fees accrued in daily, weekly or per-pool basis.
 
 ```
 npm run axial
