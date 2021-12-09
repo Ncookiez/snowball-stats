@@ -96,7 +96,7 @@ const getStakerInfo = async () => {
   let hasNextPage = false;
   do {
     try {
-      let query = 'https://api.covalenthq.com/v1/43114/address/' + config.xsnob + '/transactions_v2/?no-logs=true&page-size=500&page-number=' + page++ + '&key=' + config.ckey;
+      let query = 'https://api.covalenthq.com/v1/43114/address/' + config.xsnob + '/transactions_v2/?no-logs=true&page-size=1000&page-number=' + page++ + '&key=' + config.ckey;
       let result = await axios.get(query);
       if(!result.data.error) {
         hasNextPage = result.data.data.pagination.has_more;
@@ -257,7 +257,7 @@ const getVoterInfo = async () => {
   let page_1 = 0;
   let hasNextPage = false;
   do {
-    let query = 'https://api.covalenthq.com/v1/43114/address/' + config.gaugeProxy + '/transactions_v2/?no-logs=true&page-size=500&page-number=' + page_1++ + '&key=' + config.ckey;
+    let query = 'https://api.covalenthq.com/v1/43114/address/' + config.gaugeProxy + '/transactions_v2/?no-logs=true&page-size=1000&page-number=' + page_1++ + '&key=' + config.ckey;
     let result = await axios.get(query);
     if(!result.data.error) {
       hasNextPage = result.data.data.pagination.has_more;
@@ -278,7 +278,7 @@ const getVoterInfo = async () => {
   let page_2 = 0;
   hasNextPage = false;
   do {
-    let query = 'https://api.covalenthq.com/v1/43114/address/' + config.oldGaugeProxy + '/transactions_v2/?no-logs=true&page-size=500&page-number=' + page_2++ + '&key=' + config.ckey;
+    let query = 'https://api.covalenthq.com/v1/43114/address/' + config.oldGaugeProxy + '/transactions_v2/?no-logs=true&page-size=1000&page-number=' + page_2++ + '&key=' + config.ckey;
     let result = await axios.get(query);
     if(!result.data.error) {
       hasNextPage = result.data.data.pagination.has_more;
