@@ -196,6 +196,14 @@ const getNumStakers100k = (info) => {
 
 /* ====================================================================================================================================================== */
 
+// Function to get number of stakers with 50k+ xSNOB:
+const getNumStakers50k = (info) => {
+  let stakers = info.filter(stake => (stake.amount * ((stake.unlock - time) / 60 / 60 / 24 / 365 / 2)) > 50000);
+  return stakers.length;
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to get number of stakers with unlocked SNOB still in contract:
 const getForgetfulStakers = (info) => {
   let stakers = info.filter(stake => stake.unlock < time);
@@ -338,6 +346,7 @@ const fetch = async () => {
     let avgLockedTime = getAvgLockedTime(staked, outputSupply);
     let avgOutputAmount = getAvgOutputAmount(avgLockedAmount, avgLockedTime);
     let numStakers100k = getNumStakers100k(stakerInfo);
+    let numStakers50k = getNumStakers50k(stakerInfo);
     let forgetfulStakers = getForgetfulStakers(stakerInfo);
     let forgottenStakes = getForgottenStakes(stakerInfo);
     let richList = getRichList(stakerInfo);
@@ -360,6 +369,7 @@ const fetch = async () => {
     console.log('  - Total xSNOB Supply:', outputSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'xSNOB');
     console.log('  - Average xSNOB Amount Held:', avgOutputAmount.toLocaleString(undefined, {maximumFractionDigits: 0}), 'xSNOB');
     console.log('  - xSNOB Holders w/ 100k+:', numStakers100k.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Users');
+    console.log('  - xSNOB Holders w/ 50k+:', numStakers50k.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Users');
     console.log('  - Forgetful xSNOB Holders:', forgetfulStakers.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Users');
     console.log('  - SNOB Forgotten:', forgottenStakes.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
     console.log('  - Unclaimed SNOB (From xSNOB):', unclaimedSNOB.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
