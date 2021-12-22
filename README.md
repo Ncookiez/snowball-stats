@@ -58,6 +58,14 @@ Entering only a start time but not an end time is also an option. The current ti
 
 You can use the link [here](https://www.unixtimestamp.com/) to get Unix timestamps.
 
+### NFT Stats:
+
+- Owners of each NFT.
+
+```
+npm run nfts
+```
+
 ### Distribution Stats:
 
 - Total SNOB distributed.

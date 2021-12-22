@@ -12,6 +12,23 @@ exports.operations = '0x096a46142C199C940FfEBf34F0fe2F2d674fDB1F';
 exports.treasury = '0x294aB3200ef36200db84C4128b7f1b4eec71E38a';
 exports.devFund = '0x88aDa02f6fCE2F1A833cd9B4999D62a7ebb70367';
 exports.feeDistributor = '0xad86ef5fd2ebc25bb9db41a1fe8d0f2a322c7839';
+exports.nfts = [
+  { name: 'Early Voter', address: '0x7B097A18738cA9Fd524384Dab74c57CB12DAC724' },
+  { name: 'India Covid Relief', address: '0xD928Ab4b54F7FD0498160Ee52AC0C92BbB9C9cb3' },
+  { name: 'Snow Ball Head', address: '0x6a81866c94eFc097e75ABcbCddD3E8b63EbEBe93' },
+  { name: 'Sherpa Climb', address: '0x89A3e2B87ea5fCa3a68eAD5643F040A0F636A46b' },
+  { name: 'Rolling Sasquatch - Pink', address: '0x35F268DaC74f94785135aA134deDEf7e67Db8fe3' },
+  { name: 'Rolling Sasquatch - Purple', address: '0xB954AE9a4374751CB3d578CfA3Db96e0E5881C00' },
+  { name: 'Rolling Sasquatch - Orange', address: '0xD65e006644D417Af6A9385182C21733762b94E83' },
+  { name: 'Rolling Sasquatch - Blue', address: '0xae88bE7d3fE6545C688b640B427aF4bAb90e2638' },
+  { name: 'Rolling Sasquatch - Green', address: '0x5edd9bC699B6A613875E6760B4978d14d6EB3899' },
+  { name: 'Rolling Sasquatch - Laser Eyes', address: '0xd66Df640A2f213B6e5087204cAee2b2145A1c1c9' }
+];
+exports.nftMarketplaces = [
+  '0xb61294df4cbf2a6af0c90d46e99bbdf4b750be3e',
+  '0x14390f57ccfdb45f969381e7e107acf062d3a592',
+  '0xd42e49c1b481817365b2fc744c9ae84ba3862429'
+];
 
 // Axial Addresses:
 exports.axial = '0xcf8419a615c57511807236751c0af38db4ba3351';
