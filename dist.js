@@ -14,10 +14,21 @@ const avax_backup = new ethers.providers.JsonRpcProvider(config.rpc_backup);
 const time = Math.round(Date.now() / 1000);
 const week = 604800;
 
+// Manually Inputting Wrong CoinGecko AXIAL Prices:
+const axialPrices = [
+  { timestamp: 1639612800, price: 0.048 }
+];
+
+// Manually Inputting Wrong Token Checkpoints:
+const axialCheckpoints = [
+  { timestamp: 1639612800, amount: 1009388.73 }
+];
+
 /* ====================================================================================================================================================== */
 
 // Function to get SNOB distributions:
 const getDistributions = async () => {
+
   let contract = new ethers.Contract(config.feeDistributor, config.feeDistributorABI, avax);
   let axialContract = new ethers.Contract(config.axialFeeDistributor, config.feeDistributorABI, avax);
   let startTime = parseInt(await contract.start_time());
@@ -31,7 +42,13 @@ const getDistributions = async () => {
   let promises = timestamps.map(timestamp => (async () => {
     try {
       let snob = parseInt(await contract.tokens_per_week(timestamp)) / (10 ** 18);
-      let axial = parseInt(await axialContract.tokens_per_week(timestamp)) / (10 ** 18);
+      let axial = 0;
+      let foundAxialAmount = axialCheckpoints.find(i => i.timestamp === timestamp);
+      if(foundAxialAmount) {
+        axial = foundAxialAmount.amount;
+      } else {
+        axial = parseInt(await axialContract.tokens_per_week(timestamp)) / (10 ** 18);
+      }
       let xsnob = parseInt(await contract.ve_supply(timestamp)) / (10 ** 18);
       let apr = await getAPR(xsnob, snob, axial, timestamp);
       distributions.push({ timestamp, snob, axial, apr });
@@ -105,7 +122,13 @@ const getAPR = async (xsnob, snob, axial, timestamp) => {
     let rawDate = new Date((timestamp + week) * 1000);
     let date = pad(rawDate.getUTCDate()) + '-' + pad(rawDate.getUTCMonth() + 1) + '-' + rawDate.getUTCFullYear();
     let snobPrice = (await axios.get('https://api.coingecko.com/api/v3/coins/snowball-token/history?date=' + date + '&localization=false')).data.market_data.current_price.usd;
-    let axialPrice = (await axios.get('https://api.coingecko.com/api/v3/coins/axial-token/history?date=' + date + '&localization=false')).data.market_data.current_price.usd;
+    let axialPrice = 0;
+    let foundAxialPrice = axialPrices.find(i => i.timestamp === timestamp);
+    if(foundAxialPrice) {
+      axialPrice = foundAxialPrice.price;
+    } else {
+      axialPrice = (await axios.get('https://api.coingecko.com/api/v3/coins/axial-token/history?date=' + date + '&localization=false')).data.market_data.current_price.usd;
+    }
     let ratio = snobPrice / axialPrice;
     axialAPR = (((axial / ratio) * 52) / xsnob) * 100;
   }
