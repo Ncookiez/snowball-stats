@@ -112,7 +112,6 @@ const getStakerInfo = async () => {
               }
             } catch {
               try {
-                console.log('Using backup RPC...');
                 let contract = new ethers.Contract(config.xsnob, config.xsnobABI, avax_backup);
                 let stake = await contract.locked(tx.from_address);
                 let amount = parseInt(stake.amount) / (10 ** 18);
