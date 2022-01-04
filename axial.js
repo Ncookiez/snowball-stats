@@ -102,10 +102,16 @@ const getTXs = async () => {
       while(++lastQueriedBlock < currentBlock) {
         let targetBlock = Math.min(lastQueriedBlock + querySize, currentBlock);
         let result;
-        try {
-          result = await swapContract.queryFilter(eventFilter, lastQueriedBlock, targetBlock);
-        } catch {
-          result = await backupSwapContract.queryFilter(backupEventFilter, lastQueriedBlock, targetBlock);
+        while(!result) {
+          try {
+            result = await swapContract.queryFilter(eventFilter, lastQueriedBlock, targetBlock);
+          } catch {
+            try {
+              result = await backupSwapContract.queryFilter(backupEventFilter, lastQueriedBlock, targetBlock);
+            } catch {
+              console.log(`RPC Error: Retrying block ${lastQueriedBlock} query for ${pool.name}...`);
+            }
+          }
         }
         let event_promises = result.map(event => (async () => {
           txs[pool.name].push({
@@ -126,7 +132,7 @@ const getTXs = async () => {
       }
       console.log(`${pool.name} transactions loaded...`);
     } catch {
-      console.error(`RPC Error: ${pool.name} transactions were not able to be fetched. Please retry.`);
+      console.error(`RPC Error: ${pool.name} transactions were not able to be fetched.`);
     }
   })());
   await Promise.all(promises);
