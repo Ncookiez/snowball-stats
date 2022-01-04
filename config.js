@@ -3,7 +3,7 @@
 exports.rpc = 'https://api.avax.network/ext/bc/C/rpc';
 exports.rpc_backup = 'https://avax-mainnet.gateway.pokt.network/v1/lb/605238bf6b986eea7cf36d5e/ext/bc/C/rpc';
 
-// Snowball Addresses:
+// Snowball Variables:
 exports.snob = '0xC38f41A296A4493Ff429F1238e030924A1542e50';
 exports.xsnob = '0x83952E7ab4aca74ca96217D6F8f7591BEaD6D64E';
 exports.gaugeProxy = '0x215D5eDEb6A6a3f84AE9d72962FEaCCdF815BF27';
@@ -30,22 +30,24 @@ exports.nftMarketplaces = [
   '0xd42e49c1b481817365b2fc744c9ae84ba3862429'
 ];
 
-// Axial Addresses:
+// Axial Variables:
 exports.axial = '0xcf8419a615c57511807236751c0af38db4ba3351';
 exports.axialFeeDistributor = '0x084cfE7BA1C91d35Fec5015ca65E92Db41A3C9f7';
 exports.axialTreasury = '0x4980AD7cCB304f7d3c5053Aa1131eD1EDaf48809';
 exports.axialPools = [
-  { name: 'AS4D', swap: '0x2a716c4933A20Cd8B9f9D9C39Ae7196A85c24228' },
-  { name: 'AC4D', swap: '0x8c3c1C6F971C01481150CA7942bD2bbB9Bc27bC7' },
-  { name: 'AM3D', swap: '0x90c7b96AD2142166D001B27b5fbc128494CDfBc8' },
-  { name: 'AA3D', swap: '0x6EfbC734D91b229BE29137cf9fE531C1D3bf4Da6' }
+  { name: 'AS4D', swap: '0x2a716c4933A20Cd8B9f9D9C39Ae7196A85c24228', tokens: [{ symbol: 'TUSD', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }, { symbol: 'DAI.e', decimals: 18 }, { symbol: 'USDT.e', decimals: 6 }] },
+  { name: 'AC4D', swap: '0x8c3c1C6F971C01481150CA7942bD2bbB9Bc27bC7', tokens: [{ symbol: 'TSD', decimals: 18 }, { symbol: 'MIM', decimals: 18 }, { symbol: 'FRAX', decimals: 18 }, { symbol: 'DAI.e', decimals: 18 }] },
+  { name: 'AM3D', swap: '0x90c7b96AD2142166D001B27b5fbc128494CDfBc8', tokens: [{ symbol: 'MIM', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }, { symbol: 'DAI.e', decimals: 18 }] },
+  { name: 'AA3D', swap: '0x6EfbC734D91b229BE29137cf9fE531C1D3bf4Da6', tokens: [{ symbol: 'AVAI', decimals: 18 }, { symbol: 'MIM', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }] }
+  // <TODO> Add Metapool?
 ];
 exports.paraswap = '0xdef171fe48cf0115b1d80b88dc8eab59176fee57';
+exports.axialSwapEventABI = ['event TokenSwap(address indexed buyer, uint256 tokensSold, uint256 tokensBought, uint128 soldId, uint128 boughtId)'];
 
 // API Keys:
 exports.ckey = 'ckey_f49ab6dbd21f47a5a25eb922e0d';
 
-// ABIs:
+// Contract ABIs:
 exports.minABI = [
   { constant: true, inputs: [{ name: "", type: "address" }], name: "balanceOf", outputs: [{ name: "", type: "uint256" }], type: "function" },
   { constant: true, inputs: [], name: "totalSupply", outputs: [{ name: "", type: "uint256" }], type: "function" }

@@ -295,7 +295,7 @@ const getVoterInfo = async () => {
       hasNextPage = false;
     }
   } while(hasNextPage);
-  return { voters: wallets, votes};
+  return {voters: wallets, votes};
 }
 
 /* ====================================================================================================================================================== */
