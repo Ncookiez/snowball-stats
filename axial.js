@@ -346,7 +346,7 @@ const fetch = async () => {
         }
       });
     });
-    console.log('  - Total Token Swap Demand:');
+    console.log('  - Token Swap Demand:');
     tokenDemand.forEach(item => {
       console.log(`      > ${item.token} - $${item.demand.toLocaleString(undefined, {maximumFractionDigits: 0})}`);
     });
