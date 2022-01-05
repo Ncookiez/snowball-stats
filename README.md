@@ -112,10 +112,14 @@ npm run axial basic
 
 Entering the `basic` optional parameter will only run some of the simplest queries. This script will run very quickly.
 
-### Snowball Contracts:
+### Snowball Pool Contracts:
 
-- List of all data on Snowball contracts used for auto-compounding.
+- List of all data on Snowball pool contracts used for auto-compounding.
 - JSON output of this data.
+
+```
+npm run pools
+```
 
 ---
 
