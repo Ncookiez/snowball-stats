@@ -60,7 +60,7 @@ You can use the link [here](https://www.unixtimestamp.com/) to get Unix timestam
 
 ### NFT Stats:
 
-- Owners of each NFT.
+- Owners of each Snowball NFT.
 
 ```
 npm run nfts
@@ -111,6 +111,11 @@ npm run axial basic
 ```
 
 Entering the `basic` optional parameter will only run some of the simplest queries. This script will run very quickly.
+
+### Snowball Contracts:
+
+- List of all data on Snowball contracts used for auto-compounding.
+- JSON output of this data.
 
 ---
 

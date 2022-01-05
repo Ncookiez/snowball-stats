@@ -60,7 +60,7 @@ const getGauges = async () => {
   let gauge_promises = tokens.map(token => (async () => {
     try {
       let gauge = await contract.getGauge(token);
-      if(gauge != '0x0000000000000000000000000000000000000000') {
+      if(gauge != config.zero) {
         gauges.push(gauge);
       } else {
         console.log('CONTRACT ERROR: getGauge() has returned 0x00 for token', token);

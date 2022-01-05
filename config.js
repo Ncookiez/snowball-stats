@@ -34,6 +34,7 @@ exports.nftMarketplaces = [
 exports.axial = '0xcf8419a615c57511807236751c0af38db4ba3351';
 exports.axialFeeDistributor = '0x084cfE7BA1C91d35Fec5015ca65E92Db41A3C9f7';
 exports.axialTreasury = '0x4980AD7cCB304f7d3c5053Aa1131eD1EDaf48809';
+exports.axialSymbols = ['AS4D', 'AC4D', 'AM3D', 'AA3D'];
 exports.axialPools = [
   { name: 'AS4D', swap: '0x2a716c4933A20Cd8B9f9D9C39Ae7196A85c24228', tokens: [{ symbol: 'TUSD', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }, { symbol: 'DAI.e', decimals: 18 }, { symbol: 'USDT.e', decimals: 6 }] },
   { name: 'AC4D', swap: '0x8c3c1C6F971C01481150CA7942bD2bbB9Bc27bC7', tokens: [{ symbol: 'TSD', decimals: 18 }, { symbol: 'MIM', decimals: 18 }, { symbol: 'FRAX', decimals: 18 }, { symbol: 'DAI.e', decimals: 18 }] },
@@ -47,10 +48,14 @@ exports.axialSwapEventABI = ['event TokenSwap(address indexed buyer, uint256 tok
 // API Keys:
 exports.ckey = 'ckey_f49ab6dbd21f47a5a25eb922e0d';
 
+// Null Address:
+exports.zero = '0x0000000000000000000000000000000000000000';
+
 // Contract ABIs:
 exports.minABI = [
   { constant: true, inputs: [{ name: "", type: "address" }], name: "balanceOf", outputs: [{ name: "", type: "uint256" }], type: "function" },
-  { constant: true, inputs: [], name: "totalSupply", outputs: [{ name: "", type: "uint256" }], type: "function" }
+  { constant: true, inputs: [], name: "totalSupply", outputs: [{ name: "", type: "uint256" }], type: "function" },
+  { constant: true, inputs: [], name: "symbol", outputs: [{ name: "", type: "string" }], type: "function" }
 ];
 exports.xsnobABI = [
   { constant: true, inputs: [{ name: "", type: "address" }], name: "locked", outputs: [{ name: "amount", type: "uint128" }, { name: "end", type: "uint256" }], type: "function" },
@@ -65,3 +70,17 @@ exports.feeDistributorABI = [
   { constant: true, inputs: [{ name: "arg0", type: "uint256" }], name: "tokens_per_week", outputs: [{ name: "", type: "uint256" }], type: "function" },
   { constant: true, inputs: [{ name: "arg0", type: "uint256" }], name: "ve_supply", outputs: [{ name: "", type: "uint256" }], type: "function" }
 ];
+exports.snowGlobeABI = [
+  { constant: true, inputs: [], name: "controller", outputs: [{ name: "", type: "address" }], type: "function" },
+  { constant: true, inputs: [], name: "token", outputs: [{ name: "", type: "address" }], type: "function" }
+];
+exports.controllerABI = [
+  { constant: true, inputs: [{ name: "<input>", type: "address" }], name: "strategies", outputs: [{ name: "", type: "address" }], type: "function" }
+];
+exports.lpTokenABI = [
+  { constant: true, inputs: [], name: "token0", outputs: [{ name: "", type: "address" }], type: "function" },
+  { constant: true, inputs: [], name: "token1", outputs: [{ name: "", type: "address" }], type: "function" }
+];
+exports.strategyABI = [
+  { constant: true, inputs: [], name: "getName", outputs: [{ name: "", type: "string" }], type: "function" }
+]
