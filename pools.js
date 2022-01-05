@@ -207,12 +207,15 @@ const writeMarkdown = (data) => {
           name = `\`${pool.underlyingTokens.token0.symbol} - ${pool.underlyingTokens.token1.symbol}\``;
         }
       } else {
-        name = pool.token.symbol;
+        name = `\`${pool.token.symbol}\``;
       }
-      tableData.push([name, pool.globe, pool.strategy, pool.gauge]);
+      let deposit = `[Deposit Contract](https://snowtrace.io/address/${pool.globe})`;
+      let strategy = `[Strategy Contract](https://snowtrace.io/address/${pool.strategy})`;
+      let gauge = `[Gauge Contract](https://snowtrace.io/address/${pool.gauge})`;
+      tableData.push([name, deposit, strategy, gauge]);
     });
     let table = formatTable(tableData);
-    formattedData += header + table + '\n\n';
+    formattedData += header + table + '\n';
   });
   fs.writeFile('./pools.md', formattedData, 'utf8', (err) => {
     if(err) {
@@ -255,6 +258,7 @@ const formatTable = (tableData) => {
       }
     }
   });
+  return table;
 }
 
 /* ====================================================================================================================================================== */
