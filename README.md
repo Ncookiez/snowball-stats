@@ -98,6 +98,9 @@ npm run dist
 - Top 5 biggest swappers' number of transactions.
 - Swap fees accrued weekly or per-pool basis.
 - Demand for each token through swaps.
+- Largest swap for each pool.
+- Average swap for each pool.
+- Swap volume distribution for each pool.
 
 ```
 npm run axial

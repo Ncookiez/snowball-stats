@@ -287,6 +287,30 @@ const getTokenDemand = (txs) => {
 
 /* ====================================================================================================================================================== */
 
+// Function to get swap stats:
+const getSwapStats = (txs) => {
+  let values = {};
+  config.axialPools.forEach(pool => {
+    let largestSwap = txs[pool.name].map(item => item.sold.amount).reduce((prev, next) => prev > next ? prev : next);
+    let averageSwap = txs[pool.name].map(item => item.sold.amount).reduce((prev, next) => prev + next) / txs[pool.name].length;
+    let percentages = {
+      above1k: ((txs[pool.name].filter(tx => tx.sold.amount > 1000).length / txs[pool.name].length) * 100).toFixed(2),
+      above5k: ((txs[pool.name].filter(tx => tx.sold.amount > 5000).length / txs[pool.name].length) * 100).toFixed(2),
+      above10k: ((txs[pool.name].filter(tx => tx.sold.amount > 10000).length / txs[pool.name].length) * 100).toFixed(2),
+      above25k: ((txs[pool.name].filter(tx => tx.sold.amount > 25000).length / txs[pool.name].length) * 100).toFixed(2),
+      above50k: ((txs[pool.name].filter(tx => tx.sold.amount > 50000).length / txs[pool.name].length) * 100).toFixed(2),
+      above100k: ((txs[pool.name].filter(tx => tx.sold.amount > 100000).length / txs[pool.name].length) * 100).toFixed(2),
+      above250k: ((txs[pool.name].filter(tx => tx.sold.amount > 250000).length / txs[pool.name].length) * 100).toFixed(2),
+      above500k: ((txs[pool.name].filter(tx => tx.sold.amount > 500000).length / txs[pool.name].length) * 100).toFixed(2),
+      above1000k: ((txs[pool.name].filter(tx => tx.sold.amount > 1000000).length / txs[pool.name].length) * 100).toFixed(2)
+    }
+    values[pool.name] = {largestSwap, averageSwap, percentages};
+  });
+  return values;
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to pad date if necessary:
 const pad = (num) => {
   let str = num.toString();
@@ -320,6 +344,7 @@ const fetch = async () => {
     let poolWeeklyVolume = getPoolWeeklyVolume(txs);
     let biggestSwappers = getBiggestSwappers(txs);
     let tokenDemand = getTokenDemand(txs);
+    let swapStats = getSwapStats(txs);
 
     // // Printing Data:
     console.log('\n  ===============================');
@@ -351,6 +376,18 @@ const fetch = async () => {
           console.log(`        - ${pool.name} - $${pool.weeks[item.week].volume.toLocaleString(undefined, {maximumFractionDigits: 0})} ($${(pool.weeks[item.week].volume * 0.0004).toLocaleString(undefined, {maximumFractionDigits: 0})} Swap Fees)`);
         }
       });
+    });
+    console.log('  - Largest Swaps:');
+    Object.keys(swapStats).forEach(pool => {
+      console.log(`      > ${pool} - $${swapStats[pool].largestSwap.toLocaleString(undefined, {maximumFractionDigits: 0})}`);
+    });
+    console.log('  - Average Swap:');
+    Object.keys(swapStats).forEach(pool => {
+      console.log(`      > ${pool} - $${swapStats[pool].averageSwap.toLocaleString(undefined, {maximumFractionDigits: 0})}`);
+    });
+    console.log('  - Swap Size Distribution (Swap % Above):');
+    Object.keys(swapStats).forEach(pool => {
+      console.log(`      > ${pool} - $1k: ${swapStats[pool].percentages.above1k}%, $5k: ${swapStats[pool].percentages.above5k}%, $10k: ${swapStats[pool].percentages.above10k}%, $25k: ${swapStats[pool].percentages.above25k >= 10 ? swapStats[pool].percentages.above25k : ' ' + swapStats[pool].percentages.above25k}%, $50k: ${swapStats[pool].percentages.above50k}%, $100k: ${swapStats[pool].percentages.above100k}%, $250k: ${swapStats[pool].percentages.above250k}%, $500k: ${swapStats[pool].percentages.above500k}%, $1M: ${swapStats[pool].percentages.above1000k}%`);
     });
     console.log('  - Token Swap Demand:');
     tokenDemand.forEach(item => {
