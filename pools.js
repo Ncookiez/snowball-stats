@@ -159,11 +159,12 @@ const fetchBatch = async (globes) => {
         let token = await fetchToken(globe);
         let strategy = await fetchStrategy(controller, token.address);
         let platform = await fetchPlatform(token, strategy, globe);
-        if(lpSymbols.includes(token.symbol)) {
+        let type = lpSymbols.includes(token.symbol) ? 'lp' : 'single';
+        if(type === 'lp') {
           let underlyingTokens = await fetchUnderlyingTokens(token.address);
-          data.push({platform, globe, strategy, gauge, controller, token, underlyingTokens});
+          data.push({platform, type, globe, strategy, gauge, controller, token, underlyingTokens});
         } else {
-          data.push({platform, globe, strategy, gauge, controller, token});
+          data.push({platform, type, globe, strategy, gauge, controller, token});
         }
       }
     }
@@ -171,6 +172,89 @@ const fetchBatch = async (globes) => {
   })());
   await Promise.all(promises);
   return data;
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to write data to JSON file:
+const writeJSON = (data) => {
+  fs.writeFile('./pools.json', JSON.stringify(data, null, ' '), 'utf8', (err) => {
+    if(err) {
+      console.error(err);
+    } else {
+      console.info(`  > Successfully updated JSON file.`);
+    }
+  });
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to write data to Markdown file:
+const writeMarkdown = (data) => {
+  let formattedData = '# Compounding Contracts\n\n';
+  config.platforms.forEach(platform => {
+    let header = `## ${platform} Strategies\n\n`;
+    let tableData = [['Name', 'Deposit', 'Strategy', 'Gauge']];
+    let pools = data.filter(pool => pool.platform === platform);
+    pools.forEach(pool => {
+      let name;
+      if(pool.type === 'lp') {
+        if(pool.underlyingTokens.token0.symbol === 'WAVAX') {
+          name = `\`AVAX - ${pool.underlyingTokens.token1.symbol}\``;
+        } else if(pool.underlyingTokens.token1.symbol === 'WAVAX') {
+          name = `\`AVAX - ${pool.underlyingTokens.token0.symbol}\``;
+        } else {
+          name = `\`${pool.underlyingTokens.token0.symbol} - ${pool.underlyingTokens.token1.symbol}\``;
+        }
+      } else {
+        name = pool.token.symbol;
+      }
+      tableData.push([name, pool.globe, pool.strategy, pool.gauge]);
+    });
+    let table = formatTable(tableData);
+    formattedData += header + table + '\n\n';
+  });
+  fs.writeFile('./pools.md', formattedData, 'utf8', (err) => {
+    if(err) {
+      console.error(err);
+    } else {
+      console.info(`  > Successfully updated Markdown file.`);
+    }
+  });
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to format Markdown table:
+const formatTable = (tableData) => {
+  let table = '';
+  let columns = tableData[0].length;
+  for(let i = 0; i < columns; i++) {
+    table += tableData[0][i];
+    if(i < columns - 1) {
+      table += ' | ';
+    } else {
+      table += '\n';
+    }
+  }
+  for(let i = 0; i < columns; i++) {
+    table += '---';
+    if(i < columns - 1) {
+      table += ' | ';
+    } else {
+      table += '\n';
+    }
+  }
+  tableData.slice(1).forEach(row => {
+    for(let i = 0; i < columns; i++) {
+      table += row[i];
+      if(i < columns - 1) {
+        table += ' | ';
+      } else {
+        table += '\n';
+      }
+    }
+  });
 }
 
 /* ====================================================================================================================================================== */
@@ -190,19 +274,17 @@ const fetch = async () => {
 
   // Fetching Data:
   while(progress < maxProgress) {
-    data.push(await fetchBatch(globes.slice(startBatch, endBatch)));
+    data.push(...(await fetchBatch(globes.slice(startBatch, endBatch))));
     startBatch += batchSize;
     endBatch += batchSize;
   }
 
-  // Writing JSON:
-  fs.writeFile('./pools.json', JSON.stringify(data, null, ' '), 'utf8', (err) => {
-    if(err) {
-      console.error(err);
-    } else {
-      console.info(`  > Successfully updated JSON file.`);
-    }
-  });
+  // JSON Output:
+  writeJSON(data);
+
+  // Markdown Output:
+  writeMarkdown(data);
+
 }
 
 /* ====================================================================================================================================================== */
