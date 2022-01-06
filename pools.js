@@ -1,6 +1,7 @@
 
 // Required Packages:
 const { ethers } = require('ethers');
+const axios = require('axios');
 const fs = require('fs');
 
 // Required Config Variables:
@@ -47,7 +48,7 @@ const query = async (address, abi, method, args) => {
       } catch {
         if(++errors === 5) {
           console.error(`\n  > Error calling ${method}(${args}) on ${address}`);
-          console.warn(`  > Execution was stopped due to errors. Try again or check script.`);
+          console.warn(`  > Execution was stopped due to errors. Check script or try again.`);
           process.exit(1);
         }
       }
@@ -84,8 +85,27 @@ const writeJSON = (data, file) => {
 
 /* ====================================================================================================================================================== */
 
+// Function to fetch pool data from API:
+const fetchAPI = async () => {
+  console.info(`  > Fetching API data...`);
+  let url = 'https://api.snowapi.net/graphql';
+  let method = 'post';
+  let data = {query: 'query { SnowglobeContracts { pair, snowglobeAddress, gaugeAddress }}'};
+  try {
+    let pools = (await axios({url, method, data})).data.data.SnowglobeContracts;
+    return pools;
+  } catch {
+    console.error(`  > Error fetching API data.`);
+    console.warn(`  > Execution was stopped due to errors. Check script or try again.`);
+    process.exit(1);
+  }
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to fetch all SnowGlobe addresses:
 const fetchGlobes = async () => {
+  console.info(`  > Starting blockchain calls...`);
   let globes = await query(config.gaugeProxy, config.gaugeProxyABI, 'tokens', []);
   return globes;
 }
@@ -165,7 +185,7 @@ const fetchPlatform = async (token, strategy, globe) => {
 /* ====================================================================================================================================================== */
 
 // Function to fetch batch of data:
-const fetchBatch = async (globes) => {
+const fetchBatch = async (globes, apiPools) => {
   let data = [];
   let promises = globes.map(globe => (async () => {
     if(!ignoreAddresses.includes(globe.toLowerCase())) {
@@ -175,22 +195,33 @@ const fetchBatch = async (globes) => {
         let token = await fetchToken(globe);
         let strategy = await fetchStrategy(controller, token.address);
         if(strategy != config.zero) {
-          let platform = await fetchPlatform(token, strategy, globe);
-          let type = lpSymbols.includes(token.symbol) ? 'lp' : 'single';
-          if(type === 'lp') {
-            let underlyingTokens = await fetchUnderlyingTokens(token.address);
-            let name = '';
-            if(underlyingTokens.token0.symbol === 'WAVAX') {
-              name = `AVAX-${underlyingTokens.token1.symbol}`;
-            } else if(underlyingTokens.token1.symbol === 'WAVAX') {
-              name = `AVAX-${underlyingTokens.token0.symbol}`;
+          let apiPool = apiPools.find(pool => pool.snowglobeAddress.toLowerCase() === globe.toLowerCase());
+          if(apiPool) {
+            if(apiPool.gaugeAddress.toLowerCase() === gauge.toLowerCase()) {
+              let platform = await fetchPlatform(token, strategy, globe);
+              let type = lpSymbols.includes(token.symbol) ? 'lp' : 'single';
+              if(type === 'lp') {
+                let underlyingTokens = await fetchUnderlyingTokens(token.address);
+                let name = '';
+                if(underlyingTokens.token0.symbol === 'WAVAX') {
+                  name = `AVAX-${underlyingTokens.token1.symbol}`;
+                } else if(underlyingTokens.token1.symbol === 'WAVAX') {
+                  name = `AVAX-${underlyingTokens.token0.symbol}`;
+                } else {
+                  name = `${underlyingTokens.token0.symbol}-${underlyingTokens.token1.symbol}`;
+                }
+                data.push({name, platform, type, globe, strategy, gauge, controller, token, underlyingTokens});
+              } else {
+                let name = token.symbol;
+                data.push({name, platform, type, globe, strategy, gauge, controller, token});
+              }
             } else {
-              name = `${underlyingTokens.token0.symbol}-${underlyingTokens.token1.symbol}`;
+              let error = 'Wrong Gauge On API';
+              erroredPools.push({globe, strategy, gauge, controller, token, error});
             }
-            data.push({name, platform, type, globe, strategy, gauge, controller, token, underlyingTokens});
           } else {
-            let name = token.symbol;
-            data.push({name, platform, type, globe, strategy, gauge, controller, token});
+            let error = 'Not On API';
+            erroredPools.push({globe, strategy, gauge, controller, token, error});
           }
         } else {
           let error = 'No Strategy';
@@ -274,17 +305,20 @@ const fetch = async () => {
 
   // Initializations:
   let data = [];
+  let apiData = [];
   let startBatch = 0;
   let endBatch = batchSize;
 
+  // Fetching API Data:
+  apiData.push(...(await fetchAPI()));
+
   // Fetching SnowGlobes:
-  console.info(`  > Starting blockchain calls...`);
   let globes = await fetchGlobes();
   maxProgress = globes.length;
 
   // Fetching Data:
   while(progress < maxProgress) {
-    data.push(...(await fetchBatch(globes.slice(startBatch, endBatch))));
+    data.push(...(await fetchBatch(globes.slice(startBatch, endBatch), apiData)));
     startBatch += batchSize;
     endBatch += batchSize;
   }
