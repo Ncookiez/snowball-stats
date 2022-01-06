@@ -327,14 +327,24 @@ const fetch = async () => {
   data.sort((a, b) => {
     if(a.type === 'lp') {
       if(b.type === 'lp') {
-        return a.name.localeCompare(b.name);
+        let nameSort = a.name.localeCompare(b.name);
+        if(nameSort === 0) {
+          return a.globe.localeCompare(b.globe);
+        } else {
+          return nameSort;
+        }
       } else {
         return -1;
       }
     } else if(b.type === 'lp') {
       return 1;
     } else {
-      return a.name.localeCompare(b.name);
+      let nameSort = a.name.localeCompare(b.name);
+      if(nameSort === 0) {
+        return a.globe.localeCompare(b.globe);
+      } else {
+        return nameSort;
+      }
     }
   });
 
@@ -345,7 +355,7 @@ const fetch = async () => {
   writeMarkdown(data);
 
   // Sorting Error Data:
-  erroredPools.sort((a, b) => b.globe.localeCompare(a.globe));
+  erroredPools.sort((a, b) => a.globe.localeCompare(b.globe));
 
   // Logging Errored Pools:
   writeJSON(erroredPools, 'erroredPools');
