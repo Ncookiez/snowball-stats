@@ -3,12 +3,12 @@
   "version": "1.9.5",
   "description": "Tracking some token and users stats for Snowball.",
   "scripts": {
-    "snob": "node snob.js",
-    "comp": "node comp.js",
-    "nfts": "node nfts.js",
-    "dist": "node dist.js",
-    "axial": "node axial.js",
-    "pools": "node pools.js"
+    "snob": "node scripts/snob.js",
+    "comp": "node scripts/comp.js",
+    "nfts": "node scripts/nfts.js",
+    "dist": "node scripts/dist.js",
+    "axial": "node scripts/axial.js",
+    "pools": "node scripts/pools.js"
   },
   "author": "Ncookie",
   "dependencies": {

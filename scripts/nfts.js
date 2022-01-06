@@ -4,7 +4,7 @@ const axios = require('axios');
 const fs = require('fs');
 
 // Required Config Variables:
-const config = require('./config.js');
+const config = require('../config.js');
 
 /* ====================================================================================================================================================== */
 

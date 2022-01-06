@@ -5,7 +5,7 @@ const axios = require('axios');
 const fs = require('fs');
 
 // Required Config Variables:
-const config = require('./config.js');
+const config = require('../config.js');
 
 // Setting Up RPCs:
 const avax = new ethers.providers.JsonRpcProvider(config.rpc);
@@ -74,7 +74,7 @@ const updateProgress = () => {
 
 // Function to write data to JSON file:
 const writeJSON = (data, file) => {
-  fs.writeFile(`./${file}.json`, JSON.stringify(data, null, ' '), 'utf8', (err) => {
+  fs.writeFile(`./outputs/${file}.json`, JSON.stringify(data, null, ' '), 'utf8', (err) => {
     if(err) {
       console.error(err);
     } else {
@@ -254,7 +254,7 @@ const writeMarkdown = (data) => {
     let table = formatTable(tableData);
     formattedData += header + table + '\n';
   });
-  fs.writeFile('./pools.md', formattedData, 'utf8', (err) => {
+  fs.writeFile('./outputs/pools.md', formattedData, 'utf8', (err) => {
     if(err) {
       console.error(err);
     } else {

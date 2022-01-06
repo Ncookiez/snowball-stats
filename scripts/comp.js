@@ -4,7 +4,7 @@ const { ethers } = require('ethers');
 const axios = require('axios');
 
 // Required Config Variables:
-const config = require('./config.js');
+const config = require('../config.js');
 
 // Setting Up RPC:
 const avax = new ethers.providers.JsonRpcProvider(config.rpc);
