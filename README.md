@@ -117,6 +117,7 @@ Entering the `basic` optional parameter will only run some of the simplest queri
 - List of all data on Snowball pool contracts used for auto-compounding.
 - JSON output of this data (`pools.json`).
 - Markdown output of this data (`pools.md`).
+- JSON output of any errored pools and/or pools that need to be deprecated (`erroredPools.json`).
 
 ```
 npm run pools
