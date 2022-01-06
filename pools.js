@@ -216,11 +216,11 @@ const fetchBatch = async (globes, apiPools) => {
                 data.push({name, platform, type, globe, strategy, gauge, controller, token});
               }
             } else {
-              let error = 'Wrong Gauge On API';
+              let error = 'Wrong Gauge on API';
               erroredPools.push({globe, strategy, gauge, controller, token, error});
             }
           } else {
-            let error = 'Not On API';
+            let error = 'Not on API (Should Probably be Deprecated)';
             erroredPools.push({globe, strategy, gauge, controller, token, error});
           }
         } else {
@@ -343,6 +343,9 @@ const fetch = async () => {
 
   // Markdown Output:
   writeMarkdown(data);
+
+  // Sorting Error Data:
+  erroredPools.sort((a, b) => b.globe.localeCompare(a.globe));
 
   // Logging Errored Pools:
   writeJSON(erroredPools, 'erroredPools');

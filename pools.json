@@ -1588,29 +1588,6 @@
  },
  {
   "name": "AVAX-XAVA",
-  "platform": "Trader Joe",
-  "type": "lp",
-  "globe": "0x0B2C4f6C54182EDeE30DFF69Be972f9E04888321",
-  "strategy": "0x7F623a88180BD44773Aa89de41E53909Fcfe34da",
-  "gauge": "0x8De1b4015E9313fF381eBF95F3393BBCA6Bf1D15",
-  "controller": "0xf7B8D9f8a82a7a6dd448398aFC5c77744Bd6cb85",
-  "token": {
-   "symbol": "JLP",
-   "address": "0x72c3438cf1c915EcF5D9F17A6eD346B273d5bF71"
-  },
-  "underlyingTokens": {
-   "token0": {
-    "symbol": "WAVAX",
-    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
-   },
-   "token1": {
-    "symbol": "XAVA",
-    "address": "0xd1c3f94DE7e5B45fa4eDBBA472491a9f4B166FC4"
-   }
-  }
- },
- {
-  "name": "AVAX-XAVA",
   "platform": "Pangolin",
   "type": "lp",
   "globe": "0x6AB8DAC517c244f53D86a155a14064E86c2dE653",
@@ -1633,25 +1610,25 @@
   }
  },
  {
-  "name": "AVAX-YAK",
-  "platform": "Pangolin",
+  "name": "AVAX-XAVA",
+  "platform": "Trader Joe",
   "type": "lp",
-  "globe": "0x1BF90bdeb965a76Af56024EF3e70439DEa89bF3f",
-  "strategy": "0xE6020e41A65d1B4fe1650f767e1062A110aa25Da",
-  "gauge": "0x0Ee98F4D8008F5eda35A601826933c3cc16d603F",
+  "globe": "0x0B2C4f6C54182EDeE30DFF69Be972f9E04888321",
+  "strategy": "0x7F623a88180BD44773Aa89de41E53909Fcfe34da",
+  "gauge": "0x8De1b4015E9313fF381eBF95F3393BBCA6Bf1D15",
   "controller": "0xf7B8D9f8a82a7a6dd448398aFC5c77744Bd6cb85",
   "token": {
-   "symbol": "PGL",
-   "address": "0xd2F01cd87A43962fD93C21e07c1a420714Cc94C9"
+   "symbol": "JLP",
+   "address": "0x72c3438cf1c915EcF5D9F17A6eD346B273d5bF71"
   },
   "underlyingTokens": {
    "token0": {
-    "symbol": "YAK",
-    "address": "0x59414b3089ce2AF0010e7523Dea7E2b35d776ec7"
-   },
-   "token1": {
     "symbol": "WAVAX",
     "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   },
+   "token1": {
+    "symbol": "XAVA",
+    "address": "0xd1c3f94DE7e5B45fa4eDBBA472491a9f4B166FC4"
    }
   }
  },
@@ -1666,6 +1643,29 @@
   "token": {
    "symbol": "JLP",
    "address": "0xb5c9e891AF3063004a441BA4FaB4cA3D6DEb5626"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "YAK",
+    "address": "0x59414b3089ce2AF0010e7523Dea7E2b35d776ec7"
+   },
+   "token1": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   }
+  }
+ },
+ {
+  "name": "AVAX-YAK",
+  "platform": "Pangolin",
+  "type": "lp",
+  "globe": "0x1BF90bdeb965a76Af56024EF3e70439DEa89bF3f",
+  "strategy": "0xE6020e41A65d1B4fe1650f767e1062A110aa25Da",
+  "gauge": "0x0Ee98F4D8008F5eda35A601826933c3cc16d603F",
+  "controller": "0xf7B8D9f8a82a7a6dd448398aFC5c77744Bd6cb85",
+  "token": {
+   "symbol": "PGL",
+   "address": "0xd2F01cd87A43962fD93C21e07c1a420714Cc94C9"
   },
   "underlyingTokens": {
    "token0": {
