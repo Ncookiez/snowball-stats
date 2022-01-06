@@ -1,0 +1,13 @@
+[
+ {
+  "globe": "0x4c7F9BD56807Becf086681326cfa6Ff41b688a29",
+  "strategy": "0x0000000000000000000000000000000000000000",
+  "gauge": "0x161DB34Db9cf5Dcbd6091966b1Bf94f208459605",
+  "controller": "0xf7B8D9f8a82a7a6dd448398aFC5c77744Bd6cb85",
+  "token": {
+   "symbol": "PGL",
+   "address": "0x11cb8967c9CEBC2bC8349ad612301DaC843669ea"
+  },
+  "error": "No Strategy"
+ }
+]

@@ -24,8 +24,11 @@ const singleTraderJoeStrats = [
 // Additional Settings:
 const lpSymbols = ['PGL', 'JLP'];
 const batchSize = 10;
+
+// Initializations:
 let progress = 0;
 let maxProgress = 0;
+let erroredPools = [];
 
 /* ====================================================================================================================================================== */
 
@@ -64,6 +67,19 @@ const updateProgress = () => {
   } else {
     process.stdout.write(`  > All ${maxProgress} Pools Loaded.\n`);
   }
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to write data to JSON file:
+const writeJSON = (data, file) => {
+  fs.writeFile(`./${file}.json`, JSON.stringify(data, null, ' '), 'utf8', (err) => {
+    if(err) {
+      console.error(err);
+    } else {
+      console.info(`  > Successfully updated ${file}.json.`);
+    }
+  });
 }
 
 /* ====================================================================================================================================================== */
@@ -158,13 +174,27 @@ const fetchBatch = async (globes) => {
         let controller = await fetchController(globe);
         let token = await fetchToken(globe);
         let strategy = await fetchStrategy(controller, token.address);
-        let platform = await fetchPlatform(token, strategy, globe);
-        let type = lpSymbols.includes(token.symbol) ? 'lp' : 'single';
-        if(type === 'lp') {
-          let underlyingTokens = await fetchUnderlyingTokens(token.address);
-          data.push({platform, type, globe, strategy, gauge, controller, token, underlyingTokens});
+        if(strategy != config.zero) {
+          let platform = await fetchPlatform(token, strategy, globe);
+          let type = lpSymbols.includes(token.symbol) ? 'lp' : 'single';
+          if(type === 'lp') {
+            let underlyingTokens = await fetchUnderlyingTokens(token.address);
+            let name = '';
+            if(underlyingTokens.token0.symbol === 'WAVAX') {
+              name = `AVAX-${underlyingTokens.token1.symbol}`;
+            } else if(underlyingTokens.token1.symbol === 'WAVAX') {
+              name = `AVAX-${underlyingTokens.token0.symbol}`;
+            } else {
+              name = `${underlyingTokens.token0.symbol}-${underlyingTokens.token1.symbol}`;
+            }
+            data.push({name, platform, type, globe, strategy, gauge, controller, token, underlyingTokens});
+          } else {
+            let name = token.symbol;
+            data.push({name, platform, type, globe, strategy, gauge, controller, token});
+          }
         } else {
-          data.push({platform, type, globe, strategy, gauge, controller, token});
+          let error = 'No Strategy';
+          erroredPools.push({globe, strategy, gauge, controller, token, error});
         }
       }
     }
@@ -172,19 +202,6 @@ const fetchBatch = async (globes) => {
   })());
   await Promise.all(promises);
   return data;
-}
-
-/* ====================================================================================================================================================== */
-
-// Function to write data to JSON file:
-const writeJSON = (data) => {
-  fs.writeFile('./pools.json', JSON.stringify(data, null, ' '), 'utf8', (err) => {
-    if(err) {
-      console.error(err);
-    } else {
-      console.info(`  > Successfully updated JSON file.`);
-    }
-  });
 }
 
 /* ====================================================================================================================================================== */
@@ -197,18 +214,7 @@ const writeMarkdown = (data) => {
     let tableData = [['Name', 'Deposit', 'Strategy', 'Gauge']];
     let pools = data.filter(pool => pool.platform === platform);
     pools.forEach(pool => {
-      let name;
-      if(pool.type === 'lp') {
-        if(pool.underlyingTokens.token0.symbol === 'WAVAX') {
-          name = `\`AVAX - ${pool.underlyingTokens.token1.symbol}\``;
-        } else if(pool.underlyingTokens.token1.symbol === 'WAVAX') {
-          name = `\`AVAX - ${pool.underlyingTokens.token0.symbol}\``;
-        } else {
-          name = `\`${pool.underlyingTokens.token0.symbol} - ${pool.underlyingTokens.token1.symbol}\``;
-        }
-      } else {
-        name = `\`${pool.token.symbol}\``;
-      }
+      let name = `\`${pool.name}\``.replace('-', ' - ');
       let deposit = `[Deposit Contract](https://snowtrace.io/address/${pool.globe})`;
       let strategy = `[Strategy Contract](https://snowtrace.io/address/${pool.strategy})`;
       let gauge = `[Gauge Contract](https://snowtrace.io/address/${pool.gauge})`;
@@ -221,7 +227,7 @@ const writeMarkdown = (data) => {
     if(err) {
       console.error(err);
     } else {
-      console.info(`  > Successfully updated Markdown file.`);
+      console.info(`  > Successfully updated pools.md.`);
     }
   });
 }
@@ -283,11 +289,29 @@ const fetch = async () => {
     endBatch += batchSize;
   }
 
+  // Sorting Data:
+  data.sort((a, b) => {
+    if(a.type === 'lp') {
+      if(b.type === 'lp') {
+        return a.name.localeCompare(b.name);
+      } else {
+        return -1;
+      }
+    } else if(b.type === 'lp') {
+      return 1;
+    } else {
+      return a.name.localeCompare(b.name);
+    }
+  });
+
   // JSON Output:
-  writeJSON(data);
+  writeJSON(data, 'pools');
 
   // Markdown Output:
   writeMarkdown(data);
+
+  // Logging Errored Pools:
+  writeJSON(erroredPools, 'erroredPools');
 
 }
 
