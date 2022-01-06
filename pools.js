@@ -19,7 +19,7 @@ const ignoreAddresses = [
 
 // Setting Up Single-Asset Trader Joe Strategies:
 const singleTraderJoeStrats = [
-  '0x6a52e6b23700a63ea4a0db313ebd386fb510ee3c'  // xJOE
+  '0x8c06828a1707b0322baaa46e3b0f4d1d55f6c3e6'  // xJOE
 ];
 
 // Additional Settings:
