@@ -16,13 +16,15 @@ const week = 604800;
 
 // Manually Inputting Wrong CoinGecko AXIAL Prices:
 const axialPrices = [
-  { timestamp: 1639612800, price: 0.048 },
-  { timestamp: 1640217600, price: 0.0313 }
+  { timestamp: 1639612800, price: 0.0480 },
+  { timestamp: 1640217600, price: 0.0313 },
+  { timestamp: 1640822400, price: 0.0213 }
 ];
 
 // Manually Inputting Wrong Token Checkpoints:
 const axialCheckpoints = [
-  { timestamp: 1639612800, amount: 1009388.73 }
+  { timestamp: 1639612800, amount: 1009388.73 },
+  { timestamp: 1640822400, amount: 1064909.68 }
 ];
 
 /* ====================================================================================================================================================== */

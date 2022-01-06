@@ -23,7 +23,8 @@ const blockTimestamps = [
   { block: 7989367, timestamp: 1639008000 }, // Dec.  9, 2021
   { block: 8290862, timestamp: 1639612800 }, // Dec. 16, 2021
   { block: 8589431, timestamp: 1640217600 }, // Dec. 23, 2021
-  { block: 8888076, timestamp: 1640822400 }  // Dec. 30, 2021
+  { block: 8888076, timestamp: 1640822400 }, // Dec. 30, 2021
+  { block: 9187865, timestamp: 1641427200 }, // Jan.  6, 2022
 ];
 const querySize = 50000;
 

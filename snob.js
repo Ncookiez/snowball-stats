@@ -103,24 +103,29 @@ const getStakerInfo = async () => {
         let promises = result.data.data.items.map(tx => (async () => {
           if(tx.successful && tx.from_address.toLowerCase() != config.xsnob.toLowerCase() && !wallets.includes(tx.from_address)) {
             wallets.push(tx.from_address);
-            try {
-              let stake = await contract.locked(tx.from_address);
-              let amount = parseInt(stake.amount) / (10 ** 18);
-              let unlock = parseInt(stake.end);
-              if(amount > 0) {
-                stakerInfo.push({ wallet: tx.from_address, amount, unlock });
-              }
-            } catch {
+            let dataFetched = false;
+            while(!dataFetched) {
               try {
-                let contract = new ethers.Contract(config.xsnob, config.xsnobABI, avax_backup);
                 let stake = await contract.locked(tx.from_address);
                 let amount = parseInt(stake.amount) / (10 ** 18);
                 let unlock = parseInt(stake.end);
                 if(amount > 0) {
                   stakerInfo.push({ wallet: tx.from_address, amount, unlock });
                 }
+                dataFetched = true;
               } catch {
-                console.log('RPC ERROR: Call Rejected - Could not fetch xSNOB info for', tx.from_address);
+                try {
+                  let contract = new ethers.Contract(config.xsnob, config.xsnobABI, avax_backup);
+                  let stake = await contract.locked(tx.from_address);
+                  let amount = parseInt(stake.amount) / (10 ** 18);
+                  let unlock = parseInt(stake.end);
+                  if(amount > 0) {
+                    stakerInfo.push({ wallet: tx.from_address, amount, unlock });
+                  }
+                  dataFetched = true;
+                } catch {
+                  console.log(`RPC ERROR: Retrying call for xSNOB info... (${tx.from_address})`);
+                }
               }
             }
           }
