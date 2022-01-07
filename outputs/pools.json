@@ -184,6 +184,29 @@
   }
  },
  {
+  "name": "AVAX-CLY",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0x702999Be42a3F5B47c7B983BF445B1607b846630",
+  "strategy": "0xD8E3c23F483933D6B7b9DCb89A7d2c605fAeD0cB",
+  "gauge": "0x89d6eD648200B66A84F90d178E6668213bF2CFcE",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0x0B2777b0c55AEaAeb56E86B6eEFa6cC2Cfa00e07"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   },
+   "token1": {
+    "symbol": "CLY",
+    "address": "0xec3492a2508DDf4FDc0cD76F31f340b30d1793e6"
+   }
+  }
+ },
+ {
   "name": "AVAX-COOK",
   "platform": "Pangolin",
   "type": "lp",
@@ -460,6 +483,29 @@
   }
  },
  {
+  "name": "AVAX-H2O",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0x3CE30991623Dc1398C10A9f933D7a614A42Cc597",
+  "strategy": "0x7849Ec4B73f08370E4686eB0F54c53D0B13fc277",
+  "gauge": "0x266f912e789c98c9ae1E63B5c09E0D374bdd88e6",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0x9615a11eAA912eAE869E9c1097df263Fc3E105F3"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "H2O",
+    "address": "0x026187BdbC6b751003517bcb30Ac7817D5B766f8"
+   },
+   "token1": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   }
+  }
+ },
+ {
   "name": "AVAX-HCT",
   "platform": "Pangolin",
   "type": "lp",
@@ -525,6 +571,29 @@
    "token1": {
     "symbol": "ICE",
     "address": "0xe0Ce60AF0850bF54072635e66E79Df17082A1109"
+   }
+  }
+ },
+ {
+  "name": "AVAX-IME",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0xe6d20Fc3fC82c8526994d9923b2BbbDd69B227D6",
+  "strategy": "0x8d38ed04F489F973d2eb497965F084531504fF7d",
+  "gauge": "0x05984747755d588A345D8c4c5dd1F6CEA6f89aE0",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0x5d95ae932D42E53Bb9DA4DE65E9b7263A4fA8564"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   },
+   "token1": {
+    "symbol": "IME",
+    "address": "0xF891214fdcF9cDaa5fdC42369eE4F27F226AdaD6"
    }
   }
  },
@@ -966,6 +1035,29 @@
   }
  },
  {
+  "name": "AVAX-PLN",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0xa15000C4a476c04442FC4712263fFa35E98121BD",
+  "strategy": "0xaAD354a34c11df4781F0C9982721E59F712AbD08",
+  "gauge": "0x8c302d54be1BA5e55f47E89109eaDfDAe79F5123",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0x829A9F8894Ef17F1523EC87a9f8e5e0CF5DC2003"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "PLN",
+    "address": "0x7b2B702706D9b361dfE3f00bD138C0CFDA7FB2Cf"
+   },
+   "token1": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   }
+  }
+ },
+ {
   "name": "AVAX-PNG",
   "platform": "Pangolin",
   "type": "lp",
@@ -981,6 +1073,29 @@
    "token0": {
     "symbol": "PNG",
     "address": "0x60781C2586D68229fde47564546784ab3fACA982"
+   },
+   "token1": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   }
+  }
+ },
+ {
+  "name": "AVAX-PTP",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0x0377c3e6072bEa5cb34a19adce67394373AeD04B",
+  "strategy": "0xdE138F00685F6dd2920AFfF1B012EB114050b305",
+  "gauge": "0x09A3C4E9c61adBd8826F405d7D290e3DB6249F81",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0xCDFD91eEa657cc2701117fe9711C9a4F61FEED23"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "PTP",
+    "address": "0x22d4002028f537599bE9f666d1c4Fa138522f9c8"
    },
    "token1": {
     "symbol": "WAVAX",
@@ -1836,6 +1951,29 @@
    "token1": {
     "symbol": "DAI.e",
     "address": "0xd586E7F844cEa2F87f50152665BCbc2C279D8d70"
+   }
+  }
+ },
+ {
+  "name": "USDC.e-USDC",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0xA562f95dB32A0D72e0692f731BBfb9E20648870B",
+  "strategy": "0x59FE2e91c8A42C59CF09d437E5b192c8438cD8E9",
+  "gauge": "0x22ec75A6BC9D8f2b828615820c98811c6712B303",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0x2A8A315e82F85D1f0658C5D66A452Bbdd9356783"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "USDC.e",
+    "address": "0xA7D7079b0FEaD91F3e65f86E8915Cb59c1a4C664"
+   },
+   "token1": {
+    "symbol": "USDC",
+    "address": "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E"
    }
   }
  },
