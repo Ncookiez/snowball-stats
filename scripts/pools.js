@@ -246,9 +246,9 @@ const writeMarkdown = (data) => {
     let pools = data.filter(pool => pool.platform === platform);
     pools.forEach(pool => {
       let name = `\`${pool.name}\``.replace('-', ' - ');
-      let deposit = `[Deposit Contract](https://snowtrace.io/address/${pool.globe})`;
-      let strategy = `[Strategy Contract](https://snowtrace.io/address/${pool.strategy})`;
-      let gauge = `[Gauge Contract](https://snowtrace.io/address/${pool.gauge})`;
+      let deposit = `[Deposit](https://snowtrace.io/address/${pool.globe})`;
+      let strategy = `[Strategy](https://snowtrace.io/address/${pool.strategy})`;
+      let gauge = `[Gauge](https://snowtrace.io/address/${pool.gauge})`;
       tableData.push([name, deposit, strategy, gauge]);
     });
     let table = formatTable(tableData);
