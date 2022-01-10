@@ -1,6 +1,6 @@
 # Snowball Stats
 
-Repository to track some token and user stats for Snowball.
+Repository to track Snowball statistics.
 
 ---
 

@@ -1,7 +1,7 @@
 {
   "name": "snowball-stats",
   "version": "1.9.6",
-  "description": "Tracking some token and users stats for Snowball.",
+  "description": "Tracking Snowball statistics.",
   "scripts": {
     "snob": "node scripts/snob.js",
     "comp": "node scripts/comp.js",
