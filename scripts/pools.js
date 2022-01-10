@@ -24,7 +24,7 @@ const singleTraderJoeStrats = [
 
 // Additional Settings:
 const lpSymbols = ['PGL', 'JLP'];
-const batchSize = 10;
+const batchSize = 50;
 
 // Initializations:
 let progress = 0;
