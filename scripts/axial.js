@@ -39,32 +39,55 @@ if(args.length > 0) {
 
 /* ====================================================================================================================================================== */
 
+// Function to make blockchain queries:
+const query = async (address, abi, method, args) => {
+  let result;
+  let errors = 0;
+  while(!result) {
+    try {
+      let contract = new ethers.Contract(address, abi, avax);
+      result = await contract[method](...args);
+    } catch {
+      try {
+        let contract = new ethers.Contract(address, abi, avax_backup);
+        result = await contract[method](...args);
+      } catch {
+        if(++errors === 3) {
+          console.error(`RPC Error: Calling ${method}(${args}) on ${address}.`);
+          process.exit(1);
+        }
+      }
+    }
+  }
+  return result;
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to get AXIAL Price:
 const getPrice = async () => {
-  let query = 'https://api.coingecko.com/api/v3/simple/token_price/avalanche?contract_addresses=' + config.axial + '&vs_currencies=usd';
+  let query = `https://api.coingecko.com/api/v3/simple/token_price/avalanche?contract_addresses=${config.axial}&vs_currencies=usd`;
   let result = await axios.get(query);
-  let price = result.data[config.axial.toLowerCase()].usd.toFixed(4);
+  let price = result.data[config.axial.toLowerCase()].usd;
   console.log('Price loaded...');
-  return price;
+  return price.toFixed(4);
 }
 
 /* ====================================================================================================================================================== */
 
 // Function to get total AXIAL supply:
 const getTotalSupply = async () => {
-  let contract = new ethers.Contract(config.axial, config.minABI, avax);
-  let supply = await contract.totalSupply();
+  let supply = await query(config.axial, config.minABI, 'totalSupply', []);
   console.log('Total supply loaded...');
   return supply / (10 ** 18);
 }
 
 /* ====================================================================================================================================================== */
 
-// Function to get AXIAL in treasury:
+// Function to get AXIAL in Snowball's treasury:
 const getTreasuryBalance = async () => {
-  let contract = new ethers.Contract(config.axial, config.minABI, avax);
-  let treasuryBalance = parseInt(await contract.balanceOf(config.treasury));
-  console.log('Treasury balance loaded...');
+  let treasuryBalance = parseInt(await query(config.axial, config.minABI, 'balanceOf', [config.treasury]));
+  console.log('Snowball\'s treasury balance loaded...');
   return treasuryBalance / (10 ** 18);
 }
 
@@ -72,9 +95,8 @@ const getTreasuryBalance = async () => {
 
 // Function to get AXIAL in Axial's treasury:
 const getAxialTreasuryBalance = async () => {
-  let contract = new ethers.Contract(config.axial, config.minABI, avax);
-  let treasuryBalance = parseInt(await contract.balanceOf(config.axialTreasury));
-  console.log('Axial\'s treasury balance loaded...');
+  let treasuryBalance = parseInt(await query(config.axial, config.minABI, 'balanceOf', [config.axialTreasury]));
+  console.log('Treasury balance loaded...');
   return treasuryBalance / (10 ** 18);
 }
 
@@ -312,6 +334,43 @@ const getSwapStats = (txs) => {
 
 /* ====================================================================================================================================================== */
 
+// Function to get peggies in Axial's Treasury:
+const getAxialTreasuryPeggies = async () => {
+  let peggies = 0;
+  let promises = config.axialTokens.map(token => (async () => {
+    let balance = parseInt(await query(token.address, config.minABI, 'balanceOf', [config.axialTreasury]));
+    if(balance > 0) {
+      peggies += balance / (10 ** token.decimals);
+    }
+  })());
+  await Promise.all(promises);
+  console.log('Treasury stablecoin balance loaded...');
+  return peggies;
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to get unclaimed peggies from pools:
+const getUnclaimedPeggies = async () => {
+  let values = [];
+  let sum = 0;
+  let promises = config.axialPools.map(pool => (async () => {
+    let amount = 0;
+    for(let i = 0; i < pool.tokens.length; i++) {
+      amount += parseInt(await query(pool.swap, config.swapABI, 'getAdminBalance', [i])) / (10 ** pool.tokens[i].decimals);
+    }
+    values.push({name: pool.name, amount});
+    sum += amount;
+  })());
+  await Promise.all(promises);
+  values.push({name: 'all', amount: sum});
+  values.sort((a, b) => b.amount - a.amount);
+  console.log('Unclaimed stablecoin admin fees from pools loaded...');
+  return values;
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to pad date if necessary:
 const pad = (num) => {
   let str = num.toString();
@@ -333,9 +392,11 @@ const fetch = async () => {
     // Fetching Data:
     let price = await getPrice();
     let totalSupply = await getTotalSupply();
-    let treasuryBalance = await getTreasuryBalance();
+    let snowballTreasuryBalance = await getTreasuryBalance();
     let axialTreasuryBalance = await getAxialTreasuryBalance();
-    let circulatingSupply = getCirculatingSupply(totalSupply, treasuryBalance, axialTreasuryBalance);
+    let axialTreasuryPeggies = await getAxialTreasuryPeggies();
+    let unclaimedTreasuryPeggies = await getUnclaimedPeggies();
+    let circulatingSupply = getCirculatingSupply(totalSupply, snowballTreasuryBalance, axialTreasuryBalance);
     let txs = await getTXs();
     let numTXs = getNumTXs(txs);
     let totalSwapped = getTotalSwapped(txs);
@@ -354,8 +415,11 @@ const fetch = async () => {
     console.log(`  - AXIAL Price: $${price}`);
     console.log(`  - Total AXIAL Supply: ${totalSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL`);
     console.log(`  - AXIAL Market Cap: $${(price * totalSupply).toLocaleString(undefined, {maximumFractionDigits: 0})}`);
-    console.log(`  - Treasury: $${(price * treasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0})} (${treasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL)`);
-    console.log(`  - Axial Treasury: $${(price * axialTreasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0})} (${axialTreasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL)`);
+    console.log(`  - Treasury: $${((price * axialTreasuryBalance) + axialTreasuryPeggies).toLocaleString(undefined, {maximumFractionDigits: 0})} (${axialTreasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL & ${axialTreasuryPeggies.toLocaleString(undefined, {maximumFractionDigits: 0})} Peggies)`);
+    console.log(`  - Unclaimed Swap Fees: $${unclaimedTreasuryPeggies[0].amount.toLocaleString(undefined, {maximumFractionDigits: 0})}`);
+    unclaimedTreasuryPeggies.slice(1).forEach(pool => {
+      console.log(`      > ${pool.name} - $${pool.amount.toLocaleString(undefined, {maximumFractionDigits: 0})}`);
+    });
     console.log(`  - Circulating AXIAL Supply: ${circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL (${((circulatingSupply / totalSupply) * 100).toFixed(2)}% of total supply)`);
     console.log(`  - Total Value Swapped: $${totalSwapped.toLocaleString(undefined, {maximumFractionDigits: 0})} ($${(totalSwapped * 0.0004).toLocaleString(undefined, {maximumFractionDigits: 0})} Swap Fees)`);
     poolValueSwapped.forEach(pool => {
@@ -405,9 +469,11 @@ const fetch = async () => {
     // Fetching Data:
     let price = await getPrice();
     let totalSupply = await getTotalSupply();
-    let treasuryBalance = await getTreasuryBalance();
+    let snowballTreasuryBalance = await getTreasuryBalance();
     let axialTreasuryBalance = await getAxialTreasuryBalance();
-    let circulatingSupply = getCirculatingSupply(totalSupply, treasuryBalance, axialTreasuryBalance);
+    let axialTreasuryPeggies = await getAxialTreasuryPeggies();
+    let unclaimedTreasuryPeggies = await getUnclaimedPeggies();
+    let circulatingSupply = getCirculatingSupply(totalSupply, snowballTreasuryBalance, axialTreasuryBalance);
 
     // Printing Data:
     console.log('\n  ==============================');
@@ -416,8 +482,11 @@ const fetch = async () => {
     console.log(`  - AXIAL Price: $${price}`);
     console.log(`  - Total AXIAL Supply: ${totalSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL`);
     console.log(`  - AXIAL Market Cap: $${(price * totalSupply).toLocaleString(undefined, {maximumFractionDigits: 0})}`);
-    console.log(`  - Treasury: $${(price * treasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0})} (${treasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL)`);
-    console.log(`  - Axial Treasury: $${(price * axialTreasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0})} (${axialTreasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL)`);
+    console.log(`  - Treasury: $${((price * axialTreasuryBalance) + axialTreasuryPeggies).toLocaleString(undefined, {maximumFractionDigits: 0})} (${axialTreasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL & ${axialTreasuryPeggies.toLocaleString(undefined, {maximumFractionDigits: 0})} Peggies)`);
+    console.log(`  - Unclaimed Swap Fees: $${unclaimedTreasuryPeggies[0].amount.toLocaleString(undefined, {maximumFractionDigits: 0})}`);
+    unclaimedTreasuryPeggies.slice(1).forEach(pool => {
+      console.log(`      > ${pool.name} - $${pool.amount.toLocaleString(undefined, {maximumFractionDigits: 0})}`);
+    });
     console.log(`  - Circulating AXIAL Supply: ${circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL (${((circulatingSupply / totalSupply) * 100).toFixed(2)}% of total supply)`);
   }
 }

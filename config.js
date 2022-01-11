@@ -47,6 +47,17 @@ exports.axialPools = [
 ];
 exports.paraswap = '0xdef171fe48cf0115b1d80b88dc8eab59176fee57';
 exports.axialSwapEventABI = ['event TokenSwap(address indexed buyer, uint256 tokensSold, uint256 tokensBought, uint128 soldId, uint128 boughtId)'];
+exports.axialTokens = [
+  { symbol: 'TUSD', address: '0x1c20e891bab6b1727d14da358fae2984ed9b59eb', decimals: 18 },
+  { symbol: 'USDC.e', address: '0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664', decimals: 6 },
+  { symbol: 'DAI.e', address: '0xd586e7f844cea2f87f50152665bcbc2c279d8d70', decimals: 18 },
+  { symbol: 'USDT.e', address: '0xc7198437980c041c805a1edcba50c1ce5db95118', decimals: 6 },
+  { symbol: 'TSD', address: '0x4fbf0429599460d327bd5f55625e30e4fc066095', decimals: 18 },
+  { symbol: 'MIM', address: '0x130966628846bfd36ff31a822705796e8cb8c18d', decimals: 18 },
+  { symbol: 'FRAX', address: '0xd24c2ad096400b6fbcd2ad8b24e7acbc21a1da64', decimals: 18 },
+  { symbol: 'AVAI', address: '0x346a59146b9b4a77100d369a3d18e8007a9f46a6', decimals: 18 },
+  { symbol: 'USDC', address: '0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e', decimals: 6 }
+];
 
 // API Keys:
 exports.ckey = 'ckey_f49ab6dbd21f47a5a25eb922e0d';
@@ -87,3 +98,6 @@ exports.lpTokenABI = [
 exports.strategyABI = [
   { constant: true, inputs: [], name: "getName", outputs: [{ name: "", type: "string" }], type: "function" }
 ]
+exports.swapABI = [
+  { constant: true, inputs: [{ name: "index", type: "uint256" }], name: "getAdminBalance", outputs: [{ name: "", type: "uint256" }], type: "function" }
+];

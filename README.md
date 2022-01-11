@@ -86,7 +86,8 @@ npm run dist
 - Total AXIAL supply.
 - AXIAL market cap.
 - Treasury AXIAL balance.
-- Axial's treasury AXIAL balance.
+- Treasury stablecoin balance.
+- Unclaimed treasury swap fees from each pool.
 - Circulating AXIAL supply.
 - Total number of swap transactions.
 - Total all-time volume traded.
