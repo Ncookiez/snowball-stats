@@ -23,8 +23,8 @@ exports.nfts = [
   { name: 'Rolling Sasquatch - Orange', address: '0xD65e006644D417Af6A9385182C21733762b94E83' },
   { name: 'Rolling Sasquatch - Blue', address: '0xae88bE7d3fE6545C688b640B427aF4bAb90e2638' },
   { name: 'Rolling Sasquatch - Green', address: '0x5edd9bC699B6A613875E6760B4978d14d6EB3899' },
-  { name: 'Rolling Sasquatch - Laser Eyes', address: '0xd66Df640A2f213B6e5087204cAee2b2145A1c1c9' }
-  // <TODO> Add New Beanie NFT
+  { name: 'Rolling Sasquatch - Laser Eyes', address: '0xd66Df640A2f213B6e5087204cAee2b2145A1c1c9' },
+  { name: 'Snowball Holiday Beanie', address: '0x9fF1918d212c435AD1F1734E9C4DC2DB835161Af' }
 ];
 exports.nftMarketplaces = [
   '0xb61294df4cbf2a6af0c90d46e99bbdf4b750be3e',
