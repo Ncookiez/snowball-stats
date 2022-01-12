@@ -6,6 +6,7 @@ exports.rpc_backup = 'https://avax-mainnet.gateway.pokt.network/v1/lb/605238bf6b
 // Snowball Variables:
 exports.snob = '0xC38f41A296A4493Ff429F1238e030924A1542e50';
 exports.xsnob = '0x83952E7ab4aca74ca96217D6F8f7591BEaD6D64E';
+exports.governance = '0xfdCcf6D49A29f435E509DFFAAFDecB0ADD93f8C0';
 exports.gaugeProxy = '0x215D5eDEb6A6a3f84AE9d72962FEaCCdF815BF27';
 exports.oldGaugeProxy = '0xFc371bA1E7874Ad893408D7B581F3c8471F03D2C';
 exports.operations = '0x096a46142C199C940FfEBf34F0fe2F2d674fDB1F';
@@ -32,6 +33,7 @@ exports.nftMarketplaces = [
   '0xd42e49c1b481817365b2fc744c9ae84ba3862429'
 ];
 exports.platforms = ['Trader Joe', 'Banker Joe', 'Pangolin', 'Benqi', 'Aave', 'Axial', 'Teddy'];
+exports.voteEventABI = ['event NewVote(uint256 proposalId, address voter, bool support, uint256 votes)'];
 
 // Axial Variables:
 exports.axial = '0xcf8419a615c57511807236751c0af38db4ba3351';

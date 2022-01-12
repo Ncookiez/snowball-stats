@@ -13,6 +13,10 @@ const avax_backup = new ethers.providers.JsonRpcProvider(config.rpc_backup);
 // Setting Current Time:
 const time = Math.round(Date.now() / 1000);
 
+// Setting Block Variables:
+const startBlock = 2477000;
+const querySize = 100000;
+
 // Setting Up Optional Args:
 let basic = false;
 const args = process.argv.slice(2);
@@ -38,7 +42,7 @@ const query = async (address, abi, method, args) => {
         result = await contract[method](...args);
       } catch {
         if(++errors === 3) {
-          console.error(`RPC Error: Calling ${method}(${args}) on ${address}.`);
+          console.error(`RPC ERROR: Calling ${method}(${args}) on ${address}.`);
           process.exit(1);
         }
       }
@@ -315,12 +319,66 @@ const getGaugeVoterInfo = async () => {
 
 /* ====================================================================================================================================================== */
 
-// Function to get number of current stakers that have voted:
-const getStakingVoters = (voterInfo, stakerInfo) => {
+// Function to get proposal voter info:
+const getProposalVoterInfo = async () => {
+  let wallets = [];
+  let votes = {};
+  let voteCount = 0;
+  let currentBlock = await avax.getBlockNumber();
+  let governanceContract = new ethers.Contract(config.governance, config.voteEventABI, avax);
+  let backupGovernanceContract = new ethers.Contract(config.governance, config.voteEventABI, avax_backup);
+  let eventFilter = governanceContract.filters.NewVote();
+  let backupEventFilter = backupGovernanceContract.filters.NewVote();
+  let lastQueriedBlock = startBlock;
+  try {
+    while(++lastQueriedBlock < currentBlock) {
+      let targetBlock = Math.min(lastQueriedBlock + querySize, currentBlock);
+      let result;
+      while(!result) {
+        try {
+          result = await governanceContract.queryFilter(eventFilter, lastQueriedBlock, targetBlock);
+        } catch {
+          try {
+            result = await backupGovernanceContract.queryFilter(backupEventFilter, lastQueriedBlock, targetBlock);
+          } catch {
+            console.log(`RPC ERROR: Retrying block ${lastQueriedBlock} query...`);
+          }
+        }
+      }
+      let promises = result.map(event => (async () => {
+        if(!wallets.includes(event.args.voter)) {
+          wallets.push(event.args.voter);
+        }
+        if(!votes.hasOwnProperty(`proposal${event.args.proposalId}`)) {
+          votes[`proposal${event.args.proposalId}`] = [];
+        }
+        votes[`proposal${event.args.proposalId}`].push({
+          wallet: event.args.voter,
+          block: event.blockNumber,
+          support: event.args.support,
+          votes: parseInt(event.args.votes)
+        });
+        voteCount++;
+      })());
+      await Promise.all(promises);
+      lastQueriedBlock = targetBlock;
+    }
+  } catch {
+    console.error(`RPC ERROR: Proposal voting transactions were not able to be fetched.`);
+    process.exit(1);
+  }
+  console.log(`Proposal votes loaded...`);
+  return {voters: wallets, votes, voteCount};
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to get number of current stakers that have voted for gauge allocations and/or any proposals:
+const getStakingVoters = (gaugeVoterInfo, proposalVoterInfo, stakerInfo) => {
   let stakers = stakerInfo.filter(stake => stake.unlock > time);
   let numStakingVoters = 0;
   stakers.forEach(stake => {
-    if(voterInfo.voters.includes(stake.wallet)) {
+    if(gaugeVoterInfo.voters.includes(stake.wallet) || proposalVoterInfo.voters.includes(stake.wallet)) {
       numStakingVoters++;
     }
   });
@@ -344,7 +402,8 @@ const fetch = async () => {
     let circulatingSupply = await getCirculatingSupply(totalSupply, treasuryBalance, staked);
     let outputSupply = await getOutputSupply();
     let stakerInfo = await getStakerInfo();
-    let voterInfo = await getGaugeVoterInfo();
+    let gaugeVoterInfo = await getGaugeVoterInfo();
+    let proposalVoterInfo = await getProposalVoterInfo();
     let unclaimedSNOB = await getUnclaimedSNOB();
     let unclaimedAXIAL = await getUnclaimedAXIAL();
     let numStakers = getStakers(stakerInfo);
@@ -355,7 +414,7 @@ const fetch = async () => {
     let forgetfulStakers = getForgetfulStakers(stakerInfo);
     let forgottenStakes = getForgottenStakes(stakerInfo);
     let richList = getRichList(stakerInfo);
-    let currentStakingVotes = getStakingVoters(voterInfo, stakerInfo);
+    let currentStakingVotes = getStakingVoters(gaugeVoterInfo, proposalVoterInfo, stakerInfo);
 
     // Printing Data:
     console.log('\n  ==============================');
@@ -382,8 +441,10 @@ const fetch = async () => {
     richList.forEach(user => {
       console.log('      >', user.wallet, '-', user.xsnob.toLocaleString(undefined, {maximumFractionDigits: 0}), 'xSNOB (' + ((user.xsnob / outputSupply) * 100).toFixed(2) + '% of possible votes)');
     });
-    console.log('  - Allocation Voters:', voterInfo.voters.length.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Users');
-    console.log('  - Total Allocation Votes:', voterInfo.votes.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Votes');
+    console.log('  - Allocation Voters:', gaugeVoterInfo.voters.length.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Users');
+    console.log('  - Proposal Voters:', proposalVoterInfo.voters.length.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Users');
+    console.log('  - Total Allocation Votes:', gaugeVoterInfo.votes.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Votes');
+    console.log('  - Total Proposal Votes:', proposalVoterInfo.voteCount.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Votes');
     console.log('  - % of Current Stakers Voted:', ((currentStakingVotes / numStakers) * 100).toFixed(2) + '%');
 
   // Basic Data (Loads Faster):

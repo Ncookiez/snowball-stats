@@ -53,7 +53,7 @@ const query = async (address, abi, method, args) => {
         result = await contract[method](...args);
       } catch {
         if(++errors === 3) {
-          console.error(`RPC Error: Calling ${method}(${args}) on ${address}.`);
+          console.error(`RPC ERROR: Calling ${method}(${args}) on ${address}.`);
           process.exit(1);
         }
       }
@@ -130,7 +130,7 @@ const getTXs = async () => {
             try {
               result = await backupSwapContract.queryFilter(backupEventFilter, lastQueriedBlock, targetBlock);
             } catch {
-              console.log(`RPC Error: Retrying block ${lastQueriedBlock} query for ${pool.name}...`);
+              console.log(`RPC ERROR: Retrying block ${lastQueriedBlock} query for ${pool.name}...`);
             }
           }
         }
@@ -153,7 +153,7 @@ const getTXs = async () => {
       }
       console.log(`${pool.name} transactions loaded...`);
     } catch {
-      console.error(`RPC Error: ${pool.name} transactions were not able to be fetched.`);
+      console.error(`RPC ERROR: ${pool.name} transactions were not able to be fetched.`);
       process.exit(1);
     }
   })());
