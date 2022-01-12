@@ -356,7 +356,7 @@ const getProposalVoterInfo = async () => {
           wallet: event.args.voter,
           block: event.blockNumber,
           support: event.args.support,
-          votes: parseInt(event.args.votes)
+          votes: parseInt(event.args.votes) / (10 ** 18)
         });
         voteCount++;
       })());
@@ -383,6 +383,28 @@ const getStakingVoters = (gaugeVoterInfo, proposalVoterInfo, stakerInfo) => {
     }
   });
   return numStakingVoters;
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to get data for each governance proposal:
+const getProposalData = (info) => {
+  let proposalData = [];
+  Object.keys(info.votes).forEach(proposal => {
+    let forVotes = 0;
+    let againstVotes = 0;
+    info.votes[proposal].forEach(vote => {
+      vote.support ? forVotes += vote.votes : againstVotes += vote.votes;
+    });
+    proposalData.push({
+      number: parseInt(proposal.slice(8)) + 7,
+      votes: forVotes + againstVotes,
+      outcome: forVotes > againstVotes ? true : false,
+      percentage: (forVotes > againstVotes ? (forVotes / (forVotes + againstVotes)) * 100 : (againstVotes / (forVotes + againstVotes)) * 100).toFixed(2)
+    });
+  });
+  proposalData.sort((a, b) => a.number - b.number);
+  return proposalData;
 }
 
 /* ====================================================================================================================================================== */
@@ -415,6 +437,7 @@ const fetch = async () => {
     let forgottenStakes = getForgottenStakes(stakerInfo);
     let richList = getRichList(stakerInfo);
     let currentStakingVotes = getStakingVoters(gaugeVoterInfo, proposalVoterInfo, stakerInfo);
+    let proposalData = getProposalData(proposalVoterInfo);
 
     // Printing Data:
     console.log('\n  ==============================');
@@ -446,6 +469,10 @@ const fetch = async () => {
     console.log(`  - Total Allocation Votes: ${gaugeVoterInfo.votes.toLocaleString(undefined, {maximumFractionDigits: 0})} Votes`);
     console.log(`  - Total Proposal Votes: ${proposalVoterInfo.voteCount.toLocaleString(undefined, {maximumFractionDigits: 0})} Votes`);
     console.log(`  - % of Current Stakers Voted: ${((currentStakingVotes / numStakers) * 100).toFixed(2)}%`);
+    console.log('  - Proposal Participation & Results:');
+    proposalData.forEach(proposal => {
+      console.log(`      > Proposal ${proposal.number < 10 ? ` ${proposal.number}` : proposal.number} - ${proposal.votes.toLocaleString(undefined, {maximumFractionDigits: 0})} xSNOB - ${proposal.percentage}% ${proposal.outcome ? `In Favor` : `Against`}`);
+    });
 
   // Basic Data (Loads Faster):
   } else {

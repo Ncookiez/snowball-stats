@@ -31,6 +31,7 @@ Repository to track Snowball statistics.
 - Total number of SNOB allocation votes.
 - Total number of proposal votes.
 - Percentage of current SNOB stakers that have voted on SNOB allocations or governance proposals.
+- Participation and results of each governance proposal.
 
 ```
 npm run snob
