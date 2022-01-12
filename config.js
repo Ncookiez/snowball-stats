@@ -72,8 +72,7 @@ exports.minABI = [
   { constant: true, inputs: [], name: "symbol", outputs: [{ name: "", type: "string" }], type: "function" }
 ];
 exports.xsnobABI = [
-  { constant: true, inputs: [{ name: "", type: "address" }], name: "locked", outputs: [{ name: "amount", type: "uint128" }, { name: "end", type: "uint256" }], type: "function" },
-  { constant: true, inputs: [], name: "totalSupply", outputs: [{ name: "", type: "uint256" }], type: "function" }
+  { constant: true, inputs: [{ name: "", type: "address" }], name: "locked", outputs: [{ name: "amount", type: "uint128" }, { name: "end", type: "uint256" }], type: "function" }
 ];
 exports.gaugeProxyABI = [
   { constant: true, inputs: [], name: "tokens", outputs: [{ name: "", type: "address[]" }], type: "function" },

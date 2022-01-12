@@ -66,9 +66,7 @@ const query = async (address, abi, method, args) => {
 
 // Function to get AXIAL Price:
 const getPrice = async () => {
-  let query = `https://api.coingecko.com/api/v3/simple/token_price/avalanche?contract_addresses=${config.axial}&vs_currencies=usd`;
-  let result = await axios.get(query);
-  let price = result.data[config.axial.toLowerCase()].usd;
+  let price = (await axios.get(`https://api.coingecko.com/api/v3/simple/token_price/avalanche?contract_addresses=${config.axial}&vs_currencies=usd`)).data[config.axial.toLowerCase()].usd;
   console.log('Price loaded...');
   return price.toFixed(4);
 }
@@ -156,6 +154,7 @@ const getTXs = async () => {
       console.log(`${pool.name} transactions loaded...`);
     } catch {
       console.error(`RPC Error: ${pool.name} transactions were not able to be fetched.`);
+      process.exit(1);
     }
   })());
   await Promise.all(promises);

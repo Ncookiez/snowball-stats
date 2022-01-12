@@ -24,21 +24,43 @@ if(args.length > 0) {
 
 /* ====================================================================================================================================================== */
 
+// Function to make blockchain queries:
+const query = async (address, abi, method, args) => {
+  let result;
+  let errors = 0;
+  while(!result) {
+    try {
+      let contract = new ethers.Contract(address, abi, avax);
+      result = await contract[method](...args);
+    } catch {
+      try {
+        let contract = new ethers.Contract(address, abi, avax_backup);
+        result = await contract[method](...args);
+      } catch {
+        if(++errors === 3) {
+          console.error(`RPC Error: Calling ${method}(${args}) on ${address}.`);
+          process.exit(1);
+        }
+      }
+    }
+  }
+  return result;
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to get SNOB Price:
 const getPrice = async () => {
-  let query = 'https://api.coingecko.com/api/v3/simple/token_price/avalanche?contract_addresses=' + config.snob + '&vs_currencies=usd';
-  let result = await axios.get(query);
-  let price = result.data[config.snob.toLowerCase()].usd.toFixed(4);
+  let price = (await axios.get(`https://api.coingecko.com/api/v3/simple/token_price/avalanche?contract_addresses=${config.snob}&vs_currencies=usd`)).data[config.snob.toLowerCase()].usd;
   console.log('Price loaded...');
-  return price;
+  return price.toFixed(4);
 }
 
 /* ====================================================================================================================================================== */
 
 // Function to get total SNOB supply:
 const getTotalSupply = async () => {
-  let contract = new ethers.Contract(config.snob, config.minABI, avax);
-  let supply = await contract.totalSupply();
+  let supply = await query(config.snob, config.minABI, 'totalSupply', []);
   console.log('Total supply loaded...');
   return supply / (10 ** 18);
 }
@@ -47,9 +69,7 @@ const getTotalSupply = async () => {
 
 // Function to get # of SNOB holders:
 const getHolders = async () => {
-  let query = 'https://api.covalenthq.com/v1/43114/tokens/' + config.snob + '/token_holders/?page-size=50000&key=' + config.ckey;
-  let result = await axios.get(query);
-  let holders = result.data.data.items.length;
+  let holders = (await axios.get(`https://api.covalenthq.com/v1/43114/tokens/${config.snob}/token_holders/?page-size=50000&key=${config.ckey}`)).data.data.items.length;
   console.log('Holders loaded...');
   return holders;
 }
@@ -58,8 +78,7 @@ const getHolders = async () => {
 
 // Function to get SNOB in treasury:
 const getTreasuryBalance = async () => {
-  let contract = new ethers.Contract(config.snob, config.minABI, avax);
-  let treasuryBalance = parseInt(await contract.balanceOf(config.treasury));
+  let treasuryBalance = parseInt(await query(config.snob, config.minABI, 'balanceOf', [config.treasury]));
   console.log('Treasury balance loaded...');
   return treasuryBalance / (10 ** 18);
 }
@@ -68,8 +87,7 @@ const getTreasuryBalance = async () => {
 
 // Function to get staked SNOB supply:
 const getStaked = async () => {
-  let contract = new ethers.Contract(config.snob, config.minABI, avax);
-  let balance = parseInt(await contract.balanceOf(config.xsnob));
+  let balance = parseInt(await query(config.snob, config.minABI, 'balanceOf', [config.xsnob]));
   console.log('Locked supply loaded...');
   return balance / (10 ** 18);
 }
@@ -78,8 +96,7 @@ const getStaked = async () => {
 
 // Function to get circulating SNOB supply:
 const getCirculatingSupply = async (total, treasury, staked) => {
-  let contract = new ethers.Contract(config.snob, config.minABI, avax);
-  let devFundBalance = parseInt(await contract.balanceOf(config.devFund));
+  let devFundBalance = parseInt(await query(config.snob, config.minABI, 'balanceOf', [config.devFund]));
   let circulatingSupply = total - treasury - staked - (devFundBalance / (10 ** 18));
   console.log('Circulating supply loaded...');
   return circulatingSupply;
@@ -89,44 +106,23 @@ const getCirculatingSupply = async (total, treasury, staked) => {
 
 // Function to get SNOB staker info:
 const getStakerInfo = async () => {
-  let contract = new ethers.Contract(config.xsnob, config.xsnobABI, avax);
   let wallets = [];
   let stakerInfo = [];
   let page = 0;
   let hasNextPage = false;
   do {
     try {
-      let query = 'https://api.covalenthq.com/v1/43114/address/' + config.xsnob + '/transactions_v2/?no-logs=true&page-size=1000&page-number=' + page++ + '&key=' + config.ckey;
-      let result = await axios.get(query);
+      let result = await axios.get(`https://api.covalenthq.com/v1/43114/address/${config.xsnob}/transactions_v2/?no-logs=true&page-size=1000&page-number=${page++}&key=${config.ckey}`);
       if(!result.data.error) {
         hasNextPage = result.data.data.pagination.has_more;
         let promises = result.data.data.items.map(tx => (async () => {
           if(tx.successful && tx.from_address.toLowerCase() != config.xsnob.toLowerCase() && !wallets.includes(tx.from_address)) {
             wallets.push(tx.from_address);
-            let dataFetched = false;
-            while(!dataFetched) {
-              try {
-                let stake = await contract.locked(tx.from_address);
-                let amount = parseInt(stake.amount) / (10 ** 18);
-                let unlock = parseInt(stake.end);
-                if(amount > 0) {
-                  stakerInfo.push({ wallet: tx.from_address, amount, unlock });
-                }
-                dataFetched = true;
-              } catch {
-                try {
-                  let contract = new ethers.Contract(config.xsnob, config.xsnobABI, avax_backup);
-                  let stake = await contract.locked(tx.from_address);
-                  let amount = parseInt(stake.amount) / (10 ** 18);
-                  let unlock = parseInt(stake.end);
-                  if(amount > 0) {
-                    stakerInfo.push({ wallet: tx.from_address, amount, unlock });
-                  }
-                  dataFetched = true;
-                } catch {
-                  console.log(`RPC ERROR: Retrying call for xSNOB info... (${tx.from_address})`);
-                }
-              }
+            let stake = await query(config.xsnob, config.xsnobABI, 'locked', [tx.from_address]);
+            let amount = parseInt(stake.amount) / (10 ** 18);
+            let unlock = parseInt(stake.end);
+            if(amount > 0) {
+              stakerInfo.push({ wallet: tx.from_address, amount, unlock });
             }
           }
         })());
@@ -134,10 +130,13 @@ const getStakerInfo = async () => {
         console.log(`xSNOB info loaded... (Page ${page})`);
       } else {
         hasNextPage = false;
+        console.error('API ERROR: Covalent returned an error response.');
+        process.exit(1);
       }
     } catch {
-      console.log('API ERROR: Covalent is likely down.');
       hasNextPage = false;
+      console.error('API ERROR: Covalent is likely down.');
+      process.exit(1);
     }
   } while(hasNextPage);
   return stakerInfo;
@@ -147,8 +146,7 @@ const getStakerInfo = async () => {
 
 // Function to get total xSNOB supply:
 const getOutputSupply = async () => {
-  let contract = new ethers.Contract(config.xsnob, config.xsnobABI, avax);
-  let supply = parseInt(await contract.totalSupply());
+  let supply = parseInt(await query(config.xsnob, config.minABI, 'totalSupply', []));
   console.log('Total xSNOB Supply loaded...');
   return supply / (10 ** 18);
 }
@@ -220,20 +218,18 @@ const getForgottenStakes = (info) => {
 
 /* ====================================================================================================================================================== */
 
-// Function to get amount of SNOB left unclaimed in xSNOB staking contract:
+// Function to get amount of SNOB left unclaimed for xSNOB stakers:
 const getUnclaimedSNOB = async () => {
-  let contract = new ethers.Contract(config.snob, config.minABI, avax);
-  let unclaimedSNOB = parseInt(await contract.balanceOf(config.feeDistributor));
+  let unclaimedSNOB = parseInt(await query(config.snob, config.minABI, 'balanceOf', [config.feeDistributor]));
   console.log('Unclaimed SNOB Distribution loaded...');
   return unclaimedSNOB / (10 ** 18);
 }
 
 /* ====================================================================================================================================================== */
 
-// Function to get amount of AXIAL left unclaimed in xSNOB staking contract:
+// Function to get amount of AXIAL left unclaimed for xSNOB stakers:
 const getUnclaimedAXIAL = async () => {
-  let contract = new ethers.Contract(config.axial, config.minABI, avax);
-  let unclaimedAXIAL = parseInt(await contract.balanceOf(config.axialFeeDistributor));
+  let unclaimedAXIAL = parseInt(await query(config.axial, config.minABI, 'balanceOf', [config.axialFeeDistributor]));
   console.log('Unclaimed AXIAL Distribution loaded...');
   return unclaimedAXIAL / (10 ** 18);
 }
@@ -254,50 +250,64 @@ const getRichList = (info) => {
 
 /* ====================================================================================================================================================== */
 
-// Function to get voter info:
-const getVoterInfo = async () => {
+// Function to get gauge allocation voter info:
+const getGaugeVoterInfo = async () => {
   let wallets = [];
   let votes = 0;
   let page_1 = 0;
+  let page_2 = 0;
   let hasNextPage = false;
   do {
-    let query = 'https://api.covalenthq.com/v1/43114/address/' + config.gaugeProxy + '/transactions_v2/?no-logs=true&page-size=1000&page-number=' + page_1++ + '&key=' + config.ckey;
-    let result = await axios.get(query);
-    if(!result.data.error) {
-      hasNextPage = result.data.data.pagination.has_more;
-      let promises = result.data.data.items.map(tx => (async () => {
-        if(tx.successful && tx.from_address.toLowerCase() != config.gaugeProxy.toLowerCase() && tx.from_address.toLowerCase() != config.operations.toLowerCase() && tx.from_address.toLowerCase() != '0xc9a51fB9057380494262fd291aED74317332C0a2'.toLowerCase()) {
-          if(!wallets.includes(tx.from_address)) {
-            wallets.push(tx.from_address);
+    try {
+      let result = await axios.get(`https://api.covalenthq.com/v1/43114/address/${config.gaugeProxy}/transactions_v2/?no-logs=true&page-size=1000&page-number=${page_1++}&key=${config.ckey}`);
+      if(!result.data.error) {
+        hasNextPage = result.data.data.pagination.has_more;
+        let promises = result.data.data.items.map(tx => (async () => {
+          if(tx.successful && tx.from_address.toLowerCase() != config.gaugeProxy.toLowerCase() && tx.from_address.toLowerCase() != config.operations.toLowerCase() && tx.from_address.toLowerCase() != '0xc9a51fB9057380494262fd291aED74317332C0a2'.toLowerCase()) {
+            if(!wallets.includes(tx.from_address)) {
+              wallets.push(tx.from_address);
+            }
+            votes++;
           }
-          votes++;
-        }
-      })());
-      await Promise.all(promises);
-      console.log(`Voter info loaded... (Page ${page_1})`);
-    } else {
+        })());
+        await Promise.all(promises);
+        console.log(`Voter info loaded... (Page ${page_1})`);
+      } else {
+        hasNextPage = false;
+        console.error('API ERROR: Covalent returned an error response.');
+        process.exit(1);
+      }
+    } catch {
       hasNextPage = false;
+      console.error('API ERROR: Covalent is likely down.');
+      process.exit(1);
     }
   } while(hasNextPage);
-  let page_2 = 0;
   hasNextPage = false;
   do {
-    let query = 'https://api.covalenthq.com/v1/43114/address/' + config.oldGaugeProxy + '/transactions_v2/?no-logs=true&page-size=1000&page-number=' + page_2++ + '&key=' + config.ckey;
-    let result = await axios.get(query);
-    if(!result.data.error) {
-      hasNextPage = result.data.data.pagination.has_more;
-      let promises = result.data.data.items.map(tx => (async () => {
-        if(tx.successful && tx.from_address.toLowerCase() != config.oldGaugeProxy.toLowerCase() && tx.from_address.toLowerCase() != config.operations.toLowerCase() && tx.from_address.toLowerCase() != '0xc9a51fB9057380494262fd291aED74317332C0a2'.toLowerCase()) {
-          if(!wallets.includes(tx.from_address)) {
-            wallets.push(tx.from_address);
+    try {
+      let result = await axios.get(`https://api.covalenthq.com/v1/43114/address/${config.oldGaugeProxy}/transactions_v2/?no-logs=true&page-size=1000&page-number=${page_2++}&key=${config.ckey}`);
+      if(!result.data.error) {
+        hasNextPage = result.data.data.pagination.has_more;
+        let promises = result.data.data.items.map(tx => (async () => {
+          if(tx.successful && tx.from_address.toLowerCase() != config.oldGaugeProxy.toLowerCase() && tx.from_address.toLowerCase() != config.operations.toLowerCase() && tx.from_address.toLowerCase() != '0xc9a51fB9057380494262fd291aED74317332C0a2'.toLowerCase()) {
+            if(!wallets.includes(tx.from_address)) {
+              wallets.push(tx.from_address);
+            }
+            votes++;
           }
-          votes++;
-        }
-      })());
-      await Promise.all(promises);
-      console.log(`Voter info loaded... (Page ${page_1 + page_2})`);
-    } else {
+        })());
+        await Promise.all(promises);
+        console.log(`Voter info loaded... (Page ${page_1 + page_2})`);
+      } else {
+        hasNextPage = false;
+        console.error('API ERROR: Covalent returned an error response.');
+        process.exit(1);
+      }
+    } catch {
       hasNextPage = false;
+      console.error('API ERROR: Covalent is likely down.');
+      process.exit(1);
     }
   } while(hasNextPage);
   return {voters: wallets, votes};
@@ -334,7 +344,7 @@ const fetch = async () => {
     let circulatingSupply = await getCirculatingSupply(totalSupply, treasuryBalance, staked);
     let outputSupply = await getOutputSupply();
     let stakerInfo = await getStakerInfo();
-    let voterInfo = await getVoterInfo();
+    let voterInfo = await getGaugeVoterInfo();
     let unclaimedSNOB = await getUnclaimedSNOB();
     let unclaimedAXIAL = await getUnclaimedAXIAL();
     let numStakers = getStakers(stakerInfo);
