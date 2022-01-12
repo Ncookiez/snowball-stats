@@ -27,8 +27,10 @@ Repository to track Snowball statistics.
 - Amount of unclaimed AXIAL rewards from xSNOB holders.
 - Top 5 richest xSNOB holders.
 - Number of SNOB allocation voters.
+- Number of proposal voters.
 - Total number of SNOB allocation votes.
-- Percentage of current SNOB stakers that have voted on SNOB allocations.
+- Total number of proposal votes.
+- Percentage of current SNOB stakers that have voted on SNOB allocations or governance proposals.
 
 ```
 npm run snob
