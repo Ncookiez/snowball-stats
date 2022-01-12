@@ -420,32 +420,32 @@ const fetch = async () => {
     console.log('\n  ==============================');
     console.log('  ||        SNOB Stats        ||');
     console.log('  ==============================\n');
-    console.log('  - SNOB Price:', '$' + price);
-    console.log('  - Total SNOB Supply:', totalSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
-    console.log('  - SNOB Market Cap:', '$' + (price * totalSupply).toLocaleString(undefined, {maximumFractionDigits: 0}));
-    console.log('  - SNOB Holders:', holders.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Users');
-    console.log('  - Treasury:', '$' + (price * treasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + treasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' SNOB)');
-    console.log('  - Staked SNOB:', staked.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB (' + ((staked / totalSupply) * 100).toFixed(2) + '% of total supply)');
-    console.log('  - Circulating SNOB Supply:', circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB (' + ((circulatingSupply / totalSupply) * 100).toFixed(2) + '% of total supply)');
-    console.log('  - xSNOB Holders:', numStakers.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Users');
-    console.log('  - Average SNOB Amount Staked:', avgLockedAmount.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
-    console.log('  - Average SNOB Locked Time:', avgLockedTime.toLocaleString(undefined, {maximumFractionDigits: 2}), 'Years');
-    console.log('  - Total xSNOB Supply:', outputSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'xSNOB');
-    console.log('  - Average xSNOB Amount Held:', avgOutputAmount.toLocaleString(undefined, {maximumFractionDigits: 0}), 'xSNOB');
-    console.log('  - xSNOB Holders w/ 50k+:', numStakers50k.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Users');
-    console.log('  - Forgetful xSNOB Holders:', forgetfulStakers.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Users');
-    console.log('  - SNOB Forgotten:', forgottenStakes.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
-    console.log('  - Unclaimed SNOB (From xSNOB):', unclaimedSNOB.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
-    console.log('  - Unclaimed AXIAL (From xSNOB):', unclaimedAXIAL.toLocaleString(undefined, {maximumFractionDigits: 0}), 'AXIAL');
+    console.log(`  - SNOB Price: $${price}`);
+    console.log(`  - Total SNOB Supply: ${totalSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB`);
+    console.log(`  - SNOB Market Cap: $${(price * totalSupply).toLocaleString(undefined, {maximumFractionDigits: 0})}`);
+    console.log(`  - SNOB Holders: ${holders.toLocaleString(undefined, {maximumFractionDigits: 0})} Users`);
+    console.log(`  - Treasury: $ ${(price * treasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0})} (${treasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB)`);
+    console.log(`  - Staked SNOB: ${staked.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB (${((staked / totalSupply) * 100).toFixed(2)}% of total supply)`);
+    console.log(`  - Circulating SNOB Supply: ${circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB (${((circulatingSupply / totalSupply) * 100).toFixed(2)}% of total supply)`);
+    console.log(`  - xSNOB Holders: ${numStakers.toLocaleString(undefined, {maximumFractionDigits: 0})} Users`);
+    console.log(`  - Average SNOB Amount Staked: ${avgLockedAmount.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB`);
+    console.log(`  - Average SNOB Locked Time: ${avgLockedTime.toLocaleString(undefined, {maximumFractionDigits: 2})} Years`);
+    console.log(`  - Total xSNOB Supply: ${outputSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} xSNOB`);
+    console.log(`  - Average xSNOB Amount Held: ${avgOutputAmount.toLocaleString(undefined, {maximumFractionDigits: 0})} xSNOB`);
+    console.log(`  - xSNOB Holders w/ 50k+: ${numStakers50k.toLocaleString(undefined, {maximumFractionDigits: 0})} Users`);
+    console.log(`  - Forgetful xSNOB Holders: ${forgetfulStakers.toLocaleString(undefined, {maximumFractionDigits: 0})} Users`);
+    console.log(`  - SNOB Forgotten: ${forgottenStakes.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB`);
+    console.log(`  - Unclaimed SNOB (From xSNOB): ${unclaimedSNOB.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB`);
+    console.log(`  - Unclaimed AXIAL (From xSNOB): ${unclaimedAXIAL.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL`);
     console.log('  - Top 5 xSNOB Holders:');
     richList.forEach(user => {
-      console.log('      >', user.wallet, '-', user.xsnob.toLocaleString(undefined, {maximumFractionDigits: 0}), 'xSNOB (' + ((user.xsnob / outputSupply) * 100).toFixed(2) + '% of possible votes)');
+      console.log(`      > ${user.wallet} - ${user.xsnob.toLocaleString(undefined, {maximumFractionDigits: 0})} xSNOB (${((user.xsnob / outputSupply) * 100).toFixed(2)}% of possible votes)`);
     });
-    console.log('  - Allocation Voters:', gaugeVoterInfo.voters.length.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Users');
-    console.log('  - Proposal Voters:', proposalVoterInfo.voters.length.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Users');
-    console.log('  - Total Allocation Votes:', gaugeVoterInfo.votes.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Votes');
-    console.log('  - Total Proposal Votes:', proposalVoterInfo.voteCount.toLocaleString(undefined, {maximumFractionDigits: 0}), 'Votes');
-    console.log('  - % of Current Stakers Voted:', ((currentStakingVotes / numStakers) * 100).toFixed(2) + '%');
+    console.log(`  - Allocation Voters: ${gaugeVoterInfo.voters.length.toLocaleString(undefined, {maximumFractionDigits: 0})} Users`);
+    console.log(`  - Proposal Voters: ${proposalVoterInfo.voters.length.toLocaleString(undefined, {maximumFractionDigits: 0})} Users`);
+    console.log(`  - Total Allocation Votes: ${gaugeVoterInfo.votes.toLocaleString(undefined, {maximumFractionDigits: 0})} Votes`);
+    console.log(`  - Total Proposal Votes: ${proposalVoterInfo.voteCount.toLocaleString(undefined, {maximumFractionDigits: 0})} Votes`);
+    console.log(`  - % of Current Stakers Voted: ${((currentStakingVotes / numStakers) * 100).toFixed(2)}%`);
 
   // Basic Data (Loads Faster):
   } else {
@@ -465,16 +465,16 @@ const fetch = async () => {
     console.log('\n  ==============================');
     console.log('  ||        SNOB Stats        ||');
     console.log('  ==============================\n');
-    console.log('  - SNOB Price:', '$' + price);
-    console.log('  - Total SNOB Supply:', totalSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
-    console.log('  - SNOB Market Cap:', '$' + (price * totalSupply).toLocaleString(undefined, {maximumFractionDigits: 0}));
-    console.log('  - Treasury:', '$' + (price * treasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + treasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' SNOB)');
-    console.log('  - Staked SNOB:', staked.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB (' + ((staked / totalSupply) * 100).toFixed(2) + '% of total supply)');
-    console.log('  - Circulating SNOB Supply:', circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB (' + ((circulatingSupply / totalSupply) * 100).toFixed(2) + '% of total supply)');
-    console.log('  - Average SNOB Locked Time:', avgLockedTime.toLocaleString(undefined, {maximumFractionDigits: 2}), 'Years');
-    console.log('  - Total xSNOB Supply:', outputSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'xSNOB');
-    console.log('  - Unclaimed SNOB (From xSNOB):', unclaimedSNOB.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB');
-    console.log('  - Unclaimed AXIAL (From xSNOB):', unclaimedAXIAL.toLocaleString(undefined, {maximumFractionDigits: 0}), 'AXIAL');
+    console.log(`  - SNOB Price: $${price}`);
+    console.log(`  - Total SNOB Supply: ${totalSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB`);
+    console.log(`  - SNOB Market Cap: $${(price * totalSupply).toLocaleString(undefined, {maximumFractionDigits: 0})}`);
+    console.log(`  - Treasury: $ ${(price * treasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0})} (${treasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB)`);
+    console.log(`  - Staked SNOB: ${staked.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB (${((staked / totalSupply) * 100).toFixed(2)}% of total supply)`);
+    console.log(`  - Circulating SNOB Supply: ${circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB (${((circulatingSupply / totalSupply) * 100).toFixed(2)}% of total supply)`);
+    console.log(`  - Average SNOB Locked Time: ${avgLockedTime.toLocaleString(undefined, {maximumFractionDigits: 2})} Years`);
+    console.log(`  - Total xSNOB Supply: ${outputSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} xSNOB`);
+    console.log(`  - Unclaimed SNOB (From xSNOB): ${unclaimedSNOB.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB`);
+    console.log(`  - Unclaimed AXIAL (From xSNOB): ${unclaimedAXIAL.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL`);
   }
 }
 
