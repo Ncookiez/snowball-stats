@@ -75,7 +75,7 @@ const getPrice = async () => {
 
 // Function to get total AXIAL supply:
 const getTotalSupply = async () => {
-  let supply = await query(config.axial, config.minABI, 'totalSupply', []);
+  let supply = parseInt(await query(config.axial, config.minABI, 'totalSupply', []));
   console.log('Total supply loaded...');
   return supply / (10 ** 18);
 }

@@ -667,6 +667,29 @@
   }
  },
  {
+  "name": "AVAX-ISA",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0x8DBDC64d691f44d538338D18403c6fB12972696a",
+  "strategy": "0x3e2530eFE38eb9F8C7954C9c2686556Ec43d52d9",
+  "gauge": "0x15C348b281c362c791b440Dcb0e7Cd595779DeC2",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0x9155f441FFDfA81b13E385bfAc6b3825C05184Ee"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "ISA",
+    "address": "0x3EeFb18003D033661f84e48360eBeCD181A84709"
+   },
+   "token1": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   }
+  }
+ },
+ {
   "name": "AVAX-JEWEL",
   "platform": "Pangolin",
   "type": "lp",
@@ -682,6 +705,29 @@
    "token0": {
     "symbol": "JEWEL",
     "address": "0x4f60a160D8C2DDdaAfe16FCC57566dB84D674BD6"
+   },
+   "token1": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   }
+  }
+ },
+ {
+  "name": "AVAX-JGN",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0xd525536C24394fB966A31f70c4eA974356C9905c",
+  "strategy": "0x037464013aF5c59F2301884924Af159E0BB959e3",
+  "gauge": "0x8A7A5542Ad101dcAB3054B70A89c3c572a8088d8",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0x47898DbF127205Ea2E94a30B5291C9476E36f3bA"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "JGN",
+    "address": "0x4e3642603a75528489C2D94f86e9507260d3c5a1"
    },
    "token1": {
     "symbol": "WAVAX",

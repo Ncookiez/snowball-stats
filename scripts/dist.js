@@ -23,18 +23,44 @@ const axialPrices = [
 
 // Manually Inputting Wrong Token Checkpoints:
 const axialCheckpoints = [
-  { timestamp: 1639612800, amount: 1009388.73 },
-  { timestamp: 1640822400, amount: 1064909.68 }
+  { timestamp: 1639612800, amount: 1009389 },
+  { timestamp: 1640822400, amount: 1064910 },
+  { timestamp: 1641427200, amount: 997074 }
 ];
+
+/* ====================================================================================================================================================== */
+
+// Function to make blockchain queries:
+const query = async (address, abi, method, args) => {
+  let result;
+  let errors = 0;
+  while(!result) {
+    try {
+      let contract = new ethers.Contract(address, abi, avax);
+      result = await contract[method](...args);
+    } catch {
+      try {
+        let contract = new ethers.Contract(address, abi, avax_backup);
+        result = await contract[method](...args);
+      } catch {
+        if(++errors === 3) {
+          console.error(`RPC ERROR: Calling ${method}(${args}) on ${address}.`);
+          process.exit(1);
+        }
+      }
+    }
+  }
+  return result;
+}
 
 /* ====================================================================================================================================================== */
 
 // Function to get SNOB distributions:
 const getDistributions = async () => {
 
-  let contract = new ethers.Contract(config.feeDistributor, config.feeDistributorABI, avax);
-  let axialContract = new ethers.Contract(config.axialFeeDistributor, config.feeDistributorABI, avax);
-  let startTime = parseInt(await contract.start_time());
+  // let contract = new ethers.Contract(config.feeDistributor, config.feeDistributorABI, avax);
+  // let axialContract = new ethers.Contract(config.axialFeeDistributor, config.feeDistributorABI, avax);
+  let startTime = parseInt(await query(config.feeDistributor, config.feeDistributorABI, 'start_time', []));
   let timestamps = [];
   let tempTime = startTime;
   while(tempTime < (time - week)) {
@@ -43,32 +69,17 @@ const getDistributions = async () => {
   }
   let distributions = [];
   let promises = timestamps.map(timestamp => (async () => {
-    try {
-      let snob = parseInt(await contract.tokens_per_week(timestamp)) / (10 ** 18);
-      let axial = 0;
-      let foundAxialAmount = axialCheckpoints.find(i => i.timestamp === timestamp);
-      if(foundAxialAmount) {
-        axial = foundAxialAmount.amount;
-      } else {
-        axial = parseInt(await axialContract.tokens_per_week(timestamp)) / (10 ** 18);
-      }
-      let xsnob = parseInt(await contract.ve_supply(timestamp)) / (10 ** 18);
-      let apr = await getAPR(xsnob, snob, axial, timestamp);
-      distributions.push({ timestamp, snob, axial, apr });
-    } catch {
-      try {
-        console.log('Using backup RPC...');
-        let contract = new ethers.Contract(config.feeDistributor, config.feeDistributorABI, avax_backup);
-        let axialContract = new ethers.Contract(config.axialFeeDistributor, config.feeDistributorABI, avax_backup);
-        let snob = parseInt(await contract.tokens_per_week(timestamp)) / (10 ** 18);
-        let axial = parseInt(await axialContract.tokens_per_week(timestamp)) / (10 ** 18);
-        let xsnob = parseInt(await contract.ve_supply(timestamp)) / (10 ** 18);
-        let apr = await getAPR(xsnob, snob, axial, timestamp);
-        distributions.push({ timestamp, snob, axial, apr });
-      } catch {
-        console.log('RPC ERROR: Call Rejected - Could not get SNOB distribution at', timestamp);
-      }
+    let snob = parseInt(await query(config.feeDistributor, config.feeDistributorABI, 'tokens_per_week', [timestamp])) / (10 ** 18);
+    let axial = 0;
+    let foundAxialAmount = axialCheckpoints.find(i => i.timestamp === timestamp);
+    if(foundAxialAmount) {
+      axial = foundAxialAmount.amount;
+    } else {
+      axial = parseInt(await query(config.axialFeeDistributor, config.feeDistributorABI, 'tokens_per_week', [timestamp])) / (10 ** 18);
     }
+    let xsnob = parseInt(await query(config.feeDistributor, config.feeDistributorABI, 've_supply', [timestamp])) / (10 ** 18);
+    let apr = await getAPR(xsnob, snob, axial, timestamp);
+    distributions.push({ timestamp, snob, axial, apr });
   })());
   await Promise.all(promises);
   distributions.sort((a, b) => a.timestamp - b.timestamp);
@@ -109,8 +120,7 @@ const getAvgDistribution = (total, distributions, token) => {
 
 // Function to get total xSNOB supply:
 const getXSNOBSupply = async () => {
-  let contract = new ethers.Contract(config.xsnob, config.xsnobABI, avax);
-  let supply = parseInt(await contract.totalSupply());
+  let supply = parseInt(await query(config.xsnob, config.minABI, 'totalSupply', []));
   console.log('Total xSNOB Supply loaded...');
   return supply / (10 ** 18);
 }
@@ -123,14 +133,14 @@ const getAPR = async (xsnob, snob, axial, timestamp) => {
   let axialAPR = 0;
   if(axial > 0) {
     let rawDate = new Date((timestamp + week) * 1000);
-    let date = pad(rawDate.getUTCDate()) + '-' + pad(rawDate.getUTCMonth() + 1) + '-' + rawDate.getUTCFullYear();
-    let snobPrice = (await axios.get('https://api.coingecko.com/api/v3/coins/snowball-token/history?date=' + date + '&localization=false')).data.market_data.current_price.usd;
+    let date = `${pad(rawDate.getUTCDate())}-${pad(rawDate.getUTCMonth() + 1)}-${rawDate.getUTCFullYear()}`;
+    let snobPrice = (await axios.get(`https://api.coingecko.com/api/v3/coins/snowball-token/history?date=${date}&localization=false`)).data.market_data.current_price.usd;
     let axialPrice = 0;
     let foundAxialPrice = axialPrices.find(i => i.timestamp === timestamp);
     if(foundAxialPrice) {
       axialPrice = foundAxialPrice.price;
     } else {
-      axialPrice = (await axios.get('https://api.coingecko.com/api/v3/coins/axial-token/history?date=' + date + '&localization=false')).data.market_data.current_price.usd;
+      axialPrice = (await axios.get(`https://api.coingecko.com/api/v3/coins/axial-token/history?date=${date}&localization=false`)).data.market_data.current_price.usd;
     }
     let ratio = snobPrice / axialPrice;
     axialAPR = (((axial / ratio) * 52) / xsnob) * 100;
@@ -181,16 +191,16 @@ const fetch = async () => {
   console.log('\n  ==============================');
   console.log('  ||    Distribution Stats    ||');
   console.log('  ==============================\n');
-  console.log('  - Total Distributed:', totalDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB &', totalAxialDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'AXIAL');
-  console.log('  - Average Distribution:', avgDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB &', avgAxialDistribution.toLocaleString(undefined, {maximumFractionDigits: 0}), 'AXIAL');
+  console.log(`  - Total Distributed: ${totalDistribution.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB & ${totalAxialDistribution.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL`);
+  console.log(`  - Average Distribution: ${avgDistribution.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB & ${avgAxialDistribution.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL`);
   console.log('  - List of Distributions:');
   distributions.forEach(distribution => {
     let rawDate = new Date((distribution.timestamp + week) * 1000);
-    let date = pad(rawDate.getUTCDate()) + '/' + pad(rawDate.getUTCMonth() + 1) + '/' + rawDate.getUTCFullYear();
-    console.log('      > Week' + (distribution.week < 10 ? ' ' : ''), distribution.week.toLocaleString(undefined, {maximumFractionDigits: 0}), '(' + date + ') -', distribution.snob.toLocaleString(undefined, {maximumFractionDigits: 0}), 'SNOB' + (distribution.axial > 0 ? ' & ' + distribution.axial.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' AXIAL' : ''), '- ' + (distribution.apr[0] + distribution.apr[1]).toFixed(2) + '% APR', (distribution.axial > 0 ? '(' + distribution.apr[0].toFixed(2) + '% SNOB & ' + distribution.apr[1].toFixed(2) + '% AXIAL)' : ''));
+    let date = `${pad(rawDate.getUTCDate())}/${pad(rawDate.getUTCMonth() + 1)}/${rawDate.getUTCFullYear()}`;
+    console.log(`      > Week ${(distribution.week < 10 ? ' ' : '')}${distribution.week.toLocaleString(undefined, {maximumFractionDigits: 0})} (${date}) - ${distribution.snob.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB${(distribution.axial > 0 ? ` & ${distribution.axial.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL` : '')} - ${(distribution.apr[0] + distribution.apr[1]).toFixed(2)}% APR ${(distribution.axial > 0 ? `(${distribution.apr[0].toFixed(2)}% SNOB & ${distribution.apr[1].toFixed(2)}% AXIAL)` : '')}`);
   });
-  console.log('  - Total xSNOB Supply:', xSNOBSupply.toLocaleString(undefined, {maximumFractionDigits: 0}), 'xSNOB');
-  console.log('  - All-Time Average APR:', allTimeAPR.toFixed(2) + '%');
+  console.log(`  - Total xSNOB Supply: ${xSNOBSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} xSNOB`);
+  console.log(`  - All-Time Average APR: ${allTimeAPR.toFixed(2)}%`);
 }
 
 /* ====================================================================================================================================================== */

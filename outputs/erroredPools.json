@@ -220,6 +220,17 @@
   "error": "Not on API (Should Probably be Deprecated)"
  },
  {
+  "globe": "0x3a3a0570f66cD5DfacB3c72b5214fec88e5722a8",
+  "strategy": "0xdc2159A913A99d22b771Bd614C77C45738461188",
+  "gauge": "0x85b3A9256f650704365B3c1F8de38Dc7fab542CF",
+  "controller": "0x2F0b4e7aC032d0708C082994Fb21Dd75DB514744",
+  "token": {
+   "symbol": "WAVAX",
+   "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+  },
+  "error": "Not on API (Should Probably be Deprecated)"
+ },
+ {
   "globe": "0x3AF37B647a08D443ef08Aff8cDdeAE33bBa56779",
   "strategy": "0xc42701aE4bacF65A23B82abd42E549aab4fCC2EB",
   "gauge": "0x5e1F7B89ECEdaFC7A22CbF7582bd86f3f1724d01",
@@ -590,6 +601,17 @@
   "token": {
    "symbol": "PGL",
    "address": "0xf277e270bc7664E6EBba19620530b83883748a13"
+  },
+  "error": "Not on API (Should Probably be Deprecated)"
+ },
+ {
+  "globe": "0x8665e1FAD19D14b16Eecb96A7608cD42962E7eEB",
+  "strategy": "0x5618041c863228DC6298bc5fD17EADa6Fe9Df618",
+  "gauge": "0x2dE1D367a08067447B17dd76d61B4Fc284E4DcDA",
+  "controller": "0x2F0b4e7aC032d0708C082994Fb21Dd75DB514744",
+  "token": {
+   "symbol": "DAI.e",
+   "address": "0xd586E7F844cEa2F87f50152665BCbc2C279D8d70"
   },
   "error": "Not on API (Should Probably be Deprecated)"
  },
