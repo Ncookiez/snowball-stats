@@ -385,7 +385,7 @@ const getProposalData = async (info) => {
       votes: yesVotes + noVotes,
       outcome: yesVotes > noVotes ? true : false,
       percentage: (yesVotes > noVotes ? (yesVotes / (yesVotes + noVotes)) * 100 : (noVotes / (yesVotes + noVotes)) * 100).toFixed(2),
-      ongoing: data.startTime + data.votingPeriod < time ? true : false
+      ongoing: (parseInt(data.startTime) + parseInt(data.votingPeriod)) > time ? true : false
     });
   })());
   await Promise.all(promises);
