@@ -497,7 +497,7 @@ const fetch = async () => {
     let unclaimedTreasuryPeggies = await getUnclaimedPeggies();
     let circulatingSupply = getCirculatingSupply(totalSupply, snowballTreasuryBalance, axialTreasuryBalance);
 
-    // Printing Data:
+    // Writing Data:
     data += `  - AXIAL Price: $${price}\n`;
     data += `  - Total AXIAL Supply: ${totalSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL\n`;
     data += `  - AXIAL Market Cap: $${(price * totalSupply).toLocaleString(undefined, {maximumFractionDigits: 0})}\n`;

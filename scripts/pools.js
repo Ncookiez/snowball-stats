@@ -22,11 +22,9 @@ const singleTraderJoeStrats = [
   '0x8c06828a1707b0322baaa46e3b0f4d1d55f6c3e6'  // xJOE
 ];
 
-// Additional Settings:
+// Initializations:
 const lpSymbols = ['PGL', 'JLP'];
 const batchSize = 50;
-
-// Initializations:
 let progress = 0;
 let maxProgress = 0;
 let erroredPools = [];

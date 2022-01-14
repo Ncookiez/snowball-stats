@@ -1,0 +1,47 @@
+
+  ==============================
+  ||        SNOB Stats        ||
+  ==============================
+
+  - SNOB Price: $0.3595
+  - Total SNOB Supply: 17,430,314 SNOB
+  - SNOB Market Cap: $6,266,198
+  - SNOB Holders: 6,643 Users
+  - Treasury: $ 496,349 (1,380,665 SNOB)
+  - Staked SNOB: 9,977,643 SNOB (57.24% of total supply)
+  - Circulating SNOB Supply: 5,972,006 SNOB (34.26% of total supply)
+  - xSNOB Holders: 1,266 Users
+  - Average SNOB Amount Staked: 7,453 SNOB
+  - Average SNOB Locked Time: 1.44 Years
+  - Total xSNOB Supply: 7,174,465 xSNOB
+  - Average xSNOB Amount Held: 5,359 xSNOB
+  - xSNOB Holders w/ 50k+: 22 Users
+  - Forgetful xSNOB Holders: 600 Users
+  - SNOB Forgotten: 542,005 SNOB
+  - Unclaimed SNOB (From xSNOB): 65,697 SNOB
+  - Unclaimed AXIAL (From xSNOB): 2,263,889 AXIAL
+  - Top 5 xSNOB Holders:
+      > 0xc73df1e68fc203f6e4b6270240d6f82a850e8d38 - 1,251,092 xSNOB (17.44% of possible votes)
+      > 0x125789ecf75a6bf8e29db4df0222b1e7e3b7680a - 890,589 xSNOB (12.41% of possible votes)
+      > 0xac9be1372ab5fc54cdf4dd2afe7a678e94706e82 - 571,593 xSNOB (7.97% of possible votes)
+      > 0xdbc195a0ed72c0b059f8906e97a90636d2b6409f - 390,663 xSNOB (5.45% of possible votes)
+      > 0x6f6fa54d4c680aa40077608592d59dc1a306baf6 - 382,095 xSNOB (5.33% of possible votes)
+  - Allocation Voters: 842 Users
+  - Proposal Voters: 251 Users
+  - Total Allocation Votes: 2,474 Votes
+  - Total Proposal Votes: 635 Votes
+  - % of Current Stakers Voted: 35.15%
+  - Proposal Participation & Results:
+      > Proposal  8 - 1,176,138 xSNOB - 84.96% In Favor
+      > Proposal  9 - 1,799,957 xSNOB - 68.19% In Favor
+      > Proposal 10 - 710,925 xSNOB - 100.00% In Favor
+      > Proposal 11 - 791,828 xSNOB - 100.00% In Favor
+      > Proposal 12 - 1,073,454 xSNOB - 100.00% In Favor
+      > Proposal 13 - 1,605,260 xSNOB - 94.47% In Favor
+      > Proposal 14 - 1,677,331 xSNOB - 100.00% In Favor
+      > Proposal 15 - 2,649,936 xSNOB - 100.00% In Favor
+      > Proposal 16 - 2,423,520 xSNOB - 94.97% Against
+      > Proposal 17 - 2,655,847 xSNOB - 99.96% In Favor
+      > Proposal 18 - 3,139,033 xSNOB - 95.34% In Favor
+      > Proposal 19 - 1,583,090 xSNOB - 100.00% In Favor
+      > Proposal 20 - 3,389,893 xSNOB - 52.33% In Favor (Ongoing)
