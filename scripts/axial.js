@@ -2,18 +2,23 @@
 // Required Packages:
 const { ethers } = require('ethers');
 const axios = require('axios');
-
-// Required Config Variables:
+const fs = require('fs');
 const config = require('../config.js');
 
 // Setting Up RPCs:
 const avax = new ethers.providers.JsonRpcProvider(config.rpc);
 const avax_backup = new ethers.providers.JsonRpcProvider(config.rpc_backup);
 
-// Setting Time Variables:
-const week = 604800;
+// Setting Up Optional Args:
+let basic = false;
+const args = process.argv.slice(2);
+if(args.length > 0) {
+  if(args[0] === 'basic') {
+    basic = true;
+  }
+}
 
-// Setting Block Variables:
+// Setting Up Block Timestamps:
 // https://api.snowtrace.io/api?module=block&action=getblocknobytime&closest=before&timestamp=<TIMESTAMP>
 const blockTimestamps = [
   { block: 6786231, timestamp: 1636588800 }, // Nov. 11, 2021
@@ -25,17 +30,17 @@ const blockTimestamps = [
   { block: 8589431, timestamp: 1640217600 }, // Dec. 23, 2021
   { block: 8888076, timestamp: 1640822400 }, // Dec. 30, 2021
   { block: 9187865, timestamp: 1641427200 }, // Jan.  6, 2022
+  { block: 9491470, timestamp: 1642032000 }, // Jan. 13, 2022
+  // { block: 0, timestamp: 1642636800 }, // Jan. 20, 2022
+  // { block: 0, timestamp: 1643241600 }, // Jan. 27, 2022
+  // { block: 0, timestamp: 1643846400 }, // Feb.  3, 2022
+  // { block: 0, timestamp: 1644451200 }, // Feb. 10, 2022
 ];
-const querySize = 50000;
 
-// Setting Up Optional Args:
-let basic = false;
-const args = process.argv.slice(2);
-if(args.length > 0) {
-  if(args[0] === 'basic') {
-    basic = true;
-  }
-}
+// Initializations:
+const week = 604800;
+const querySize = 50000;
+let data = '';
 
 /* ====================================================================================================================================================== */
 
@@ -60,6 +65,19 @@ const query = async (address, abi, method, args) => {
     }
   }
   return result;
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to write data to text file:
+const writeText = (data, file) => {
+  fs.writeFile(`./outputs/${file}.txt`, data, 'utf8', (err) => {
+    if(err) {
+      console.error(err);
+    } else {
+      console.info(`Successfully updated ${file}.txt.`);
+    }
+  });
 }
 
 /* ====================================================================================================================================================== */
@@ -385,6 +403,11 @@ const pad = (num) => {
 // Function to fetch all stats:
 const fetch = async () => {
 
+  // Adding Banner:
+  data += '\n  ===============================\n';
+  data += '  ||        AXIAL Stats        ||\n';
+  data += '  ===============================\n\n'
+
   // Full Data:
   if(!basic) {
 
@@ -407,60 +430,60 @@ const fetch = async () => {
     let tokenDemand = getTokenDemand(txs);
     let swapStats = getSwapStats(txs);
 
-    // // Printing Data:
-    console.log('\n  ===============================');
-    console.log('  ||        AXIAL Stats        ||');
-    console.log('  ===============================\n');
-    console.log(`  - AXIAL Price: $${price}`);
-    console.log(`  - Total AXIAL Supply: ${totalSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL`);
-    console.log(`  - AXIAL Market Cap: $${(price * totalSupply).toLocaleString(undefined, {maximumFractionDigits: 0})}`);
-    console.log(`  - Treasury: $${((price * axialTreasuryBalance) + axialTreasuryPeggies).toLocaleString(undefined, {maximumFractionDigits: 0})} (${axialTreasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL & ${axialTreasuryPeggies.toLocaleString(undefined, {maximumFractionDigits: 0})} Peggies)`);
-    console.log(`  - Unclaimed Swap Fees: $${unclaimedTreasuryPeggies[0].amount.toLocaleString(undefined, {maximumFractionDigits: 0})}`);
+    // Writing Data:
+    data += `  - AXIAL Price: $${price}\n`;
+    data += `  - Total AXIAL Supply: ${totalSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL\n`;
+    data += `  - AXIAL Market Cap: $${(price * totalSupply).toLocaleString(undefined, {maximumFractionDigits: 0})}\n`;
+    data += `  - Treasury: $${((price * axialTreasuryBalance) + axialTreasuryPeggies).toLocaleString(undefined, {maximumFractionDigits: 0})} (${axialTreasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL & ${axialTreasuryPeggies.toLocaleString(undefined, {maximumFractionDigits: 0})} Peggies)\n`;
+    data += `  - Unclaimed Swap Fees: $${unclaimedTreasuryPeggies[0].amount.toLocaleString(undefined, {maximumFractionDigits: 0})}\n`;
     unclaimedTreasuryPeggies.slice(1).forEach(pool => {
-      console.log(`      > ${pool.name} - $${pool.amount.toLocaleString(undefined, {maximumFractionDigits: 0})}`);
+      data += `      > ${pool.name} - $${pool.amount.toLocaleString(undefined, {maximumFractionDigits: 0})}\n`;
     });
-    console.log(`  - Circulating AXIAL Supply: ${circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL (${((circulatingSupply / totalSupply) * 100).toFixed(2)}% of total supply)`);
-    console.log(`  - Total Value Swapped: $${totalSwapped.toLocaleString(undefined, {maximumFractionDigits: 0})} ($${(totalSwapped * 0.0004).toLocaleString(undefined, {maximumFractionDigits: 0})} Swap Fees)`);
+    data += `  - Circulating AXIAL Supply: ${circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL (${((circulatingSupply / totalSupply) * 100).toFixed(2)}% of total supply)\n`;
+    data += `  - Total Value Swapped: $${totalSwapped.toLocaleString(undefined, {maximumFractionDigits: 0})} ($${(totalSwapped * 0.0004).toLocaleString(undefined, {maximumFractionDigits: 0})} Swap Fees)\n`;
     poolValueSwapped.forEach(pool => {
-      console.log(`      > ${pool.name} - $${pool.volume.toLocaleString(undefined, {maximumFractionDigits: 0})} ($${(pool.volume * 0.0004).toLocaleString(undefined, {maximumFractionDigits: 0})} Swap Fees)`);
+      data += `      > ${pool.name} - $${pool.volume.toLocaleString(undefined, {maximumFractionDigits: 0})} ($${(pool.volume * 0.0004).toLocaleString(undefined, {maximumFractionDigits: 0})} Swap Fees)\n`;
     });
-    console.log(`  - Total # of Swap Transactions: ${numTXs.toLocaleString(undefined, {maximumFractionDigits: 0})} TXs`);
+    data += `  - Total # of Swap Transactions: ${numTXs.toLocaleString(undefined, {maximumFractionDigits: 0})} TXs\n`;
     poolNumTXs.forEach(pool => {
-      console.log(`      > ${pool.name} - ${pool.txCount.toLocaleString(undefined, {maximumFractionDigits: 0})} TXs`);
+      data += `      > ${pool.name} - ${pool.txCount.toLocaleString(undefined, {maximumFractionDigits: 0})} TXs\n`;
     });
-    console.log('  - Weekly Value Swapped:');
+    data += '  - Weekly Value Swapped:\n';
     weeklyVolume.forEach(item => {
       let rawDate = new Date((item.time) * 1000);
       let date = pad(rawDate.getUTCDate()) + '/' + pad(rawDate.getUTCMonth() + 1) + '/' + rawDate.getUTCFullYear();
       let rawEndDate = new Date((item.time + week - 1) * 1000);
       let endDate = pad(rawEndDate.getUTCDate()) + '/' + pad(rawEndDate.getUTCMonth() + 1) + '/' + rawEndDate.getUTCFullYear();
-      console.log(`      > Week ${(item.week + 1).toLocaleString(undefined, {maximumFractionDigits: 0})} (${date} to ${endDate}) - $${item.volume.toLocaleString(undefined, {maximumFractionDigits: 0})} ($${(item.volume * 0.0004).toLocaleString(undefined, {maximumFractionDigits: 0})} Swap Fees)`);
+      data += `      > Week ${(item.week + 1).toLocaleString(undefined, {maximumFractionDigits: 0})} (${date} to ${endDate}) - $${item.volume.toLocaleString(undefined, {maximumFractionDigits: 0})} ($${(item.volume * 0.0004).toLocaleString(undefined, {maximumFractionDigits: 0})} Swap Fees)\n`;
       poolWeeklyVolume.forEach(pool => {
         if(pool.weeks[item.week].volume > 0) {
-          console.log(`        - ${pool.name} - $${pool.weeks[item.week].volume.toLocaleString(undefined, {maximumFractionDigits: 0})} ($${(pool.weeks[item.week].volume * 0.0004).toLocaleString(undefined, {maximumFractionDigits: 0})} Swap Fees)`);
+          data += `        - ${pool.name} - $${pool.weeks[item.week].volume.toLocaleString(undefined, {maximumFractionDigits: 0})} ($${(pool.weeks[item.week].volume * 0.0004).toLocaleString(undefined, {maximumFractionDigits: 0})} Swap Fees)\n`;
         }
       });
     });
-    console.log('  - Largest Swaps:');
+    data += '  - Largest Swaps:\n';
     Object.keys(swapStats).forEach(pool => {
-      console.log(`      > ${pool} - $${swapStats[pool].largestSwap.toLocaleString(undefined, {maximumFractionDigits: 0})}`);
+      data += `      > ${pool} - $${swapStats[pool].largestSwap.toLocaleString(undefined, {maximumFractionDigits: 0})}\n`;
     });
-    console.log('  - Average Swap:');
+    data += '  - Average Swap:\n';
     Object.keys(swapStats).forEach(pool => {
-      console.log(`      > ${pool} - $${swapStats[pool].averageSwap.toLocaleString(undefined, {maximumFractionDigits: 0})}`);
+      data += `      > ${pool} - $${swapStats[pool].averageSwap.toLocaleString(undefined, {maximumFractionDigits: 0})}\n`;
     });
-    console.log('  - Swap Size Distribution (Swap % Above):');
+    data += '  - Swap Size Distribution (Swap % Above):\n';
     Object.keys(swapStats).forEach(pool => {
-      console.log(`      > ${pool} - $1k: ${swapStats[pool].percentages.above1k}%, $5k: ${swapStats[pool].percentages.above5k}%, $10k: ${swapStats[pool].percentages.above10k}%, $25k: ${swapStats[pool].percentages.above25k >= 10 ? swapStats[pool].percentages.above25k : ' ' + swapStats[pool].percentages.above25k}%, $50k: ${swapStats[pool].percentages.above50k}%, $100k: ${swapStats[pool].percentages.above100k}%, $250k: ${swapStats[pool].percentages.above250k}%, $500k: ${swapStats[pool].percentages.above500k}%, $1M: ${swapStats[pool].percentages.above1000k}%`);
+      data += `      > ${pool} - $1k: ${swapStats[pool].percentages.above1k}%, $5k: ${swapStats[pool].percentages.above5k}%, $10k: ${swapStats[pool].percentages.above10k}%, $25k: ${swapStats[pool].percentages.above25k >= 10 ? swapStats[pool].percentages.above25k : ' ' + swapStats[pool].percentages.above25k}%, $50k: ${swapStats[pool].percentages.above50k}%, $100k: ${swapStats[pool].percentages.above100k}%, $250k: ${swapStats[pool].percentages.above250k}%, $500k: ${swapStats[pool].percentages.above500k}%, $1M: ${swapStats[pool].percentages.above1000k}%\n`;
     });
-    console.log('  - Token Swap Demand:');
+    data += '  - Token Swap Demand:\n';
     tokenDemand.forEach(item => {
-      console.log(`      > ${item.token} - $${item.demand.toLocaleString(undefined, {maximumFractionDigits: 0})}`);
+      data += `      > ${item.token} - $${item.demand.toLocaleString(undefined, {maximumFractionDigits: 0})}\n`;
     });
-    console.log('  - Top 5 Biggest Swappers:');
+    data += '  - Top 5 Biggest Swappers:\n';
     biggestSwappers.forEach(wallet => {
-      console.log(`      > ${wallet.address} - $${wallet.amount.toLocaleString(undefined, {maximumFractionDigits: 0})} (${wallet.txs.toLocaleString(undefined, {maximumFractionDigits: 0})} TX${wallet.txs > 1 ? 's' : ''}) ${(wallet.address === config.paraswap ? '(ParaSwap Router)' : '')}`);
+      data += `      > ${wallet.address} - $${wallet.amount.toLocaleString(undefined, {maximumFractionDigits: 0})} (${wallet.txs.toLocaleString(undefined, {maximumFractionDigits: 0})} TX${wallet.txs > 1 ? 's' : ''}) ${(wallet.address === config.paraswap ? '(ParaSwap Router)' : '')}\n`;
     });
+
+    // Updating Text File:
+    writeText(data, 'axialStats');
 
   // Basic Data (Loads Faster):
   } else {
@@ -475,18 +498,18 @@ const fetch = async () => {
     let circulatingSupply = getCirculatingSupply(totalSupply, snowballTreasuryBalance, axialTreasuryBalance);
 
     // Printing Data:
-    console.log('\n  ==============================');
-    console.log('  ||       AXIAL Stats        ||');
-    console.log('  ==============================\n');
-    console.log(`  - AXIAL Price: $${price}`);
-    console.log(`  - Total AXIAL Supply: ${totalSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL`);
-    console.log(`  - AXIAL Market Cap: $${(price * totalSupply).toLocaleString(undefined, {maximumFractionDigits: 0})}`);
-    console.log(`  - Treasury: $${((price * axialTreasuryBalance) + axialTreasuryPeggies).toLocaleString(undefined, {maximumFractionDigits: 0})} (${axialTreasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL & ${axialTreasuryPeggies.toLocaleString(undefined, {maximumFractionDigits: 0})} Peggies)`);
-    console.log(`  - Unclaimed Swap Fees: $${unclaimedTreasuryPeggies[0].amount.toLocaleString(undefined, {maximumFractionDigits: 0})}`);
+    data += `  - AXIAL Price: $${price}\n`;
+    data += `  - Total AXIAL Supply: ${totalSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL\n`;
+    data += `  - AXIAL Market Cap: $${(price * totalSupply).toLocaleString(undefined, {maximumFractionDigits: 0})}\n`;
+    data += `  - Treasury: $${((price * axialTreasuryBalance) + axialTreasuryPeggies).toLocaleString(undefined, {maximumFractionDigits: 0})} (${axialTreasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL & ${axialTreasuryPeggies.toLocaleString(undefined, {maximumFractionDigits: 0})} Peggies)\n`;
+    data += `  - Unclaimed Swap Fees: $${unclaimedTreasuryPeggies[0].amount.toLocaleString(undefined, {maximumFractionDigits: 0})}\n`;
     unclaimedTreasuryPeggies.slice(1).forEach(pool => {
-      console.log(`      > ${pool.name} - $${pool.amount.toLocaleString(undefined, {maximumFractionDigits: 0})}`);
+      data += `      > ${pool.name} - $${pool.amount.toLocaleString(undefined, {maximumFractionDigits: 0})}\n`;
     });
-    console.log(`  - Circulating AXIAL Supply: ${circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL (${((circulatingSupply / totalSupply) * 100).toFixed(2)}% of total supply)`);
+    data += `  - Circulating AXIAL Supply: ${circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL (${((circulatingSupply / totalSupply) * 100).toFixed(2)}% of total supply)\n`;
+  
+    // Updating Text File:
+    writeText(data, 'axialBasicStats');
   }
 }
 
