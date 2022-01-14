@@ -275,7 +275,7 @@ const getGaugeVoterInfo = async () => {
           }
         })());
         await Promise.all(promises);
-        console.log(`Voter info loaded... (Page ${page_1})`);
+        console.log(`Gauge allocation votes loaded... (Page ${page_1})`);
       } else {
         hasNextPage = false;
         console.error('API ERROR: Covalent returned an error response.');
@@ -302,7 +302,7 @@ const getGaugeVoterInfo = async () => {
           }
         })());
         await Promise.all(promises);
-        console.log(`Voter info loaded... (Page ${page_1 + page_2})`);
+        console.log(`Gauge allocation votes loaded... (Page ${page_1 + page_2})`);
       } else {
         hasNextPage = false;
         console.error('API ERROR: Covalent returned an error response.');
@@ -349,10 +349,10 @@ const getProposalVoterInfo = async () => {
         if(!wallets.includes(event.args.voter)) {
           wallets.push(event.args.voter);
         }
-        if(!votes.hasOwnProperty(`proposal${event.args.proposalId}`)) {
-          votes[`proposal${event.args.proposalId}`] = [];
+        if(!votes.hasOwnProperty(`p${event.args.proposalId}`)) {
+          votes[`p${event.args.proposalId}`] = [];
         }
-        votes[`proposal${event.args.proposalId}`].push({
+        votes[`p${event.args.proposalId}`].push({
           wallet: event.args.voter,
           block: event.blockNumber,
           support: event.args.support,
@@ -373,6 +373,29 @@ const getProposalVoterInfo = async () => {
 
 /* ====================================================================================================================================================== */
 
+// Function to get data for each governance proposal:
+const getProposalData = async (info) => {
+  let proposalData = [];
+  let promises = Object.keys(info.votes).map(proposal => (async () => {
+    let data = await query(config.governance, config.governanceABI, 'proposals', [proposal.slice(1)]);
+    let yesVotes = data.forVotes / (10 ** 18);
+    let noVotes = data.againstVotes / (10 ** 18);
+    proposalData.push({
+      number: parseInt(proposal.slice(1)) + 7,
+      votes: yesVotes + noVotes,
+      outcome: yesVotes > noVotes ? true : false,
+      percentage: (yesVotes > noVotes ? (yesVotes / (yesVotes + noVotes)) * 100 : (noVotes / (yesVotes + noVotes)) * 100).toFixed(2),
+      ongoing: data.startTime + data.votingPeriod < time ? true : false
+    });
+  })());
+  await Promise.all(promises);
+  proposalData.sort((a, b) => a.number - b.number);
+  console.log(`Proposal data loaded...`);
+  return proposalData;
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to get number of current stakers that have voted for gauge allocations and/or any proposals:
 const getStakingVoters = (gaugeVoterInfo, proposalVoterInfo, stakerInfo) => {
   let stakers = stakerInfo.filter(stake => stake.unlock > time);
@@ -383,28 +406,6 @@ const getStakingVoters = (gaugeVoterInfo, proposalVoterInfo, stakerInfo) => {
     }
   });
   return numStakingVoters;
-}
-
-/* ====================================================================================================================================================== */
-
-// Function to get data for each governance proposal:
-const getProposalData = (info) => {
-  let proposalData = [];
-  Object.keys(info.votes).forEach(proposal => {
-    let forVotes = 0;
-    let againstVotes = 0;
-    info.votes[proposal].forEach(vote => {
-      vote.support ? forVotes += vote.votes : againstVotes += vote.votes;
-    });
-    proposalData.push({
-      number: parseInt(proposal.slice(8)) + 7,
-      votes: forVotes + againstVotes,
-      outcome: forVotes > againstVotes ? true : false,
-      percentage: (forVotes > againstVotes ? (forVotes / (forVotes + againstVotes)) * 100 : (againstVotes / (forVotes + againstVotes)) * 100).toFixed(2)
-    });
-  });
-  proposalData.sort((a, b) => a.number - b.number);
-  return proposalData;
 }
 
 /* ====================================================================================================================================================== */
@@ -426,6 +427,7 @@ const fetch = async () => {
     let stakerInfo = await getStakerInfo();
     let gaugeVoterInfo = await getGaugeVoterInfo();
     let proposalVoterInfo = await getProposalVoterInfo();
+    let proposalData = await getProposalData(proposalVoterInfo);
     let unclaimedSNOB = await getUnclaimedSNOB();
     let unclaimedAXIAL = await getUnclaimedAXIAL();
     let numStakers = getStakers(stakerInfo);
@@ -437,7 +439,6 @@ const fetch = async () => {
     let forgottenStakes = getForgottenStakes(stakerInfo);
     let richList = getRichList(stakerInfo);
     let currentStakingVotes = getStakingVoters(gaugeVoterInfo, proposalVoterInfo, stakerInfo);
-    let proposalData = getProposalData(proposalVoterInfo);
 
     // Printing Data:
     console.log('\n  ==============================');
@@ -471,7 +472,7 @@ const fetch = async () => {
     console.log(`  - % of Current Stakers Voted: ${((currentStakingVotes / numStakers) * 100).toFixed(2)}%`);
     console.log('  - Proposal Participation & Results:');
     proposalData.forEach(proposal => {
-      console.log(`      > Proposal ${proposal.number < 10 ? ` ${proposal.number}` : proposal.number} - ${proposal.votes.toLocaleString(undefined, {maximumFractionDigits: 0})} xSNOB - ${proposal.percentage}% ${proposal.outcome ? `In Favor` : `Against`}`);
+      console.log(`      > Proposal ${proposal.number < 10 ? ` ${proposal.number}` : proposal.number} - ${proposal.votes.toLocaleString(undefined, {maximumFractionDigits: 0})} xSNOB - ${proposal.percentage}% ${proposal.outcome ? `In Favor` : `Against`}${proposal.ongoing ? ` (Ongoing)` : ''}`);
     });
 
   // Basic Data (Loads Faster):

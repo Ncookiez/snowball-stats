@@ -102,3 +102,6 @@ exports.strategyABI = [
 exports.swapABI = [
   { constant: true, inputs: [{ name: "index", type: "uint256" }], name: "getAdminBalance", outputs: [{ name: "", type: "uint256" }], type: "function" }
 ];
+exports.governanceABI = [
+  { constant: true, inputs: [{ name: "<input>", type: "uint256" }], name: "proposals", outputs: [{ name: "title", type: "string" }, { name: "metadata", type: "string" }, { name: "proposer", type: "address" }, { name: "executor", type: "address" }, { name: "startTime", type: "uint256" }, { name: "votingPeriod", type: "uint256" }, { name: "quorumVotes", type: "uint256" }, { name: "executionDelay", type: "uint256" }, { name: "forVotes", type: "uint256" }, { name: "againstVotes", type: "uint256" }], type: "function" }
+];
