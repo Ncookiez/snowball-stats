@@ -1,7 +1,7 @@
 
 // Required Packages:
+const { writeText } = require('../functions.js');
 const axios = require('axios');
-const fs = require('fs');
 const config = require('../config.js');
 
 // Initializations:
@@ -29,6 +29,7 @@ const getHolders = async () => {
     console.log(`${nft.name} NFT Holders loaded...`);
   })());
   await Promise.all(promises);
+  nftHolders.sort((a, b) => a.name.localeCompare(b.name));
 
   // Writing to JSON File (OPTIONAL):
   // fs.writeFile('./nftHolders.json', JSON.stringify(nftHolders), 'utf8', (err) => {
@@ -40,19 +41,6 @@ const getHolders = async () => {
   // });
 
   return nftHolders;
-}
-
-/* ====================================================================================================================================================== */
-
-// Function to write data to text file:
-const writeText = (data, file) => {
-  fs.writeFile(`./outputs/${file}.txt`, data, 'utf8', (err) => {
-    if(err) {
-      console.error(err);
-    } else {
-      console.info(`Successfully updated ${file}.txt.`);
-    }
-  });
 }
 
 /* ====================================================================================================================================================== */
