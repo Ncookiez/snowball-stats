@@ -2,17 +2,17 @@
 // Required Packages:
 const { ethers } = require('ethers');
 const axios = require('axios');
-
-// Required Config Variables:
+const fs = require('fs');
 const config = require('../config.js');
 
-// Setting Up RPC:
+// Setting Up RPCs:
 const avax = new ethers.providers.JsonRpcProvider(config.rpc);
 const avax_backup = new ethers.providers.JsonRpcProvider(config.rpc_backup);
 
 // Setting Time Variables:
 const time = Math.round(Date.now() / 1000);
 const week = 604800;
+let data = '';
 
 /* ====================================================================================================================================================== */
 
@@ -38,6 +38,19 @@ const query = async (address, abi, method, args) => {
     }
   }
   return result;
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to write data to text file:
+const writeText = (data, file) => {
+  fs.writeFile(`./outputs/${file}.txt`, data, 'utf8', (err) => {
+    if(err) {
+      console.error(err);
+    } else {
+      console.info(`Successfully updated ${file}.txt.`);
+    }
+  });
 }
 
 /* ====================================================================================================================================================== */
@@ -146,24 +159,27 @@ const pad = (num) => {
 // Function to fetch all stats:
 const fetch = async () => {
 
-  // Fetching Timestamps:
-  let timestamps = await getTimestamps();
+  // Adding Banner:
+  data += '\n  ===============================\n';
+  data += '  ||    AXIAL Distributions    ||\n';
+  data += '  ===============================\n\n'
 
   // Fetching Data:
+  let timestamps = await getTimestamps();
   let contractDistributions = await getContractDistributions(timestamps);
   let councilDistributions = await getCouncilDistributions(timestamps);
 
-  // Printing Data:
-  console.log('\n  ================================');
-  console.log('  ||     Axial Distributions    ||');
-  console.log('  ================================\n');
+  // Writing Data:
   timestamps.forEach(timestamp => {
     let rawDate = new Date((timestamp + week) * 1000);
     let date = pad(rawDate.getUTCDate()) + '/' + pad(rawDate.getUTCMonth() + 1) + '/' + rawDate.getUTCFullYear();
-    console.log(`  - ${date}:`);
-    console.log(`      > Contract:    ${contractDistributions.find(dist => dist.timestamp === timestamp).amount.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL`);
-    console.log(`      > Council TXs: ${councilDistributions.find(dist => dist.timestamp === timestamp).amount.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL`);
+    data += `  - ${date}:\n`;
+    data += `      > Contract:    ${contractDistributions.find(dist => dist.timestamp === timestamp).amount.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL\n`;
+    data += `      > Council TXs: ${councilDistributions.find(dist => dist.timestamp === timestamp).amount.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL\n`;
   });
+
+  // Updating Text File:
+  writeText(data, 'axialDistributionsCheck');
 }
 
 /* ====================================================================================================================================================== */

@@ -1,0 +1,32 @@
+
+  ===============================
+  ||    AXIAL Distributions    ||
+  ===============================
+
+  - 18/11/2021:
+      > Contract:    989,224 AXIAL
+      > Council TXs: 1,016,895 AXIAL
+  - 25/11/2021:
+      > Contract:    1,230,335 AXIAL
+      > Council TXs: 1,249,425 AXIAL
+  - 02/12/2021:
+      > Contract:    1,224,690 AXIAL
+      > Council TXs: 1,177,928 AXIAL
+  - 09/12/2021:
+      > Contract:    1,173,463 AXIAL
+      > Council TXs: 1,295,364 AXIAL
+  - 16/12/2021:
+      > Contract:    1,283,100 AXIAL
+      > Council TXs: 1,240,712 AXIAL
+  - 23/12/2021:
+      > Contract:    575,105 AXIAL
+      > Council TXs: 1,009,389 AXIAL
+  - 30/12/2021:
+      > Contract:    1,181,884 AXIAL
+      > Council TXs: 1,093,356 AXIAL
+  - 06/01/2022:
+      > Contract:    844,895 AXIAL
+      > Council TXs: 1,064,910 AXIAL
+  - 13/01/2022:
+      > Contract:    694,048 AXIAL
+      > Council TXs: 997,074 AXIAL

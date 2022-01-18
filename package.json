@@ -1,6 +1,6 @@
 {
   "name": "snowball-stats",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "Tracking Snowball statistics.",
   "scripts": {
     "snob": "node scripts/snob.js",
@@ -8,7 +8,8 @@
     "nfts": "node scripts/nfts.js",
     "dist": "node scripts/dist.js",
     "axial": "node scripts/axial.js",
-    "pools": "node scripts/pools.js"
+    "pools": "node scripts/pools.js",
+    "axialDistCheck": "node scripts/axialDistCheck.js"
   },
   "author": "Ncookie",
   "dependencies": {
