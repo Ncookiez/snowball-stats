@@ -9,7 +9,7 @@ const config = require('../config.js');
 const avax = new ethers.providers.JsonRpcProvider(config.rpc);
 const avax_backup = new ethers.providers.JsonRpcProvider(config.rpc_backup);
 
-// Setting Time Variables:
+// Initializations:
 const time = Math.round(Date.now() / 1000);
 const week = 604800;
 let data = '';

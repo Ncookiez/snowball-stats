@@ -2,9 +2,10 @@
 // Required Packages:
 const axios = require('axios');
 const fs = require('fs');
-
-// Required Config Variables:
 const config = require('../config.js');
+
+// Initializations:
+let data = '';
 
 /* ====================================================================================================================================================== */
 
@@ -29,7 +30,7 @@ const getHolders = async () => {
   })());
   await Promise.all(promises);
 
-  // Writing JSON File (OPTIONAL):
+  // Writing to JSON File (OPTIONAL):
   // fs.writeFile('./nftHolders.json', JSON.stringify(nftHolders), 'utf8', (err) => {
   //   if(err) {
   //     console.log('Error writing to JSON file:', err);
@@ -43,23 +44,41 @@ const getHolders = async () => {
 
 /* ====================================================================================================================================================== */
 
+// Function to write data to text file:
+const writeText = (data, file) => {
+  fs.writeFile(`./outputs/${file}.txt`, data, 'utf8', (err) => {
+    if(err) {
+      console.error(err);
+    } else {
+      console.info(`Successfully updated ${file}.txt.`);
+    }
+  });
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to fetch all stats:
 const fetch = async () => {
+
+  // Adding Banner:
+  data += '\n  ===============================\n';
+  data += '  ||         NFT Stats         ||\n';
+  data += '  ===============================\n\n'
 
   // Fetching Data:
   let holders = await getHolders();
 
-  // Printing Data:
-  console.log('\n  ===============================');
-  console.log('  ||         NFT Stats         ||');
-  console.log('  ===============================\n');
-  console.log('  - NFT Holders:');
+  // Writing Data:
+  data += '  - NFT Holders:\n';
   holders.forEach(nft => {
-    console.log(`      > ${nft.name} (${nft.address}):`);
+    data += `      > ${nft.name} (${nft.address}):\n`;
     nft.holders.forEach(user => {
-      console.log(`        - ${user.address} (${user.balance} NFT${user.balance > 1 ? 's' : ''})`);
+      data += `        - ${user.address} (${user.balance} NFT${user.balance > 1 ? 's' : ''})\n`;
     });
   });
+
+  // Updating Text File:
+  writeText(data, 'nftStats');
 }
 
 /* ====================================================================================================================================================== */
