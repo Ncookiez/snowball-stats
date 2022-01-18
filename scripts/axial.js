@@ -1,13 +1,7 @@
 
 // Required Packages:
-const { ethers } = require('ethers');
-const axios = require('axios');
-const fs = require('fs');
+const { query, writeText, getTokenPrice, pad, queryBlocks } = require('../functions.js');
 const config = require('../config.js');
-
-// Setting Up RPCs:
-const avax = new ethers.providers.JsonRpcProvider(config.rpc);
-const avax_backup = new ethers.providers.JsonRpcProvider(config.rpc_backup);
 
 // Setting Up Optional Args:
 let basic = false;
@@ -39,52 +33,13 @@ const blockTimestamps = [
 
 // Initializations:
 const week = 604800;
-const querySize = 50000;
 let data = '';
-
-/* ====================================================================================================================================================== */
-
-// Function to make blockchain queries:
-const query = async (address, abi, method, args) => {
-  let result;
-  let errors = 0;
-  while(!result) {
-    try {
-      let contract = new ethers.Contract(address, abi, avax);
-      result = await contract[method](...args);
-    } catch {
-      try {
-        let contract = new ethers.Contract(address, abi, avax_backup);
-        result = await contract[method](...args);
-      } catch {
-        if(++errors === 3) {
-          console.error(`RPC ERROR: Calling ${method}(${args}) on ${address}.`);
-          process.exit(1);
-        }
-      }
-    }
-  }
-  return result;
-}
-
-/* ====================================================================================================================================================== */
-
-// Function to write data to text file:
-const writeText = (data, file) => {
-  fs.writeFile(`./outputs/${file}.txt`, data, 'utf8', (err) => {
-    if(err) {
-      console.error(err);
-    } else {
-      console.info(`Successfully updated ${file}.txt.`);
-    }
-  });
-}
 
 /* ====================================================================================================================================================== */
 
 // Function to get AXIAL Price:
 const getPrice = async () => {
-  let price = (await axios.get(`https://api.coingecko.com/api/v3/simple/token_price/avalanche?contract_addresses=${config.axial}&vs_currencies=usd`)).data[config.axial.toLowerCase()].usd;
+  let price = await getTokenPrice(config.axial);
   console.log('Price loaded...');
   return price.toFixed(4);
 }
@@ -129,51 +84,25 @@ const getCirculatingSupply = (total, treasury, axialTreasury) => {
 // Function to get transactions:
 const getTXs = async () => {
   let txs = {};
-  let currentBlock = await avax.getBlockNumber();
   let promises = config.axialPools.map(pool => (async () => {
     txs[pool.name] = [];
-    let swapContract = new ethers.Contract(pool.swap, config.axialSwapEventABI, avax);
-    let backupSwapContract = new ethers.Contract(pool.swap, config.axialSwapEventABI, avax_backup);
-    let eventFilter = swapContract.filters.TokenSwap();
-    let backupEventFilter = backupSwapContract.filters.TokenSwap();
-    let lastQueriedBlock = blockTimestamps[0].block;
-    try {
-      while(++lastQueriedBlock < currentBlock) {
-        let targetBlock = Math.min(lastQueriedBlock + querySize, currentBlock);
-        let result;
-        while(!result) {
-          try {
-            result = await swapContract.queryFilter(eventFilter, lastQueriedBlock, targetBlock);
-          } catch {
-            try {
-              result = await backupSwapContract.queryFilter(backupEventFilter, lastQueriedBlock, targetBlock);
-            } catch {
-              console.log(`RPC ERROR: Retrying block ${lastQueriedBlock} query for ${pool.name}...`);
-            }
-          }
-        }
-        let event_promises = result.map(event => (async () => {
-          txs[pool.name].push({
-            wallet: event.args.buyer.toLowerCase(),
-            block: event.blockNumber,
-            sold: {
-              token: pool.tokens[parseInt(event.args.soldId)].symbol,
-              amount: parseInt(event.args.tokensSold) / (10 ** pool.tokens[parseInt(event.args.soldId)].decimals)
-            },
-            bought: {
-              token: pool.tokens[parseInt(event.args.boughtId)].symbol,
-              amount: parseInt(event.args.tokensBought) / (10 ** pool.tokens[parseInt(event.args.boughtId)].decimals)
-            },
-          });
-        })());
-        await Promise.all(event_promises);
-        lastQueriedBlock = targetBlock;
-      }
-      console.log(`${pool.name} transactions loaded...`);
-    } catch {
-      console.error(`RPC ERROR: ${pool.name} transactions were not able to be fetched.`);
-      process.exit(1);
-    }
+    let events = await queryBlocks(pool.swap, config.axialSwapEventABI, 'TokenSwap', blockTimestamps[0].block, 50000);
+    let event_promises = events.map(event => (async () => {
+      txs[pool.name].push({
+        wallet: event.args.buyer.toLowerCase(),
+        block: event.blockNumber,
+        sold: {
+          token: pool.tokens[parseInt(event.args.soldId)].symbol,
+          amount: parseInt(event.args.tokensSold) / (10 ** pool.tokens[parseInt(event.args.soldId)].decimals)
+        },
+        bought: {
+          token: pool.tokens[parseInt(event.args.boughtId)].symbol,
+          amount: parseInt(event.args.tokensBought) / (10 ** pool.tokens[parseInt(event.args.boughtId)].decimals)
+        },
+      });
+    })());
+    await Promise.all(event_promises);
+    console.log(`${pool.name} transactions loaded...`);
   })());
   await Promise.all(promises);
   return txs;
@@ -384,18 +313,6 @@ const getUnclaimedPeggies = async () => {
   values.sort((a, b) => b.amount - a.amount);
   console.log('Unclaimed stablecoin admin fees from pools loaded...');
   return values;
-}
-
-/* ====================================================================================================================================================== */
-
-// Function to pad date if necessary:
-const pad = (num) => {
-  let str = num.toString();
-  if(str.length < 2) {
-    return '0' + str;
-  } else {
-    return str;
-  }
 }
 
 /* ====================================================================================================================================================== */

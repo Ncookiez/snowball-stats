@@ -35,8 +35,6 @@ const getHolders = async () => {
   // fs.writeFile('./nftHolders.json', JSON.stringify(nftHolders), 'utf8', (err) => {
   //   if(err) {
   //     console.log('Error writing to JSON file:', err);
-  //   } else {
-  //     console.log('Successfully wrote to JSON file.');
   //   }
   // });
 
