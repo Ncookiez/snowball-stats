@@ -1,13 +1,8 @@
 
 // Required Packages:
-const { ethers } = require('ethers');
+const { query, writeText, getTokenPrice, queryBlocks } = require('../functions.js');
 const axios = require('axios');
-const fs = require('fs');
 const config = require('../config.js');
-
-// Setting Up RPCs:
-const avax = new ethers.providers.JsonRpcProvider(config.rpc);
-const avax_backup = new ethers.providers.JsonRpcProvider(config.rpc_backup);
 
 // Setting Up Optional Args:
 let basic = false;
@@ -20,53 +15,13 @@ if(args.length > 0) {
 
 // Initializations:
 const time = Math.round(Date.now() / 1000);
-const startBlock = 2477000;
-const querySize = 100000;
 let data = '';
-
-/* ====================================================================================================================================================== */
-
-// Function to make blockchain queries:
-const query = async (address, abi, method, args) => {
-  let result;
-  let errors = 0;
-  while(!result) {
-    try {
-      let contract = new ethers.Contract(address, abi, avax);
-      result = await contract[method](...args);
-    } catch {
-      try {
-        let contract = new ethers.Contract(address, abi, avax_backup);
-        result = await contract[method](...args);
-      } catch {
-        if(++errors === 3) {
-          console.error(`RPC ERROR: Calling ${method}(${args}) on ${address}.`);
-          process.exit(1);
-        }
-      }
-    }
-  }
-  return result;
-}
-
-/* ====================================================================================================================================================== */
-
-// Function to write data to text file:
-const writeText = (data, file) => {
-  fs.writeFile(`./outputs/${file}.txt`, data, 'utf8', (err) => {
-    if(err) {
-      console.error(err);
-    } else {
-      console.info(`Successfully updated ${file}.txt.`);
-    }
-  });
-}
 
 /* ====================================================================================================================================================== */
 
 // Function to get SNOB Price:
 const getPrice = async () => {
-  let price = (await axios.get(`https://api.coingecko.com/api/v3/simple/token_price/avalanche?contract_addresses=${config.snob}&vs_currencies=usd`)).data[config.snob.toLowerCase()].usd;
+  let price = await getTokenPrice(config.snob);
   console.log('Price loaded...');
   return price.toFixed(4);
 }
@@ -335,50 +290,24 @@ const getProposalVoterInfo = async () => {
   let wallets = [];
   let votes = {};
   let voteCount = 0;
-  let currentBlock = await avax.getBlockNumber();
-  let governanceContract = new ethers.Contract(config.governance, config.voteEventABI, avax);
-  let backupGovernanceContract = new ethers.Contract(config.governance, config.voteEventABI, avax_backup);
-  let eventFilter = governanceContract.filters.NewVote();
-  let backupEventFilter = backupGovernanceContract.filters.NewVote();
-  let lastQueriedBlock = startBlock;
-  try {
-    while(++lastQueriedBlock < currentBlock) {
-      let targetBlock = Math.min(lastQueriedBlock + querySize, currentBlock);
-      let result;
-      while(!result) {
-        try {
-          result = await governanceContract.queryFilter(eventFilter, lastQueriedBlock, targetBlock);
-        } catch {
-          try {
-            result = await backupGovernanceContract.queryFilter(backupEventFilter, lastQueriedBlock, targetBlock);
-          } catch {
-            console.log(`RPC ERROR: Retrying block ${lastQueriedBlock} query...`);
-          }
-        }
-      }
-      let promises = result.map(event => (async () => {
-        if(!wallets.includes(event.args.voter)) {
-          wallets.push(event.args.voter);
-        }
-        if(!votes.hasOwnProperty(`p${event.args.proposalId}`)) {
-          votes[`p${event.args.proposalId}`] = [];
-        }
-        votes[`p${event.args.proposalId}`].push({
-          wallet: event.args.voter,
-          block: event.blockNumber,
-          support: event.args.support,
-          votes: parseInt(event.args.votes) / (10 ** 18)
-        });
-        voteCount++;
-      })());
-      await Promise.all(promises);
-      lastQueriedBlock = targetBlock;
+  let events = await queryBlocks(config.governance, config.voteEventABI, 'NewVote', 2477000, 100000);
+  let promises = events.map(event => (async () => {
+    if(!wallets.includes(event.args.voter)) {
+      wallets.push(event.args.voter);
     }
-  } catch {
-    console.error(`RPC ERROR: Proposal voting transactions were not able to be fetched.`);
-    process.exit(1);
-  }
-  console.log(`Proposal votes loaded...`);
+    if(!votes.hasOwnProperty(`p${event.args.proposalId}`)) {
+      votes[`p${event.args.proposalId}`] = [];
+    }
+    votes[`p${event.args.proposalId}`].push({
+      wallet: event.args.voter,
+      block: event.blockNumber,
+      support: event.args.support,
+      votes: parseInt(event.args.votes) / (10 ** 18)
+    });
+    voteCount++;
+  })());
+  await Promise.all(promises);
+  console.log('Proposal votes loaded...');
   return {voters: wallets, votes, voteCount};
 }
 
@@ -401,7 +330,7 @@ const getProposalData = async (info) => {
   })());
   await Promise.all(promises);
   proposalData.sort((a, b) => a.number - b.number);
-  console.log(`Proposal data loaded...`);
+  console.log('Proposal data loaded...');
   return proposalData;
 }
 
@@ -440,12 +369,12 @@ const fetch = async () => {
     let staked = await getStaked();
     let circulatingSupply = await getCirculatingSupply(totalSupply, treasuryBalance, staked);
     let outputSupply = await getOutputSupply();
-    let stakerInfo = await getStakerInfo();
-    let gaugeVoterInfo = await getGaugeVoterInfo();
     let proposalVoterInfo = await getProposalVoterInfo();
     let proposalData = await getProposalData(proposalVoterInfo);
+    let gaugeVoterInfo = await getGaugeVoterInfo();
     let unclaimedSNOB = await getUnclaimedSNOB();
     let unclaimedAXIAL = await getUnclaimedAXIAL();
+    let stakerInfo = await getStakerInfo();
     let numStakers = getStakers(stakerInfo);
     let avgLockedAmount = getAvgLockedAmount(stakerInfo);
     let avgLockedTime = getAvgLockedTime(staked, outputSupply);

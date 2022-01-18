@@ -3,26 +3,26 @@
   ||        AXIAL Stats        ||
   ===============================
 
-  - AXIAL Price: $0.0130
-  - Total AXIAL Supply: 52,411,016 AXIAL
-  - AXIAL Market Cap: $681,343
-  - Treasury: $125,631 (7,861,652 AXIAL & 23,429 Peggies)
-  - Unclaimed Swap Fees: $23,655
-      > AM3D - $20,133
-      > AA3D - $1,942
-      > AC4D - $998
-      > AS4D - $581
-  - Circulating AXIAL Supply: 36,711,212 AXIAL (70.04% of total supply)
-  - Total Value Swapped: $320,941,336 ($128,377 Swap Fees)
-      > AM3D - $134,197,164 ($53,679 Swap Fees)
-      > AS4D - $93,806,598 ($37,523 Swap Fees)
-      > AC4D - $83,856,166 ($33,542 Swap Fees)
-      > AA3D - $9,081,409 ($3,633 Swap Fees)
-  - Total # of Swap Transactions: 33,609 TXs
-      > AC4D - 12,597 TXs
-      > AS4D - 10,753 TXs
-      > AM3D - 8,728 TXs
-      > AA3D - 1,531 TXs
+  - AXIAL Price: $0.0118
+  - Total AXIAL Supply: 54,971,785 AXIAL
+  - AXIAL Market Cap: $648,667
+  - Treasury: $120,729 (8,245,767 AXIAL & 23,429 Peggies)
+  - Unclaimed Swap Fees: $24,355
+      > AM3D - $20,271
+      > AA3D - $1,992
+      > AC4D - $1,239
+      > AS4D - $852
+  - Circulating AXIAL Supply: 38,503,750 AXIAL (70.04% of total supply)
+  - Total Value Swapped: $327,228,320 ($130,891 Swap Fees)
+      > AM3D - $135,393,796 ($54,158 Swap Fees)
+      > AS4D - $96,147,552 ($38,459 Swap Fees)
+      > AC4D - $86,208,265 ($34,483 Swap Fees)
+      > AA3D - $9,478,707 ($3,791 Swap Fees)
+  - Total # of Swap Transactions: 35,036 TXs
+      > AC4D - 13,369 TXs
+      > AS4D - 11,105 TXs
+      > AM3D - 8,911 TXs
+      > AA3D - 1,651 TXs
   - Weekly Value Swapped:
       > Week 1 (11/11/2021 to 17/11/2021) - $22,611,177 ($9,044 Swap Fees)
         - AS4D - $13,260,467 ($5,304 Swap Fees)
@@ -72,27 +72,27 @@
       > AM3D - $1,350,198
       > AA3D - $326,372
   - Average Swap:
-      > AS4D - $8,724
-      > AC4D - $6,657
-      > AM3D - $15,375
-      > AA3D - $5,932
+      > AS4D - $8,658
+      > AC4D - $6,448
+      > AM3D - $15,194
+      > AA3D - $5,741
   - Swap Size Distribution (Swap % Above):
-      > AS4D - $1k: 61.29%, $5k: 26.45%, $10k: 17.62%, $25k:  8.59%, $50k: 3.47%, $100k: 1.25%, $250k: 0.20%, $500k: 0.03%, $1M: 0.00%
-      > AC4D - $1k: 70.22%, $5k: 20.01%, $10k: 12.55%, $25k:  5.01%, $50k: 1.87%, $100k: 0.73%, $250k: 0.25%, $500k: 0.12%, $1M: 0.00%
-      > AM3D - $1k: 78.27%, $5k: 49.14%, $10k: 32.94%, $25k: 15.65%, $50k: 6.39%, $100k: 2.22%, $250k: 0.37%, $500k: 0.10%, $1M: 0.02%
-      > AA3D - $1k: 64.92%, $5k: 26.85%, $10k: 11.50%, $25k:  4.38%, $50k: 1.24%, $100k: 0.52%, $250k: 0.13%, $500k: 0.00%, $1M: 0.00%
+      > AS4D - $1k: 61.19%, $5k: 26.49%, $10k: 17.51%, $25k:  8.53%, $50k: 3.45%, $100k: 1.22%, $250k: 0.20%, $500k: 0.03%, $1M: 0.00%
+      > AC4D - $1k: 69.80%, $5k: 19.63%, $10k: 12.17%, $25k:  4.78%, $50k: 1.78%, $100k: 0.69%, $250k: 0.24%, $500k: 0.11%, $1M: 0.00%
+      > AM3D - $1k: 78.20%, $5k: 48.80%, $10k: 32.59%, $25k: 15.44%, $50k: 6.30%, $100k: 2.18%, $250k: 0.36%, $500k: 0.10%, $1M: 0.02%
+      > AA3D - $1k: 63.60%, $5k: 26.59%, $10k: 11.14%, $25k:  4.18%, $50k: 1.15%, $100k: 0.48%, $250k: 0.12%, $500k: 0.00%, $1M: 0.00%
   - Token Swap Demand:
-      > MIM - $91,157,590
-      > USDC.e - $88,448,807
-      > DAI.e - $77,840,056
-      > USDT.e - $32,970,338
-      > FRAX - $14,478,602
-      > TUSD - $8,823,522
-      > TSD - $4,172,457
-      > AVAI - $3,069,607
+      > MIM - $92,721,649
+      > USDC.e - $89,866,239
+      > DAI.e - $79,008,872
+      > USDT.e - $33,444,063
+      > FRAX - $15,118,257
+      > TUSD - $9,615,228
+      > TSD - $4,281,222
+      > AVAI - $3,195,976
   - Top 5 Biggest Swappers:
-      > 0xb40bf51c104cc9e3a45f745e81d3aa9f9e9fc7f4 - $122,289,481 (18,145 TXs) 
-      > 0xdef171fe48cf0115b1d80b88dc8eab59176fee57 - $69,064,337 (4,392 TXs) (ParaSwap Router)
-      > 0xe12424c3a50f50aed8b7e906703bb1ce93d7edc8 - $20,566,052 (2,147 TXs) 
+      > 0xb40bf51c104cc9e3a45f745e81d3aa9f9e9fc7f4 - $124,932,226 (18,922 TXs) 
+      > 0xdef171fe48cf0115b1d80b88dc8eab59176fee57 - $70,116,299 (4,601 TXs) (ParaSwap Router)
+      > 0xe12424c3a50f50aed8b7e906703bb1ce93d7edc8 - $20,884,088 (2,193 TXs) 
       > 0x5fd7bcfb1011ec3d10496365f064f1962e45968c - $10,313,537 (336 TXs) 
-      > 0x18008a3d4de136e090d0a71cb1de601fc8246225 - $4,848,132 (1,040 TXs) 
+      > 0x18008a3d4de136e090d0a71cb1de601fc8246225 - $5,078,994 (1,124 TXs) 
