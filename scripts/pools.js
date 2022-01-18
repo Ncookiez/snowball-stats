@@ -1,15 +1,9 @@
 
 // Required Packages:
-const { ethers } = require('ethers');
+const { query, writeJSON, formatTable } = require('../functions.js');
 const axios = require('axios');
-const fs = require('fs');
-
-// Required Config Variables:
 const config = require('../config.js');
-
-// Setting Up RPCs:
-const avax = new ethers.providers.JsonRpcProvider(config.rpc);
-const avax_backup = new ethers.providers.JsonRpcProvider(config.rpc_backup);
+const fs = require('fs');
 
 // Setting Up Ignore Addresses:
 const ignoreAddresses = [
@@ -31,32 +25,6 @@ let erroredPools = [];
 
 /* ====================================================================================================================================================== */
 
-// Function to make blockchain queries:
-const query = async (address, abi, method, args) => {
-  let result;
-  let errors = 0;
-  while(!result) {
-    try {
-      let contract = new ethers.Contract(address, abi, avax);
-      result = await contract[method](...args);
-    } catch {
-      try {
-        let contract = new ethers.Contract(address, abi, avax_backup);
-        result = await contract[method](...args);
-      } catch {
-        if(++errors === 5) {
-          console.error(`\n  > Error calling ${method}(${args}) on ${address}`);
-          console.warn(`  > Execution was stopped due to errors. Check script or try again.`);
-          process.exit(1);
-        }
-      }
-    }
-  }
-  return result;
-}
-
-/* ====================================================================================================================================================== */
-
 // Function to communicate script progress to user:
 const updateProgress = () => {
   process.stdout.clearLine();
@@ -66,19 +34,6 @@ const updateProgress = () => {
   } else {
     process.stdout.write(`  > All ${maxProgress} Pools Loaded.\n`);
   }
-}
-
-/* ====================================================================================================================================================== */
-
-// Function to write data to JSON file:
-const writeJSON = (data, file) => {
-  fs.writeFile(`./outputs/${file}.json`, JSON.stringify(data, null, ' '), 'utf8', (err) => {
-    if(err) {
-      console.error(err);
-    } else {
-      console.info(`  > Successfully updated ${file}.json.`);
-    }
-  });
 }
 
 /* ====================================================================================================================================================== */
@@ -259,41 +214,6 @@ const writeMarkdown = (data) => {
       console.info(`  > Successfully updated pools.md.`);
     }
   });
-}
-
-/* ====================================================================================================================================================== */
-
-// Function to format Markdown table:
-const formatTable = (tableData) => {
-  let table = '';
-  let columns = tableData[0].length;
-  for(let i = 0; i < columns; i++) {
-    table += tableData[0][i];
-    if(i < columns - 1) {
-      table += ' | ';
-    } else {
-      table += '\n';
-    }
-  }
-  for(let i = 0; i < columns; i++) {
-    table += '---';
-    if(i < columns - 1) {
-      table += ' | ';
-    } else {
-      table += '\n';
-    }
-  }
-  tableData.slice(1).forEach(row => {
-    for(let i = 0; i < columns; i++) {
-      table += row[i];
-      if(i < columns - 1) {
-        table += ' | ';
-      } else {
-        table += '\n';
-      }
-    }
-  });
-  return table;
 }
 
 /* ====================================================================================================================================================== */
