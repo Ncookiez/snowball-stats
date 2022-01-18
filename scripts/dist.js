@@ -2,17 +2,12 @@
 // Required Packages:
 const { ethers } = require('ethers');
 const axios = require('axios');
-
-// Required Config Variables:
+const fs = require('fs');
 const config = require('../config.js');
 
-// Setting Up RPC:
+// Setting Up RPCs:
 const avax = new ethers.providers.JsonRpcProvider(config.rpc);
 const avax_backup = new ethers.providers.JsonRpcProvider(config.rpc_backup);
-
-// Setting Time Variables:
-const time = Math.round(Date.now() / 1000);
-const week = 604800;
 
 // Manually Inputting Wrong CoinGecko AXIAL Prices:
 const axialPrices = [
@@ -27,6 +22,11 @@ const axialCheckpoints = [
   { timestamp: 1640822400, amount: 1064910 },
   { timestamp: 1641427200, amount: 997074 }
 ];
+
+// Initializations:
+const time = Math.round(Date.now() / 1000);
+const week = 604800;
+let data = '';
 
 /* ====================================================================================================================================================== */
 
@@ -55,11 +55,21 @@ const query = async (address, abi, method, args) => {
 
 /* ====================================================================================================================================================== */
 
+// Function to write data to text file:
+const writeText = (data, file) => {
+  fs.writeFile(`./outputs/${file}.txt`, data, 'utf8', (err) => {
+    if(err) {
+      console.error(err);
+    } else {
+      console.info(`Successfully updated ${file}.txt.`);
+    }
+  });
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to get SNOB distributions:
 const getDistributions = async () => {
-
-  // let contract = new ethers.Contract(config.feeDistributor, config.feeDistributorABI, avax);
-  // let axialContract = new ethers.Contract(config.axialFeeDistributor, config.feeDistributorABI, avax);
   let startTime = parseInt(await query(config.feeDistributor, config.feeDistributorABI, 'start_time', []));
   let timestamps = [];
   let tempTime = startTime;
@@ -151,13 +161,12 @@ const getAPR = async (xsnob, snob, axial, timestamp) => {
 /* ====================================================================================================================================================== */
 
 // Function to get all-time APR:
-const getAllTimeAPR = async (distributions) => {
+const getAllTimeAPR = (distributions) => {
   let sum = 0;
   distributions.forEach(distribution => {
     sum += distribution.apr[0] + distribution.apr[1];
   });
   let apr = sum / distributions.length;
-  console.log('All-Time APR loaded...');
   return apr;
 }
 
@@ -178,29 +187,34 @@ const pad = (num) => {
 // Function to fetch all stats:
 const fetch = async () => {
 
+  // Adding Banner:
+  data += '\n  ================================\n';
+  data += '  ||     Distribution Stats     ||\n';
+  data += '  ================================\n\n'
+
   // Fetching Data:
   let distributions = await getDistributions();
   let xSNOBSupply = await getXSNOBSupply();
   let totalDistribution = getTotalDistribution(distributions, 'snob');
   let totalAxialDistribution = getTotalDistribution(distributions, 'axial');
-  let allTimeAPR = await getAllTimeAPR(distributions);
+  let allTimeAPR = getAllTimeAPR(distributions);
   let avgDistribution = getAvgDistribution(totalDistribution, distributions, 'snob');
   let avgAxialDistribution = getAvgDistribution(totalAxialDistribution, distributions, 'axial');
 
-  // Printing Data:
-  console.log('\n  ==============================');
-  console.log('  ||    Distribution Stats    ||');
-  console.log('  ==============================\n');
-  console.log(`  - Total Distributed: ${totalDistribution.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB & ${totalAxialDistribution.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL`);
-  console.log(`  - Average Distribution: ${avgDistribution.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB & ${avgAxialDistribution.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL`);
-  console.log('  - List of Distributions:');
+  // Writing Data:
+  data += `  - Total Distributed: ${totalDistribution.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB & ${totalAxialDistribution.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL\n`;
+  data += `  - Average Distribution: ${avgDistribution.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB & ${avgAxialDistribution.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL\n`;
+  data += '  - List of Distributions:\n';
   distributions.forEach(distribution => {
     let rawDate = new Date((distribution.timestamp + week) * 1000);
     let date = `${pad(rawDate.getUTCDate())}/${pad(rawDate.getUTCMonth() + 1)}/${rawDate.getUTCFullYear()}`;
-    console.log(`      > Week ${(distribution.week < 10 ? ' ' : '')}${distribution.week.toLocaleString(undefined, {maximumFractionDigits: 0})} (${date}) - ${distribution.snob.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB${(distribution.axial > 0 ? ` & ${distribution.axial.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL` : '')} - ${(distribution.apr[0] + distribution.apr[1]).toFixed(2)}% APR ${(distribution.axial > 0 ? `(${distribution.apr[0].toFixed(2)}% SNOB & ${distribution.apr[1].toFixed(2)}% AXIAL)` : '')}`);
+    data += `      > Week ${(distribution.week < 10 ? ' ' : '')}${distribution.week.toLocaleString(undefined, {maximumFractionDigits: 0})} (${date}) - ${distribution.snob.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB${(distribution.axial > 0 ? ` & ${distribution.axial.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL` : '')} - ${(distribution.apr[0] + distribution.apr[1]).toFixed(2)}% APR ${(distribution.axial > 0 ? `(${distribution.apr[0].toFixed(2)}% SNOB & ${distribution.apr[1].toFixed(2)}% AXIAL)` : '')}\n`;
   });
-  console.log(`  - Total xSNOB Supply: ${xSNOBSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} xSNOB`);
-  console.log(`  - All-Time Average APR: ${allTimeAPR.toFixed(2)}%`);
+  data += `  - Total xSNOB Supply: ${xSNOBSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} xSNOB\n`;
+  data += `  - All-Time Average APR: ${allTimeAPR.toFixed(2)}%\n`;
+
+  // Updating Text File:
+  writeText(data, 'distributionStats');
 }
 
 /* ====================================================================================================================================================== */

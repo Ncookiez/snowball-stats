@@ -2,11 +2,9 @@
 // Required Packages:
 const { ethers } = require('ethers');
 const axios = require('axios');
-
-// Required Config Variables:
 const config = require('../config.js');
 
-// Setting Up RPC:
+// Setting Up RPCs:
 const avax = new ethers.providers.JsonRpcProvider(config.rpc);
 
 // Setting Current Time:
