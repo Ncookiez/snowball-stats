@@ -40,5 +40,5 @@
       > Week 32 (30/12/2021) - 26,469 SNOB & 1,181,884 AXIAL - 77.66% APR (20.56% SNOB & 57.10% AXIAL)
       > Week 33 (06/01/2022) - 20,512 SNOB & 1,064,910 AXIAL - 62.10% APR (15.94% SNOB & 46.16% AXIAL)
       > Week 34 (13/01/2022) - 20,881 SNOB & 997,074 AXIAL - 46.15% APR (15.87% SNOB & 30.27% AXIAL)
-  - Total xSNOB Supply: 7,149,964 xSNOB
+  - Total xSNOB Supply: 7,148,695 xSNOB
   - All-Time Average APR: 94.21%

@@ -156,3 +156,15 @@ exports.formatTable = (tableData) => {
   });
   return table;
 }
+
+/* ====================================================================================================================================================== */
+
+// Function to pad date if necessary:
+exports.pad = (num) => {
+  let str = num.toString();
+  if(str.length < 2) {
+    return '0' + str;
+  } else {
+    return str;
+  }
+}
