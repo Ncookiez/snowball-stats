@@ -1,57 +1,13 @@
 
 // Required Packages:
-const { ethers } = require('ethers');
+const { query, writeText, pad } = require('../functions.js');
 const axios = require('axios');
-const fs = require('fs');
 const config = require('../config.js');
-
-// Setting Up RPCs:
-const avax = new ethers.providers.JsonRpcProvider(config.rpc);
-const avax_backup = new ethers.providers.JsonRpcProvider(config.rpc_backup);
 
 // Initializations:
 const time = Math.round(Date.now() / 1000);
 const week = 604800;
 let data = '';
-
-/* ====================================================================================================================================================== */
-
-// Function to make blockchain queries:
-const query = async (address, abi, method, args) => {
-  let result;
-  let errors = 0;
-  while(!result) {
-    try {
-      let contract = new ethers.Contract(address, abi, avax);
-      result = await contract[method](...args);
-    } catch {
-      try {
-        let contract = new ethers.Contract(address, abi, avax_backup);
-        result = await contract[method](...args);
-      } catch {
-        if(++errors === 5) {
-          console.error(`\n  > Error calling ${method}(${args}) on ${address}`);
-          console.warn(`  > Execution was stopped due to errors. Check script or try again.`);
-          process.exit(1);
-        }
-      }
-    }
-  }
-  return result;
-}
-
-/* ====================================================================================================================================================== */
-
-// Function to write data to text file:
-const writeText = (data, file) => {
-  fs.writeFile(`./outputs/${file}.txt`, data, 'utf8', (err) => {
-    if(err) {
-      console.error(err);
-    } else {
-      console.info(`Successfully updated ${file}.txt.`);
-    }
-  });
-}
 
 /* ====================================================================================================================================================== */
 
@@ -140,18 +96,6 @@ const getCouncilTXs = async () => {
     }
   } while(hasNextPage);
   return txs;
-}
-
-/* ====================================================================================================================================================== */
-
-// Function to pad date if necessary:
-const pad = (num) => {
-  let str = num.toString();
-  if(str.length < 2) {
-    return '0' + str;
-  } else {
-    return str;
-  }
 }
 
 /* ====================================================================================================================================================== */
