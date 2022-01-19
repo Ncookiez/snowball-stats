@@ -78,37 +78,26 @@ const getCirculatingSupply = async (total, treasury, staked) => {
 const getStakerInfo = async () => {
   let wallets = [];
   let stakerInfo = [];
-  let page = 0;
-  let hasNextPage = false;
-  do {
-    try {
-      let result = await axios.get(`https://api.covalenthq.com/v1/43114/address/${config.xsnob}/transactions_v2/?no-logs=true&page-size=1000&page-number=${page++}&key=${config.ckey}`);
-      if(!result.data.error) {
-        hasNextPage = result.data.data.pagination.has_more;
-        let promises = result.data.data.items.map(tx => (async () => {
-          if(tx.successful && tx.from_address.toLowerCase() != config.xsnob.toLowerCase() && !wallets.includes(tx.from_address)) {
-            wallets.push(tx.from_address);
-            let stake = await query(config.xsnob, config.xsnobABI, 'locked', [tx.from_address]);
-            let amount = parseInt(stake.amount) / (10 ** 18);
-            let unlock = parseInt(stake.end);
-            if(amount > 0) {
-              stakerInfo.push({ wallet: tx.from_address, amount, unlock });
-            }
-          }
-        })());
-        await Promise.all(promises);
-        console.log(`xSNOB info loaded... (Page ${page})`);
-      } else {
-        hasNextPage = false;
-        console.error('API ERROR: Covalent returned an error response.');
-        process.exit(1);
-      }
-    } catch {
-      hasNextPage = false;
-      console.error('API ERROR: Covalent is likely down.');
-      process.exit(1);
+  let events = await queryBlocks(config.snob, config.transferEventABI, 'Transfer', 1860000, 100000, [null, config.xsnob]);
+  let promises = events.map(event => (async () => {
+    if(!wallets.includes(event.args.from)) {
+      wallets.push(event.args.from);
     }
-  } while(hasNextPage);
+  })());
+  await Promise.all(promises);
+  console.log('xSNOB transactions loaded...');
+  for(let i = 0; i < wallets.length; i += 100) {
+    let stake_promises = wallets.slice(i, Math.min(wallets.length - 1, i + 100)).map(wallet => (async () => {
+      let stake = await query(config.xsnob, config.xsnobABI, 'locked', [wallet]);
+      let amount = parseInt(stake.amount) / (10 ** 18);
+      let unlock = parseInt(stake.end);
+      if(amount > 0) {
+        stakerInfo.push({wallet, amount, unlock});
+      }
+    })());
+    await Promise.all(stake_promises);
+  }
+  console.log('xSNOB staker info loaded...');
   return stakerInfo;
 }
 

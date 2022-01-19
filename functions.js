@@ -46,6 +46,7 @@ exports.queryBlocks = async (address, abi, event, startBlock, querySize, info) =
   let backupEventFilter = backupContract.filters[event](...info);
   let lastQueriedBlock = startBlock;
   try {
+    console.log(`Querying ${(currentBlock - startBlock).toLocaleString()} blocks...`);
     while(++lastQueriedBlock < currentBlock) {
       let targetBlock = Math.min(lastQueriedBlock + querySize, currentBlock);
       let result;
@@ -56,11 +57,10 @@ exports.queryBlocks = async (address, abi, event, startBlock, querySize, info) =
           try {
             result = await backupContract.queryFilter(backupEventFilter, lastQueriedBlock, targetBlock);
           } catch {
-            console.log(`RPC WARNING: Retrying block ${lastQueriedBlock} query...`);
+            console.warn(`RPC WARNING: Retrying block ${lastQueriedBlock} query...`);
           }
         }
       }
-      console.log(`Queried ${(targetBlock - lastQueriedBlock).toLocaleString()} blocks. Remaining: ${(currentBlock - targetBlock).toLocaleString()}`);
       results.push(...result);
       lastQueriedBlock = targetBlock;
     }
