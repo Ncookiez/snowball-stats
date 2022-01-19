@@ -1,6 +1,6 @@
 
 // Required Packages:
-const { query, writeText, getTokenPrice, queryBlocks } = require('../functions.js');
+const { query, writeText, getTokenPrice, queryBlocks, getTokenHolders } = require('../functions.js');
 const axios = require('axios');
 const config = require('../config.js');
 
@@ -39,7 +39,7 @@ const getTotalSupply = async () => {
 
 // Function to get # of SNOB holders:
 const getHolders = async () => {
-  let holders = (await axios.get(`https://api.covalenthq.com/v1/43114/tokens/${config.snob}/token_holders/?page-size=50000&key=${config.ckey}`)).data.data.items.length;
+  let holders = (await getTokenHolders(config.snob)).length;
   console.log('Holders loaded...');
   return holders;
 }

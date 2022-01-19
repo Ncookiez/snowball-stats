@@ -1,7 +1,6 @@
 
 // Required Packages:
-const { writeText } = require('../functions.js');
-const axios = require('axios');
+const { writeText, getTokenHolders } = require('../functions.js');
 const config = require('../config.js');
 
 // Initializations:
@@ -18,9 +17,8 @@ const getHolders = async () => {
       address: nft.address,
       holders: []
     };
-    let query = 'https://api.covalenthq.com/v1/43114/tokens/' + nft.address + '/token_holders/?page-size=10000&key=' + config.ckey;
-    let result = await axios.get(query);
-    result.data.data.items.forEach(holder => {
+    let holders = await getTokenHolders(nft.address);
+    holders.forEach(holder => {
       if(!config.nftMarketplaces.includes(holder.address.toLowerCase())) {
         data.holders.push({ address: holder.address, balance: holder.balance });
       }

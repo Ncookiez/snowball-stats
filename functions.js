@@ -85,6 +85,19 @@ exports.getTokenPrice = async (token) => {
 
 /* ====================================================================================================================================================== */
 
+// Function to get token holders:
+exports.getTokenHolders = async (token) => {
+  try {
+    let holders = (await axios.get(`https://api.covalenthq.com/v1/43114/tokens/${token}/token_holders/?page-size=50000&key=${config.ckey}`)).data.data.items;
+    return holders;
+  } catch(err) {
+    console.error(err);
+    process.exit(1);
+  }
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to fetch data from Snowball API:
 exports.fetchDataAPI = async (data) => {
   let url = 'https://api.snowapi.net/graphql';
