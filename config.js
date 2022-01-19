@@ -60,12 +60,31 @@ exports.axialTokens = [
   { symbol: 'AVAI', address: '0x346a59146b9b4a77100d369a3d18e8007a9f46a6', decimals: 18 },
   { symbol: 'USDC', address: '0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e', decimals: 6 }
 ];
+exports.axialDistributions = [ // https://api.snowtrace.io/api?module=block&action=getblocknobytime&closest=before&timestamp=<TIMESTAMP>
+  { block: 6786231, timestamp: 1636588800 }, // Nov. 11, 2021
+  { block: 7085471, timestamp: 1637193600 }, // Nov. 18, 2021
+  { block: 7386860, timestamp: 1637798400 }, // Nov. 25, 2021
+  { block: 7687393, timestamp: 1638403200 }, // Dec.  2, 2021
+  { block: 7989367, timestamp: 1639008000 }, // Dec.  9, 2021
+  { block: 8290862, timestamp: 1639612800 }, // Dec. 16, 2021
+  { block: 8589431, timestamp: 1640217600 }, // Dec. 23, 2021
+  { block: 8888076, timestamp: 1640822400 }, // Dec. 30, 2021
+  { block: 9187865, timestamp: 1641427200 }, // Jan.  6, 2022
+  { block: 9491470, timestamp: 1642032000 }, // Jan. 13, 2022
+  // { block: 0, timestamp: 1642636800 }, // Jan. 20, 2022
+  // { block: 0, timestamp: 1643241600 }, // Jan. 27, 2022
+  // { block: 0, timestamp: 1643846400 }, // Feb.  3, 2022
+  // { block: 0, timestamp: 1644451200 }, // Feb. 10, 2022
+]
 
 // API Keys:
 exports.ckey = 'ckey_f49ab6dbd21f47a5a25eb922e0d';
 
 // Null Address:
 exports.zero = '0x0000000000000000000000000000000000000000';
+
+// Transfer Event:
+exports.transferEventABI = ['event Transfer(address indexed from, address indexed to, uint256 value)'];
 
 // Contract ABIs:
 exports.minABI = [

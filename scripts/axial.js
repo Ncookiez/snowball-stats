@@ -1,6 +1,6 @@
 
 // Required Packages:
-const { query, writeText, getTokenPrice, pad, queryBlocks } = require('../functions.js');
+const { query, queryBlocks, writeText, getTokenPrice, pad } = require('../functions.js');
 const config = require('../config.js');
 
 // Setting Up Optional Args:
@@ -11,25 +11,6 @@ if(args.length > 0) {
     basic = true;
   }
 }
-
-// Setting Up Block Timestamps:
-// https://api.snowtrace.io/api?module=block&action=getblocknobytime&closest=before&timestamp=<TIMESTAMP>
-const blockTimestamps = [
-  { block: 6786231, timestamp: 1636588800 }, // Nov. 11, 2021
-  { block: 7085471, timestamp: 1637193600 }, // Nov. 18, 2021
-  { block: 7386860, timestamp: 1637798400 }, // Nov. 25, 2021
-  { block: 7687393, timestamp: 1638403200 }, // Dec.  2, 2021
-  { block: 7989367, timestamp: 1639008000 }, // Dec.  9, 2021
-  { block: 8290862, timestamp: 1639612800 }, // Dec. 16, 2021
-  { block: 8589431, timestamp: 1640217600 }, // Dec. 23, 2021
-  { block: 8888076, timestamp: 1640822400 }, // Dec. 30, 2021
-  { block: 9187865, timestamp: 1641427200 }, // Jan.  6, 2022
-  { block: 9491470, timestamp: 1642032000 }, // Jan. 13, 2022
-  // { block: 0, timestamp: 1642636800 }, // Jan. 20, 2022
-  // { block: 0, timestamp: 1643241600 }, // Jan. 27, 2022
-  // { block: 0, timestamp: 1643846400 }, // Feb.  3, 2022
-  // { block: 0, timestamp: 1644451200 }, // Feb. 10, 2022
-];
 
 // Initializations:
 const week = 604800;
@@ -86,7 +67,7 @@ const getTXs = async () => {
   let txs = {};
   let promises = config.axialPools.map(pool => (async () => {
     txs[pool.name] = [];
-    let events = await queryBlocks(pool.swap, config.axialSwapEventABI, 'TokenSwap', blockTimestamps[0].block, 50000);
+    let events = await queryBlocks(pool.swap, config.axialSwapEventABI, 'TokenSwap', config.axialDistributions[0].block, 50000, []);
     let event_promises = events.map(event => (async () => {
       txs[pool.name].push({
         wallet: event.args.buyer.toLowerCase(),
@@ -98,7 +79,7 @@ const getTXs = async () => {
         bought: {
           token: pool.tokens[parseInt(event.args.boughtId)].symbol,
           amount: parseInt(event.args.tokensBought) / (10 ** pool.tokens[parseInt(event.args.boughtId)].decimals)
-        },
+        }
       });
     })());
     await Promise.all(event_promises);
@@ -138,10 +119,10 @@ const getTotalSwapped = (txs) => {
 const getWeeklyVolume = (txs) => {
   let values = [];
   config.axialPools.forEach(pool => {
-    for(let week = 0; week < blockTimestamps.length - 1; week++) {
+    for(let week = 0; week < config.axialDistributions.length - 1; week++) {
       let volume = 0;
       txs[pool.name].forEach(tx => {
-        if(tx.block > blockTimestamps[week].block && tx.block < blockTimestamps[week + 1].block) {
+        if(tx.block > config.axialDistributions[week].block && tx.block < config.axialDistributions[week + 1].block) {
           volume += tx.sold.amount;
         }
       });
@@ -149,7 +130,7 @@ const getWeeklyVolume = (txs) => {
       if(entry) {
         entry.volume += volume;
       } else {
-        let time = blockTimestamps[week].timestamp;
+        let time = config.axialDistributions[week].timestamp;
         values.push({week, time, volume});
       }
     }
@@ -196,14 +177,14 @@ const getPoolWeeklyVolume = (txs) => {
   let values = [];
   config.axialPools.forEach(pool => {
     let weeks = [];
-    for(let week = 0; week < blockTimestamps.length - 1; week++) {
+    for(let week = 0; week < config.axialDistributions.length - 1; week++) {
       let volume = 0;
       txs[pool.name].forEach(tx => {
-        if(tx.block > blockTimestamps[week].block && tx.block < blockTimestamps[week + 1].block) {
+        if(tx.block > config.axialDistributions[week].block && tx.block < config.axialDistributions[week + 1].block) {
           volume += tx.sold.amount;
         }
       });
-      let time = blockTimestamps[week].timestamp;
+      let time = config.axialDistributions[week].timestamp;
       weeks.push({time, volume});
     }
     let name = pool.name;

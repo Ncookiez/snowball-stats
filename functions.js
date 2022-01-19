@@ -37,13 +37,13 @@ exports.query = async (address, abi, method, args) => {
 /* ====================================================================================================================================================== */
 
 // Function to query blocks for a specific type of event:
-exports.queryBlocks = async (address, abi, event, startBlock, querySize) => {
+exports.queryBlocks = async (address, abi, event, startBlock, querySize, info) => {
   let results = [];
   let currentBlock = await avax.getBlockNumber();
   let contract = new ethers.Contract(address, abi, avax);
   let backupContract = new ethers.Contract(address, abi, avax_backup);
-  let eventFilter = contract.filters[event]();
-  let backupEventFilter = backupContract.filters[event]();
+  let eventFilter = contract.filters[event](...info);
+  let backupEventFilter = backupContract.filters[event](...info);
   let lastQueriedBlock = startBlock;
   try {
     while(++lastQueriedBlock < currentBlock) {
@@ -60,6 +60,7 @@ exports.queryBlocks = async (address, abi, event, startBlock, querySize) => {
           }
         }
       }
+      console.log(`Queried ${(targetBlock - lastQueriedBlock).toLocaleString()} blocks. Remaining: ${(currentBlock - targetBlock).toLocaleString()}`);
       results.push(...result);
       lastQueriedBlock = targetBlock;
     }

@@ -1,6 +1,6 @@
 
 // Required Packages:
-const { query, writeText, getTokenPrice, queryBlocks, getTokenHolders } = require('../functions.js');
+const { query, queryBlocks, writeText, getTokenPrice, getTokenHolders } = require('../functions.js');
 const axios = require('axios');
 const config = require('../config.js');
 
@@ -290,7 +290,7 @@ const getProposalVoterInfo = async () => {
   let wallets = [];
   let votes = {};
   let voteCount = 0;
-  let events = await queryBlocks(config.governance, config.voteEventABI, 'NewVote', 2477000, 100000);
+  let events = await queryBlocks(config.governance, config.voteEventABI, 'NewVote', 2477000, 100000, []);
   let promises = events.map(event => (async () => {
     if(!wallets.includes(event.args.voter)) {
       wallets.push(event.args.voter);
