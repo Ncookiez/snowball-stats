@@ -1,6 +1,6 @@
 {
   "name": "snowball-stats",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "Tracking Snowball statistics.",
   "scripts": {
     "snob": "node scripts/snob.js",

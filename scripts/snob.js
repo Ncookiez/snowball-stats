@@ -1,7 +1,6 @@
 
 // Required Packages:
-const { query, queryBlocks, writeText, getTokenPrice, getTokenHolders } = require('../functions.js');
-const axios = require('axios');
+const { query, queryBlocks, writeText, getTokenPrice, getTokenHolders, getCovalentTXs } = require('../functions.js');
 const config = require('../config.js');
 
 // Setting Up Optional Args:
@@ -213,62 +212,27 @@ const getRichList = (info) => {
 const getGaugeVoterInfo = async () => {
   let wallets = [];
   let votes = 0;
-  let page_1 = 0;
-  let page_2 = 0;
-  let hasNextPage = false;
-  do {
-    try {
-      let result = await axios.get(`https://api.covalenthq.com/v1/43114/address/${config.gaugeProxy}/transactions_v2/?no-logs=true&page-size=1000&page-number=${page_1++}&key=${config.ckey}`);
-      if(!result.data.error) {
-        hasNextPage = result.data.data.pagination.has_more;
-        let promises = result.data.data.items.map(tx => (async () => {
-          if(tx.successful && tx.from_address.toLowerCase() != config.gaugeProxy.toLowerCase() && tx.from_address.toLowerCase() != config.operations.toLowerCase() && tx.from_address.toLowerCase() != '0xc9a51fB9057380494262fd291aED74317332C0a2'.toLowerCase()) {
-            if(!wallets.includes(tx.from_address)) {
-              wallets.push(tx.from_address);
-            }
-            votes++;
-          }
-        })());
-        await Promise.all(promises);
-        console.log(`Gauge allocation votes loaded... (Page ${page_1})`);
-      } else {
-        hasNextPage = false;
-        console.error('API ERROR: Covalent returned an error response.');
-        process.exit(1);
+  let ignoredAddresses = [config.gaugeProxy.toLowerCase(), config.oldGaugeProxy.toLowerCase(), config.operations.toLowerCase(), '0xc9a51fb9057380494262fd291aed74317332c0a2'.toLowerCase()];
+  let gaugeProxyTXs = await getCovalentTXs(config.gaugeProxy);
+  let oldGaugeProxyTXs = await getCovalentTXs(config.oldGaugeProxy);
+  console.log('Gauge allocation votes loaded...');
+  gaugeProxyTXs.forEach(tx => {
+    if(!ignoredAddresses.includes(tx.from_address.toLowerCase())) {
+      if(!wallets.includes(tx.from_address)) {
+        wallets.push(tx.from_address);
       }
-    } catch {
-      hasNextPage = false;
-      console.error('API ERROR: Covalent is likely down.');
-      process.exit(1);
+      votes++;
     }
-  } while(hasNextPage);
-  hasNextPage = false;
-  do {
-    try {
-      let result = await axios.get(`https://api.covalenthq.com/v1/43114/address/${config.oldGaugeProxy}/transactions_v2/?no-logs=true&page-size=1000&page-number=${page_2++}&key=${config.ckey}`);
-      if(!result.data.error) {
-        hasNextPage = result.data.data.pagination.has_more;
-        let promises = result.data.data.items.map(tx => (async () => {
-          if(tx.successful && tx.from_address.toLowerCase() != config.oldGaugeProxy.toLowerCase() && tx.from_address.toLowerCase() != config.operations.toLowerCase() && tx.from_address.toLowerCase() != '0xc9a51fB9057380494262fd291aED74317332C0a2'.toLowerCase()) {
-            if(!wallets.includes(tx.from_address)) {
-              wallets.push(tx.from_address);
-            }
-            votes++;
-          }
-        })());
-        await Promise.all(promises);
-        console.log(`Gauge allocation votes loaded... (Page ${page_1 + page_2})`);
-      } else {
-        hasNextPage = false;
-        console.error('API ERROR: Covalent returned an error response.');
-        process.exit(1);
+  });
+  oldGaugeProxyTXs.forEach(tx => {
+    if(!ignoredAddresses.includes(tx.from_address.toLowerCase())) {
+      if(!wallets.includes(tx.from_address)) {
+        wallets.push(tx.from_address);
       }
-    } catch {
-      hasNextPage = false;
-      console.error('API ERROR: Covalent is likely down.');
-      process.exit(1);
+      votes++;
     }
-  } while(hasNextPage);
+  });
+  console.log('Gauge allocation votes counted...');
   return {voters: wallets, votes};
 }
 
