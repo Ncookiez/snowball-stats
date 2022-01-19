@@ -210,8 +210,6 @@ const writeMarkdown = (data) => {
   fs.writeFile('./outputs/pools.md', formattedData, 'utf8', (err) => {
     if(err) {
       console.error(err);
-    } else {
-      console.info(`  > Successfully updated pools.md.`);
     }
   });
 }
