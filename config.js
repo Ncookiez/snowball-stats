@@ -71,7 +71,7 @@ exports.axialDistributions = [ // https://api.snowtrace.io/api?module=block&acti
   { block: 8888076, timestamp: 1640822400 }, // Dec. 30, 2021
   { block: 9187865, timestamp: 1641427200 }, // Jan.  6, 2022
   { block: 9491470, timestamp: 1642032000 }, // Jan. 13, 2022
-  // { block: 0, timestamp: 1642636800 }, // Jan. 20, 2022
+  { block: 9797372, timestamp: 1642636800 }, // Jan. 20, 2022
   // { block: 0, timestamp: 1643241600 }, // Jan. 27, 2022
   // { block: 0, timestamp: 1643846400 }, // Feb.  3, 2022
   // { block: 0, timestamp: 1644451200 }, // Feb. 10, 2022

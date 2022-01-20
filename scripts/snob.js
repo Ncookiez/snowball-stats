@@ -79,8 +79,8 @@ const getStakerInfo = async () => {
   let stakerInfo = [];
   let events = await queryBlocks(config.snob, config.transferEventABI, 'Transfer', 1860000, 100000, [null, config.xsnob]);
   let promises = events.map(event => (async () => {
-    if(!wallets.includes(event.args.from)) {
-      wallets.push(event.args.from);
+    if(!wallets.includes(event.args.from.toLowerCase())) {
+      wallets.push(event.args.from.toLowerCase());
     }
   })());
   await Promise.all(promises);
@@ -218,8 +218,8 @@ const getGaugeVoterInfo = async () => {
   console.log('Gauge allocation votes loaded...');
   gaugeProxyTXs.forEach(tx => {
     if(!ignoredAddresses.includes(tx.from_address.toLowerCase())) {
-      if(!wallets.includes(tx.from_address)) {
-        wallets.push(tx.from_address);
+      if(!wallets.includes(tx.from_address.toLowerCase())) {
+        wallets.push(tx.from_address.toLowerCase());
       }
       votes++;
     }
@@ -245,8 +245,8 @@ const getProposalVoterInfo = async () => {
   let voteCount = 0;
   let events = await queryBlocks(config.governance, config.voteEventABI, 'NewVote', 2477000, 100000, []);
   let promises = events.map(event => (async () => {
-    if(!wallets.includes(event.args.voter)) {
-      wallets.push(event.args.voter);
+    if(!wallets.includes(event.args.voter.toLowerCase())) {
+      wallets.push(event.args.voter.toLowerCase());
     }
     if(!votes.hasOwnProperty(`p${event.args.proposalId}`)) {
       votes[`p${event.args.proposalId}`] = [];

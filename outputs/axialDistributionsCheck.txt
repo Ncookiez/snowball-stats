@@ -29,4 +29,7 @@
       > Council TXs: 1,064,910 AXIAL
   - 13/01/2022:
       > Contract:    694,048 AXIAL
-      > Council TXs: 997,074 AXIAL
+      > Council TXs: 0 AXIAL
+  - 20/01/2022:
+      > Contract:    1,431,882 AXIAL
+      > Council TXs: 1,982,896 AXIAL

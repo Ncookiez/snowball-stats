@@ -33,11 +33,7 @@ const getCouncilDistributions = async () => {
     let amount = 0;
     txs.forEach(tx => {
       let block = config.axialDistributions[i].block;
-      if(i === 8) { // Slightly delayed distribution.
-        if(tx.block > block && tx.block < (config.axialDistributions[i + 1].block + 1000)) {
-          amount += tx.amount;
-        }
-      } else if(i === config.axialDistributions.length - 1) {
+      if(i === config.axialDistributions.length - 1) {
         if(tx.block > block) {
           amount += tx.amount;
         }
