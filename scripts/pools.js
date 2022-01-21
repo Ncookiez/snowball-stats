@@ -130,6 +130,8 @@ const fetchPlatform = async (token, strategy, globe) => {
       platform = 'Pangolin';
     } else if(name.startsWith('Joe')) {
       platform = 'Banker Joe';
+    } else if(name.startsWith('Platypus')) {
+      platform = 'Platypus';
     }
   }
   return platform;
