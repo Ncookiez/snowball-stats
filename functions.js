@@ -104,19 +104,25 @@ exports.getCovalentTXs = async (address) => {
   let txs = [];
   let page = 0;
   let hasNextPage = false;
+  let errors = 0;
   do {
-    try {
-      let result = await axios.get(`https://api.covalenthq.com/v1/43114/address/${address}/transactions_v2/?no-logs=true&page-size=1000&page-number=${page++}&key=${config.ckey}`);
-      hasNextPage = result.data.data.pagination.has_more;
-      let promises = result.data.data.items.map(tx => (async () => {
-        if(tx.successful) {
-          txs.push(tx);
+    let result;
+    while(!result) {
+      try {
+        result = await axios.get(`https://api.covalenthq.com/v1/43114/address/${address}/transactions_v2/?no-logs=true&page-size=1000&page-number=${page++}&key=${config.ckey}`);
+        hasNextPage = result.data.data.pagination.has_more;
+        let promises = result.data.data.items.map(tx => (async () => {
+          if(tx.successful) {
+            txs.push(tx);
+          }
+        })());
+        await Promise.all(promises);
+      } catch(err) {
+        if(++errors === 50) {
+          console.error(`API ERROR: Code ${err.response.data.error_code} - ${err.response.data.error_message}.`);
+          process.exit(1);
         }
-      })());
-      await Promise.all(promises);
-    } catch {
-      console.error('API ERROR: Covalent query was not successful.');
-      process.exit(1);
+      }
     }
   } while(hasNextPage);
   return txs;

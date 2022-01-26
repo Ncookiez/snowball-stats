@@ -127,6 +127,15 @@ Entering the `basic` optional parameter will only run some of the simplest queri
 npm run pools
 ```
 
+## Gas Stats:
+
+- Query the gas spent by users and protocol activities on Snowball's contracts.
+- Query the gas spent by users and protocol activities on Snowball's deprecated contracts.
+
+```
+npm run gasStats
+```
+
 ---
 
 If you encounter any RPC errors, wait a minute before trying again, or change the RPCs listed on `config.js`.
