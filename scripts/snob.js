@@ -343,7 +343,7 @@ const fetch = async () => {
     data += `  - Total SNOB Supply: ${totalSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB\n`;
     data += `  - SNOB Market Cap: $${(price * totalSupply).toLocaleString(undefined, {maximumFractionDigits: 0})}\n`;
     data += `  - SNOB Holders: ${holders.toLocaleString(undefined, {maximumFractionDigits: 0})} Users\n`;
-    data += `  - Treasury: $ ${(price * treasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0})} (${treasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB)\n`;
+    data += `  - Treasury: $${(price * treasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0})} (${treasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB)\n`;
     data += `  - Staked SNOB: ${staked.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB (${((staked / totalSupply) * 100).toFixed(2)}% of total supply)\n`;
     data += `  - Circulating SNOB Supply: ${circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB (${((circulatingSupply / totalSupply) * 100).toFixed(2)}% of total supply)\n`;
     data += `  - xSNOB Holders: ${numStakers.toLocaleString(undefined, {maximumFractionDigits: 0})} Users\n`;
@@ -391,7 +391,7 @@ const fetch = async () => {
     data += `  - SNOB Price: $${price}\n`;
     data += `  - Total SNOB Supply: ${totalSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB\n`;
     data += `  - SNOB Market Cap: $${(price * totalSupply).toLocaleString(undefined, {maximumFractionDigits: 0})}\n`;
-    data += `  - Treasury: $ ${(price * treasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0})} (${treasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB)\n`;
+    data += `  - Treasury: $${(price * treasuryBalance).toLocaleString(undefined, {maximumFractionDigits: 0})} (${treasuryBalance.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB)\n`;
     data += `  - Staked SNOB: ${staked.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB (${((staked / totalSupply) * 100).toFixed(2)}% of total supply)\n`;
     data += `  - Circulating SNOB Supply: ${circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB (${((circulatingSupply / totalSupply) * 100).toFixed(2)}% of total supply)\n`;
     data += `  - Average SNOB Locked Time: ${avgLockedTime.toLocaleString(undefined, {maximumFractionDigits: 2})} Years\n`;

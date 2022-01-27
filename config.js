@@ -302,7 +302,6 @@ exports.axialPools = [
   { name: 'AC4D', swap: '0x8c3c1C6F971C01481150CA7942bD2bbB9Bc27bC7', tokens: [{ symbol: 'TSD', decimals: 18 }, { symbol: 'MIM', decimals: 18 }, { symbol: 'FRAX', decimals: 18 }, { symbol: 'DAI.e', decimals: 18 }] },
   { name: 'AM3D', swap: '0x90c7b96AD2142166D001B27b5fbc128494CDfBc8', tokens: [{ symbol: 'MIM', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }, { symbol: 'DAI.e', decimals: 18 }] },
   { name: 'AA3D', swap: '0x6EfbC734D91b229BE29137cf9fE531C1D3bf4Da6', tokens: [{ symbol: 'AVAI', decimals: 18 }, { symbol: 'MIM', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }] }
-  // { name: 'USDC-AM3D', swap: '0x26694e4047eA77cC96341f0aC491773aC5469d72', tokens: [{ symbol: 'USDC', decimals: 6 }, { symbol: 'AM3D', decimals: 18 }] }
 ];
 exports.paraswap = '0xdef171fe48cf0115b1d80b88dc8eab59176fee57';
 exports.axialSwapEventABI = ['event TokenSwap(address indexed buyer, uint256 tokensSold, uint256 tokensBought, uint128 soldId, uint128 boughtId)'];
@@ -318,20 +317,20 @@ exports.axialTokens = [
   { symbol: 'USDC', address: '0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e', decimals: 6 }
 ];
 exports.axialDistributions = [ // https://api.snowtrace.io/api?module=block&action=getblocknobytime&closest=before&timestamp=<TIMESTAMP>
-  { block: 6786231, timestamp: 1636588800 }, // Nov. 11, 2021
-  { block: 7085471, timestamp: 1637193600 }, // Nov. 18, 2021
-  { block: 7386860, timestamp: 1637798400 }, // Nov. 25, 2021
-  { block: 7687393, timestamp: 1638403200 }, // Dec.  2, 2021
-  { block: 7989367, timestamp: 1639008000 }, // Dec.  9, 2021
-  { block: 8290862, timestamp: 1639612800 }, // Dec. 16, 2021
-  { block: 8589431, timestamp: 1640217600 }, // Dec. 23, 2021
-  { block: 8888076, timestamp: 1640822400 }, // Dec. 30, 2021
-  { block: 9187865, timestamp: 1641427200 }, // Jan.  6, 2022
-  { block: 9491470, timestamp: 1642032000 }, // Jan. 13, 2022
-  { block: 9797372, timestamp: 1642636800 }, // Jan. 20, 2022
-  // { block: 0, timestamp: 1643241600 }, // Jan. 27, 2022
-  // { block: 0, timestamp: 1643846400 }, // Feb.  3, 2022
-  // { block: 0, timestamp: 1644451200 }, // Feb. 10, 2022
+  { block: 6786231, timestamp: 1636588800 },  // Nov. 11, 2021
+  { block: 7085471, timestamp: 1637193600 },  // Nov. 18, 2021
+  { block: 7386860, timestamp: 1637798400 },  // Nov. 25, 2021
+  { block: 7687393, timestamp: 1638403200 },  // Dec.  2, 2021
+  { block: 7989367, timestamp: 1639008000 },  // Dec.  9, 2021
+  { block: 8290862, timestamp: 1639612800 },  // Dec. 16, 2021
+  { block: 8589431, timestamp: 1640217600 },  // Dec. 23, 2021
+  { block: 8888076, timestamp: 1640822400 },  // Dec. 30, 2021
+  { block: 9187865, timestamp: 1641427200 },  // Jan.  6, 2022
+  { block: 9491470, timestamp: 1642032000 },  // Jan. 13, 2022
+  { block: 9797372, timestamp: 1642636800 },  // Jan. 20, 2022
+  { block: 10101236, timestamp: 1643241600 }, // Jan. 27, 2022
+  // { block: 0, timestamp: 1643846400 },  // Feb.  3, 2022
+  // { block: 0, timestamp: 1644451200 },  // Feb. 10, 2022
 ]
 
 // API Keys:

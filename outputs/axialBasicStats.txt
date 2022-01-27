@@ -3,13 +3,13 @@
   ||        AXIAL Stats        ||
   ===============================
 
-  - AXIAL Price: $0.0129
-  - Total AXIAL Supply: 56,224,837 AXIAL
-  - AXIAL Market Cap: $725,300
-  - Treasury: $132,224 (8,433,725 AXIAL & 23,429 Peggies)
-  - Unclaimed Swap Fees: $24,546
-      > AM3D - $20,286
-      > AA3D - $2,046
-      > AC4D - $1,347
-      > AS4D - $867
-  - Circulating AXIAL Supply: 39,380,887 AXIAL (70.04% of total supply)
+  - AXIAL Price: $0.0080
+  - Total AXIAL Supply: 60,712,373 AXIAL
+  - AXIAL Market Cap: $485,699
+  - Treasury: $96,284 (9,106,856 AXIAL & 23,429 Peggies)
+  - Unclaimed Swap Fees: $26,687
+      > AM3D - $21,232
+      > AA3D - $2,213
+      > AC4D - $2,030
+      > AS4D - $1,212
+  - Circulating AXIAL Supply: 42,522,162 AXIAL (70.04% of total supply)

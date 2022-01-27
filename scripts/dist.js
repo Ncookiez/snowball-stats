@@ -1,6 +1,6 @@
 
 // Required Packages:
-const { query, writeText, pad } = require('../functions.js');
+const { query, writeText, pad, getTokenPrice } = require('../functions.js');
 const axios = require('axios');
 const config = require('../config.js');
 
@@ -102,13 +102,26 @@ const getAPR = async (xsnob, snob, axial, timestamp) => {
   if(axial > 0) {
     let rawDate = new Date((timestamp + week) * 1000);
     let date = `${pad(rawDate.getUTCDate())}-${pad(rawDate.getUTCMonth() + 1)}-${rawDate.getUTCFullYear()}`;
-    let snobPrice = (await axios.get(`https://api.coingecko.com/api/v3/coins/snowball-token/history?date=${date}&localization=false`)).data.market_data.current_price.usd;
+    let snobPrice;
+    try {
+      snobPrice = (await axios.get(`https://api.coingecko.com/api/v3/coins/snowball-token/history?date=${date}&localization=false`)).data.market_data.current_price.usd;
+    } catch {
+      if((timestamp + week) > (time - (week / 7))) {
+        snobPrice = await getTokenPrice(config.snob);
+      }
+    }
     let axialPrice = 0;
     let foundAxialPrice = axialPrices.find(i => i.timestamp === timestamp);
     if(foundAxialPrice) {
       axialPrice = foundAxialPrice.price;
     } else {
-      axialPrice = (await axios.get(`https://api.coingecko.com/api/v3/coins/axial-token/history?date=${date}&localization=false`)).data.market_data.current_price.usd;
+      try {
+        axialPrice = (await axios.get(`https://api.coingecko.com/api/v3/coins/axial-token/history?date=${date}&localization=false`)).data.market_data.current_price.usd;
+      } catch {
+        if((timestamp + week) > (time - (week / 7))) {
+          axialPrice = await getTokenPrice(config.axial);
+        }
+      }
     }
     let ratio = snobPrice / axialPrice;
     axialAPR = (((axial / ratio) * 52) / xsnob) * 100;
@@ -154,7 +167,7 @@ const fetch = async () => {
   distributions.forEach(distribution => {
     let rawDate = new Date((distribution.timestamp + week) * 1000);
     let date = `${pad(rawDate.getUTCDate())}/${pad(rawDate.getUTCMonth() + 1)}/${rawDate.getUTCFullYear()}`;
-    data += `      > Week ${(distribution.week < 10 ? ' ' : '')}${distribution.week.toLocaleString(undefined, {maximumFractionDigits: 0})} (${date}) - ${distribution.snob.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB${(distribution.axial > 0 ? ` & ${distribution.axial.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL` : '')} - ${(distribution.apr[0] + distribution.apr[1]).toFixed(2)}% APR ${(distribution.axial > 0 ? `(${distribution.apr[0].toFixed(2)}% SNOB & ${distribution.apr[1].toFixed(2)}% AXIAL)` : '')}\n`;
+    data += `      > Week ${(distribution.week < 10 ? ' ' : '')}${distribution.week.toLocaleString(undefined, {maximumFractionDigits: 0})} (${date}) - ${distribution.snob.toLocaleString(undefined, {maximumFractionDigits: 0})} SNOB${(distribution.axial > 0 ? ` & ${distribution.axial.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL` : '')} - ${(distribution.apr[0] + distribution.apr[1]).toFixed(2)}% APR${(distribution.axial > 0 ? ` (${distribution.apr[0].toFixed(2)}% SNOB & ${distribution.apr[1].toFixed(2)}% AXIAL)` : '')}\n`;
   });
   data += `  - Total xSNOB Supply: ${xSNOBSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} xSNOB\n`;
   data += `  - All-Time Average APR: ${allTimeAPR.toFixed(2)}%\n`;

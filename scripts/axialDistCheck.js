@@ -12,7 +12,7 @@ let data = '';
 // Function to get AXIAL distributions from fee distributor contract:
 const getContractDistributions = async () => {
   let distributions = [];
-  let promises = config.axialDistributions.map(dist => (async () => {
+  let promises = config.axialDistributions.slice(0, -1).map(dist => (async () => {
     let timestamp = dist.timestamp;
     let amount = parseInt(await query(config.axialFeeDistributor, config.feeDistributorABI, 'tokens_per_week', [timestamp])) / (10 ** 18);
     distributions.push({timestamp, amount});
@@ -67,6 +67,17 @@ const getCouncilTXs = async () => {
 
 /* ====================================================================================================================================================== */
 
+// Function to get total distributions:
+const getTotalDist = (distributions) => {
+  let total = 0;
+  distributions.forEach(dist => {
+    total += dist.amount;
+  });
+  return total;
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to fetch all stats:
 const fetch = async () => {
 
@@ -78,8 +89,12 @@ const fetch = async () => {
   // Fetching Data:
   let contractDistributions = await getContractDistributions();
   let councilDistributions = await getCouncilDistributions();
+  let totalContractDistribution = getTotalDist(contractDistributions);
+  let totalCouncilDistribution = getTotalDist(councilDistributions);
 
   // Writing Data:
+  data += `Total Contract Distributions: ${totalContractDistribution.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL\n`;
+  data += `Total Council Distributions:  ${totalCouncilDistribution.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL\n\n`;
   config.axialDistributions.slice(0, -1).forEach(axialDistribution => {
     let timestamp = axialDistribution.timestamp;
     let rawDate = new Date((timestamp + week) * 1000);
