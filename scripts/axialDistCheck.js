@@ -93,8 +93,8 @@ const fetch = async () => {
   let totalCouncilDistribution = getTotalDist(councilDistributions);
 
   // Writing Data:
-  data += `Total Contract Distributions: ${totalContractDistribution.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL\n`;
-  data += `Total Council Distributions:  ${totalCouncilDistribution.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL\n\n`;
+  data += `  - Total Contract Distributions: ${totalContractDistribution.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL\n`;
+  data += `  - Total Council Distributions:  ${totalCouncilDistribution.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL\n\n`;
   config.axialDistributions.slice(0, -1).forEach(axialDistribution => {
     let timestamp = axialDistribution.timestamp;
     let rawDate = new Date((timestamp + week) * 1000);
