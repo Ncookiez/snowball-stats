@@ -1035,6 +1035,29 @@
   }
  },
  {
+  "name": "AVAX-MORE",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0x8C0A2Cd047d2da517Dc51B189EDfbdC150ee832d",
+  "strategy": "0xfEB47879704e8D2938F09C21b17B5b059790357C",
+  "gauge": "0xF00B29bF0bE99fA54202f4BBa882BD10Fc51f448",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0xb8361D0E3F3B0fc5e6071f3a3C3271223C49e3d9"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   },
+   "token1": {
+    "symbol": "MORE",
+    "address": "0xd9D90f882CDdD6063959A9d837B05Cb748718A05"
+   }
+  }
+ },
+ {
   "name": "AVAX-ORCA",
   "platform": "Pangolin",
   "type": "lp",
@@ -1514,6 +1537,29 @@
    "token1": {
     "symbol": "USDT.e",
     "address": "0xc7198437980c041c805A1EDcbA50c1Ce5db95118"
+   }
+  }
+ },
+ {
+  "name": "AVAX-UST",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0xAD53e02601eca3ebD828646A80539868543c1747",
+  "strategy": "0xCB63CDD4ca868e18Bf6C6EB8618Acd76DB32801f",
+  "gauge": "0xc33544374CBfd4d7eBA8b3cc854837DF71ec314e",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0x7BF98BD74E19AD8eB5e14076140Ee0103F8F872B"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "UST",
+    "address": "0x260Bbf5698121EB85e7a74f2E45E16Ce762EbE11"
+   },
+   "token1": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
    }
   }
  },
