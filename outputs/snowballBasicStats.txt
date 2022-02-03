@@ -3,13 +3,13 @@
   ||        SNOB Stats        ||
   ==============================
 
-  - SNOB Price: $0.2299
-  - Total SNOB Supply: 17,441,331 SNOB
-  - SNOB Market Cap: $4,009,762
-  - Treasury: $ 317,415 (1,380,665 SNOB)
-  - Staked SNOB: 10,364,539 SNOB (59.43% of total supply)
-  - Circulating SNOB Supply: 5,696,127 SNOB (32.66% of total supply)
+  - SNOB Price: $0.2531
+  - Total SNOB Supply: 17,466,743 SNOB
+  - SNOB Market Cap: $4,420,833
+  - Treasury: $349,446 (1,380,665 SNOB)
+  - Staked SNOB: 10,352,968 SNOB (59.27% of total supply)
+  - Circulating SNOB Supply: 5,733,110 SNOB (32.82% of total supply)
   - Average SNOB Locked Time: 1.38 Years
-  - Total xSNOB Supply: 7,173,778 xSNOB
-  - Unclaimed SNOB (From xSNOB): 64,937 SNOB
-  - Unclaimed AXIAL (From xSNOB): 2,793,617 AXIAL
+  - Total xSNOB Supply: 7,139,752 xSNOB
+  - Unclaimed SNOB (From xSNOB): 67,663 SNOB
+  - Unclaimed AXIAL (From xSNOB): 2,288,473 AXIAL

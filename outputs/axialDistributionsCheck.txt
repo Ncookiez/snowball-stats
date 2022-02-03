@@ -3,7 +3,7 @@
   ||    AXIAL Distributions    ||
   ===============================
 
-  - Total Contract Distributions: 11,975,432 AXIAL
+  - Total Contract Distributions: 12,066,819 AXIAL
   - Total Council Distributions:  12,066,819 AXIAL
 
   - 18/11/2021:
@@ -39,3 +39,6 @@
   - 27/01/2022:
       > Contract:    1,346,807 AXIAL
       > Council TXs: 935,945 AXIAL
+  - 03/02/2022:
+      > Contract:    91,387 AXIAL
+      > Council TXs: 0 AXIAL

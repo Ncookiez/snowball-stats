@@ -1,0 +1,11 @@
+
+  ==============================
+  ||         Gas Stats        ||
+  ==============================
+
+  - Total Gas Spent: 6862.12 AVAX
+  - Gas Spent On Globes: 1941.07 AVAX
+  - Gas Spent On Strategies: 623.69 AVAX
+  - Gas Spent On Gauges: 1482.72 AVAX
+  - Gas Spent On Deprecated Globes: 1353.11 AVAX
+  - Gas Spent On Deprecated Gauges: 1461.54 AVAX
