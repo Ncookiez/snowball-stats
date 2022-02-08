@@ -73,6 +73,20 @@ exports.queryBlocks = async (address, abi, event, startBlock, querySize, info) =
 
 /* ====================================================================================================================================================== */
 
+// Function to get AVAX price from CoinGecko:
+exports.getNativeTokenPrice = async () => {
+  let token = 'avalanche-2';
+  try {
+    let price = (await axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=${token}&vs_currencies=usd`)).data[token].usd;
+    return price;
+  } catch(err) {
+    console.error(err);
+    process.exit(1);
+  }
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to get token price from CoinGecko:
 exports.getTokenPrice = async (token) => {
   try {

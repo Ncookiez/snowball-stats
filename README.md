@@ -90,6 +90,14 @@ This script grabs data on how much AVAX is estimated to have been spent as gas o
 npm run gasStats
 ```
 
+## Teddy Stats
+
+This script grabs a ton of data on the Teddy protocol and its TEDDY token.
+
+```
+npm run teddy
+```
+
 ---
 
 If you encounter any RPC errors, wait a minute before trying again, or change the RPCs listed on `config.js`.

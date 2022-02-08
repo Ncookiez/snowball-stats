@@ -331,7 +331,16 @@ exports.axialDistributions = [ // https://api.snowtrace.io/api?module=block&acti
   { block: 10101236, timestamp: 1643241600 }, // Jan. 27, 2022
   { block: 10407972, timestamp: 1643846400 }, // Feb.  3, 2022
   // { block: 0, timestamp: 1644451200 }, // Feb. 10, 2022
-]
+];
+
+// Teddy Variables:
+exports.teddy = '0x094bd7b2d99711a1486fb94d4395801c6d0fddcc';
+exports.tsd = '0x4fbf0429599460D327BD5F55625E30E4fC066095';
+exports.teddyStaking = '0xb4387D93B5A9392f64963cd44389e7D9D2E1053c';
+exports.stabilityPool = '0x7AEd63385C03Dc8ed2133F705bbB63E8EA607522';
+exports.teddyIssuance = '0x094bd7b2d99711a1486fb94d4395801c6d0fddcc';
+exports.troves = '0xd22b04395705144Fd12AfFD854248427A2776194';
+exports.sortedTroves = '0x5272DfB4851723328dA7730BE944502E5C965f40';
 
 // API Keys:
 exports.ckey = 'ckey_f49ab6dbd21f47a5a25eb922e0d';
@@ -379,4 +388,12 @@ exports.swapABI = [
 ];
 exports.governanceABI = [
   { constant: true, inputs: [{ name: "<input>", type: "uint256" }], name: "proposals", outputs: [{ name: "title", type: "string" }, { name: "metadata", type: "string" }, { name: "proposer", type: "address" }, { name: "executor", type: "address" }, { name: "startTime", type: "uint256" }, { name: "votingPeriod", type: "uint256" }, { name: "quorumVotes", type: "uint256" }, { name: "executionDelay", type: "uint256" }, { name: "forVotes", type: "uint256" }, { name: "againstVotes", type: "uint256" }], type: "function" }
+];
+exports.troveManagerABI = [
+  { constant: true, inputs: [], name: "getEntireSystemColl", outputs: [{ name: "", type: "uint256" }], type: "function" },
+  { constant: true, inputs: [{ name: "<input>", type: "uint256" }], name: "TroveOwners", outputs: [{ name: "", type: "address" }], type: "function" },
+  { constant: true, inputs: [{ name: "<input>", type: "address" }], name: "Troves", outputs: [{ name: "debt", type: "uint256" }, { name: "coll", type: "uint256" }, { name: "stake", type: "uint256" }, { name: "status", type: "uint8" }, { name: "arrayIndex", type: "uint128" }], type: "function" }
+];
+exports.sortedTrovesABI = [
+  { constant: true, inputs: [], name: "getSize", outputs: [{ name: "", type: "uint256" }], type: "function" }
 ];

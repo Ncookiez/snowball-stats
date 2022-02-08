@@ -1,6 +1,6 @@
 {
   "name": "snowball-stats",
-  "version": "2.5.3",
+  "version": "2.6.0",
   "description": "Tracking Snowball statistics.",
   "scripts": {
     "snob": "node scripts/snob.js",
@@ -10,7 +10,8 @@
     "axial": "node scripts/axial.js",
     "pools": "node scripts/pools.js",
     "axialDistCheck": "node scripts/axialDistCheck.js",
-    "gasStats": "node scripts/gasStats.js"
+    "gasStats": "node scripts/gasStats.js",
+    "teddy": "node scripts/teddy.js"
   },
   "author": "Ncookie",
   "dependencies": {
