@@ -4,9 +4,7 @@ Repository to track Snowball statistics.
 
 ---
 
-## Stats Tracked:
-
-### SNOB Stats
+## SNOB Stats
 
 This script grabs a ton of data about Snowball, SNOB, xSNOB and other governance stats.
 
@@ -20,7 +18,7 @@ The `basic` optional parameter will cover only the simplest queries - getting yo
 npm run snob basic
 ```
 
-### Compounder Stats (WIP)
+## Compounder Stats (WIP)
 
 This script grabs data from Snowball's auto-compounding strategies.
 
@@ -38,7 +36,7 @@ Entering only a start time but not an end time is also an option. The current ti
 
 You can use the link [here](https://www.unixtimestamp.com/) to get Unix timestamps.
 
-### NFT Stats
+## NFT Stats
 
 This script grabs ownership data for every one of Snowball's NFTs.
 
@@ -46,7 +44,7 @@ This script grabs ownership data for every one of Snowball's NFTs.
 npm run nfts
 ```
 
-### Distribution Stats
+## Distribution Stats
 
 This script grabs data on all past xSNOB distributions.
 
@@ -54,7 +52,7 @@ This script grabs data on all past xSNOB distributions.
 npm run dist
 ```
 
-### Axial Stats
+## Axial Stats
 
 This script grabs a ton of data on Axial, the AXIAL token and the protocol's many pools.
 
@@ -68,7 +66,7 @@ The `basic` optional parameter will cover only the simplest queries - getting yo
 npm run axial basic
 ```
 
-### Axial Distribution Stats
+## Axial Distribution Stats
 
 This script checks for any discrepancies between council transactions and AXIAL distributed to xSNOB holders.
 
@@ -76,7 +74,7 @@ This script checks for any discrepancies between council transactions and AXIAL 
 npm run axialDistCheck
 ```
 
-### Snowball Pool Contracts
+## Snowball Pool Contracts
 
 This script will generate JSON and Markdown outputs of Snowball's many auto-compounding pools/strategies.
 
