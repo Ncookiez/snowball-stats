@@ -6,131 +6,87 @@ Repository to track Snowball statistics.
 
 ## Stats Tracked:
 
-### SNOB Stats:
+### SNOB Stats
 
-- SNOB price.
-- Number of unique wallets holding SNOB.
-- Total SNOB supply.
-- SNOB market cap.
-- Treasury SNOB balance.
-- Locked / staked SNOB supply.
-- Circulating SNOB supply.
-- Number of unique wallets staking SNOB.
-- Average SNOB amount staked.
-- Average SNOB locked time.
-- Total xSNOB supply.
-- Average xSNOB amount held by stakers.
-- Number of wallets with at least 100k xSNOB.
-- Number of users forgetting to withdraw their unlocked SNOB.
-- Amount of unlocked SNOB waiting to be withdrawn.
-- Amount of unclaimed SNOB rewards from xSNOB holders.
-- Amount of unclaimed AXIAL rewards from xSNOB holders.
-- Top 5 richest xSNOB holders.
-- Number of SNOB allocation voters.
-- Number of proposal voters.
-- Total number of SNOB allocation votes.
-- Total number of proposal votes.
-- Percentage of current SNOB stakers that have voted on SNOB allocations or governance proposals.
-- Participation and results of each governance proposal.
+This script grabs a ton of data about Snowball, SNOB, xSNOB and other governance stats.
 
 ```
 npm run snob
 ```
 
+The `basic` optional parameter will cover only the simplest queries - getting you results faster.
+
 ```
 npm run snob basic
 ```
 
-Entering the `basic` optional parameter will only run some of the simplest queries. This script will run very quickly.
+### Compounder Stats (WIP)
 
-### Compounder Stats (WIP):
-
-- Number of unique wallets that interacted with our compounding strategies.
-- Number of unique wallets that interacted with our compounding strategies in the last 30 days.
-- Number of unique wallets that interacted with our compounding strategies in any given period of time.
+This script grabs data from Snowball's auto-compounding strategies.
 
 ```
 npm run comp
 ```
 
+The optional time parameters can be used to fetch data from specific periods of time.
+
 ```
 npm run comp <start_time> <end_time>
 ```
 
-Entering only a start time but not an end time is also an option. The current time will be used for the end time.
+Entering only a start time but not an end time is also an option. The current time will thus be used for the end time.
 
 You can use the link [here](https://www.unixtimestamp.com/) to get Unix timestamps.
 
-### NFT Stats:
+### NFT Stats
 
-- Owners of each Snowball NFT.
+This script grabs ownership data for every one of Snowball's NFTs.
 
 ```
 npm run nfts
 ```
 
-### Distribution Stats:
+### Distribution Stats
 
-- Total SNOB distributed.
-- Average SNOB distribution.
-- Total AXIAL distributed.
-- Average AXIAL distribution.
-- List of each week's SNOB and AXIAL distribution.
-- APR of last SNOB and AXIAL distribution.
-- All-time staking APR.
+This script grabs data on all past xSNOB distributions.
 
 ```
 npm run dist
 ```
 
-### Axial Stats:
+### Axial Stats
 
-- AXIAL price.
-- Total AXIAL supply.
-- AXIAL market cap.
-- Treasury AXIAL balance.
-- Treasury stablecoin balance.
-- Unclaimed treasury swap fees from each pool.
-- Circulating AXIAL supply.
-- Total number of swap transactions.
-- Total all-time volume traded.
-- Weekly volume traded.
-- Number of swap transactions on each pool.
-- All-time volume traded on each pool.
-- Weekly volume traded on each pool.
-- Top 5 biggest swappers' volume traded.
-- Top 5 biggest swappers' number of transactions.
-- Swap fees accrued weekly or per-pool basis.
-- Demand for each token through swaps.
-- Largest swap for each pool.
-- Average swap for each pool.
-- Swap volume distribution for each pool.
+This script grabs a ton of data on Axial, the AXIAL token and the protocol's many pools.
 
 ```
 npm run axial
 ```
 
+The `basic` optional parameter will cover only the simplest queries - getting you results faster.
+
 ```
 npm run axial basic
 ```
 
-Entering the `basic` optional parameter will only run some of the simplest queries. This script will run very quickly.
+### Axial Distribution Stats
 
-### Snowball Pool Contracts:
+This script checks for any discrepancies between council transactions and AXIAL distributed to xSNOB holders.
 
-- List of all data on Snowball pool contracts used for auto-compounding.
-- JSON output of this data.
-- Markdown output of this data.
-- JSON output of any errored pools, pools that need to be deprecated, etc.
+```
+npm run axialDistCheck
+```
+
+### Snowball Pool Contracts
+
+This script will generate JSON and Markdown outputs of Snowball's many auto-compounding pools/strategies.
 
 ```
 npm run pools
 ```
 
-## Gas Stats:
+## Gas Stats
 
-- Query the gas spent by users and protocol activities on Snowball's contracts.
-- Query the gas spent by users and protocol activities on Snowball's deprecated contracts.
+This script grabs data on how much AVAX is estimated to have been spent as gas on Snowball's many auto-compounding pools/strategies.
 
 ```
 npm run gasStats
