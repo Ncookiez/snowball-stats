@@ -3,27 +3,31 @@
   ||       TEDDY Stats       ||
   =============================
 
-  - TEDDY Price: $0.0146
-  - TEDDY Holders: 1,552 Users
-  - Staked TEDDY: 10,246,333 TEDDY
+  - TEDDY Price: $0.0117
+  - Total TEDDY Supply: 58,635,093 TEDDY
+  - TEDDY Market Cap: $686,031
+  - Circulating TEDDY Supply: 16,031,750 TEDDY (27.34% of total supply)
+  - Circulating TEDDY Market Cap: $187,571
+  - TEDDY Holders: 1,557 Users
+  - Staked TEDDY: 10,191,245 TEDDY (63.57% of circulating supply)
   - TSD Price: $1.01
-  - Total TSD Supply: 1,260,240 TSD
-  - TSD Holders: 1,337 Users
-  - Staked TSD: 416,020 TSD (33.01% of total supply)
-  - AVAX Collateral: 31,250 AVAX ($2,721,871)
-  - Collateral Ratio: 215.98%
+  - Total TSD Supply: 1,257,960 TSD
+  - TSD Holders: 1,335 Users
+  - Staked TSD: 416,124 TSD (33.08% of total supply)
+  - AVAX Collateral: 31,218 AVAX ($2,813,054)
+  - Collateral Ratio: 223.62%
   - Trove Count: 28
   - Top 5 Largest Troves By Collateral:
-      > 0xd75aeDcD10035c9c949d2A39715D4CE3D5C8f5bC - 13,899 AVAX (510,239 TSD Minted) - Ratio: 237.26%
-      > 0x5c134a50C9caD0531CAea982cb4426a632A2C528 - 5,000 AVAX (270,553 TSD Minted) - Ratio: 160.97%
-      > 0x7722C6bF5f3365757505aa5a6F1396042372EedD - 2,069 AVAX (95,612 TSD Minted) - Ratio: 188.51%
-      > 0xF0032DB74398F6732d85D991b06351044f4773c8 - 2,000 AVAX (99,987 TSD Minted) - Ratio: 174.22%
-      > 0xD58AA88246a1CF56A48E8e184405bd7ef0BE7B83 - 1,854 AVAX (81,449 TSD Minted) - Ratio: 198.22%
+      > 0xd75aeDcD10035c9c949d2A39715D4CE3D5C8f5bC - 13,899 AVAX (510,239 TSD Minted) - Ratio: 245.46%
+      > 0x5c134a50C9caD0531CAea982cb4426a632A2C528 - 5,000 AVAX (270,553 TSD Minted) - Ratio: 166.53%
+      > 0x7722C6bF5f3365757505aa5a6F1396042372EedD - 2,069 AVAX (95,612 TSD Minted) - Ratio: 195.02%
+      > 0xF0032DB74398F6732d85D991b06351044f4773c8 - 2,000 AVAX (99,987 TSD Minted) - Ratio: 180.24%
+      > 0xD58AA88246a1CF56A48E8e184405bd7ef0BE7B83 - 1,854 AVAX (81,449 TSD Minted) - Ratio: 205.07%
   - Top 5 Riskiest Troves By Collateral Ratio:
-      > 0x24067919e98e37d6AF98D747eBaFa8AaB31db2C8 - 170 AVAX (11,482 TSD Minted) - Ratio: 128.96%
-      > 0x5c134a50C9caD0531CAea982cb4426a632A2C528 - 5,000 AVAX (270,553 TSD Minted) - Ratio: 160.97%
-      > 0x6fb737D1Ebb73cda6CFA36Fd16D9273065D1b084 - 132 AVAX (6,734 TSD Minted) - Ratio: 170.08%
-      > 0x43BC7667BF508cE3905DC0F492f106eaE2800536 - 48 AVAX (2,401 TSD Minted) - Ratio: 174.11%
-      > 0xF0032DB74398F6732d85D991b06351044f4773c8 - 2,000 AVAX (99,987 TSD Minted) - Ratio: 174.22%
-  - Average Trove Collateral: 1,116 AVAX
-  - Average Trove TSD Minted: 45,009 TSD
+      > 0x24067919e98e37d6AF98D747eBaFa8AaB31db2C8 - 141 AVAX (9,201 TSD Minted) - Ratio: 137.64%
+      > 0x5c134a50C9caD0531CAea982cb4426a632A2C528 - 5,000 AVAX (270,553 TSD Minted) - Ratio: 166.53%
+      > 0x6fb737D1Ebb73cda6CFA36Fd16D9273065D1b084 - 129 AVAX (6,734 TSD Minted) - Ratio: 172.61%
+      > 0x43BC7667BF508cE3905DC0F492f106eaE2800536 - 48 AVAX (2,401 TSD Minted) - Ratio: 180.13%
+      > 0xF0032DB74398F6732d85D991b06351044f4773c8 - 2,000 AVAX (99,987 TSD Minted) - Ratio: 180.24%
+  - Average Trove Collateral: 1,115 AVAX
+  - Average Trove TSD Minted: 44,927 TSD

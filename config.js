@@ -338,9 +338,11 @@ exports.teddy = '0x094bd7b2d99711a1486fb94d4395801c6d0fddcc';
 exports.tsd = '0x4fbf0429599460D327BD5F55625E30E4fC066095';
 exports.teddyStaking = '0xb4387D93B5A9392f64963cd44389e7D9D2E1053c';
 exports.stabilityPool = '0x7AEd63385C03Dc8ed2133F705bbB63E8EA607522';
-exports.teddyIssuance = '0x094bd7b2d99711a1486fb94d4395801c6d0fddcc';
+exports.teddyIssuance = '0xb4Fbc7839ce88029c8c1c6274660118e27B6f982';
 exports.troves = '0xd22b04395705144Fd12AfFD854248427A2776194';
 exports.sortedTroves = '0x5272DfB4851723328dA7730BE944502E5C965f40';
+exports.teddyTreasury = '0x7B4a14CD122BFE2e717c27914a024D05eC3061B9';
+exports.teddyDevFund = '0x41f8a18b165De90383bf23CbcE5c0244ECDeeaA7';
 
 // API Keys:
 exports.ckey = 'ckey_f49ab6dbd21f47a5a25eb922e0d';

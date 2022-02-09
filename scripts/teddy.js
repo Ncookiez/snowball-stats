@@ -19,9 +19,20 @@ const getPrice = async () => {
 
 // Function to get total TEDDY supply:
 const getTotalSupply = async () => {
-  let supplyNotIssued = parseInt(await query(config.teddy, config.minABI, 'balanceOf', [config.teddyIssuance]));
+  let baseSupply = 100000000;
+  let supplyNotIssued = parseInt(await query(config.teddy, config.minABI, 'balanceOf', [config.teddyIssuance])) / (10 ** 18);
   console.log('TEDDY supply loaded...');
-  return 82000000 - (supplyNotIssued / (10 ** 18));
+  return baseSupply - supplyNotIssued;
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to get circulating TEDDY supply:
+const getCirculatingSupply = async (totalSupply) => {
+  let treasury = parseInt(await query(config.teddy, config.minABI, 'balanceOf', [config.teddyTreasury])) / (10 ** 18);
+  let devFund = parseInt(await query(config.teddy, config.minABI, 'balanceOf', [config.teddyDevFund])) / (10 ** 18);
+  console.log('TEDDY circulating supply loaded...');
+  return totalSupply - treasury - devFund;
 }
 
 /* ====================================================================================================================================================== */
@@ -131,7 +142,8 @@ const fetch = async () => {
 
   // Fetching Data:
   let price = await getPrice();
-  // let totalSupply = await getTotalSupply();
+  let totalSupply = await getTotalSupply();
+  let circulatingSupply = await getCirculatingSupply(totalSupply);
   let holders = await getHolders();
   let staked = await getStaked();
   let dollarPrice = await getDollarPrice();
@@ -144,11 +156,12 @@ const fetch = async () => {
 
   // Writing Data:
   data += `  - TEDDY Price: $${price}\n`;
-  // data += `  - Total TEDDY Supply: ${totalSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} TEDDY\n`;
-  // data += `  - TEDDY Market Cap: $${(price * totalSupply).toLocaleString(undefined, {maximumFractionDigits: 0})}\n`;
+  data += `  - Total TEDDY Supply: ${totalSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} TEDDY\n`;
+  data += `  - TEDDY Market Cap: $${(price * totalSupply).toLocaleString(undefined, {maximumFractionDigits: 0})}\n`;
+  data += `  - Circulating TEDDY Supply: ${circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} TEDDY (${((circulatingSupply / totalSupply) * 100).toFixed(2)}% of total supply)\n`;
+  data += `  - Circulating TEDDY Market Cap: $${(price * circulatingSupply).toLocaleString(undefined, {maximumFractionDigits: 0})}\n`;
   data += `  - TEDDY Holders: ${holders.toLocaleString(undefined, {maximumFractionDigits: 0})} Users\n`;
-  // data += `  - Staked TEDDY: ${staked.toLocaleString(undefined, {maximumFractionDigits: 0})} TEDDY (${((staked / totalSupply) * 100).toFixed(2)}% of total supply)\n`;
-  data += `  - Staked TEDDY: ${staked.toLocaleString(undefined, {maximumFractionDigits: 0})} TEDDY\n`; // <TODO> REMOVE AFTER FIXING TEDDY SUPPLY
+  data += `  - Staked TEDDY: ${staked.toLocaleString(undefined, {maximumFractionDigits: 0})} TEDDY (${((staked / circulatingSupply) * 100).toFixed(2)}% of circulating supply)\n`;
   data += `  - TSD Price: $${dollarPrice}\n`;
   data += `  - Total TSD Supply: ${dollarTotalSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} TSD\n`;
   data += `  - TSD Holders: ${dollarHolders.toLocaleString(undefined, {maximumFractionDigits: 0})} Users\n`;
