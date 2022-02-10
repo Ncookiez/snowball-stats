@@ -100,4 +100,6 @@ npm run teddy
 
 ---
 
+You can use `npm run all` to run all scripts. This can take a while.
+
 If you encounter any RPC errors, wait a minute before trying again, or change the RPCs listed on `config.js`.

@@ -2236,19 +2236,6 @@
   }
  },
  {
-  "name": "MIM",
-  "platform": "Banker Joe",
-  "type": "single",
-  "globe": "0x3aAF997FdDA51eBb0918e3E59021f5FDE52444d8",
-  "strategy": "0xd3829B16a2A7338a15078c541BA331E49D635E29",
-  "gauge": "0x55839d98536348825aB31c0c1263fbE814Bf649a",
-  "controller": "0xF2FA11Fc9247C23b3B622C41992d8555f6D01D8f",
-  "token": {
-   "symbol": "MIM",
-   "address": "0x130966628846BFd36ff31a822705796e8cb8C18D"
-  }
- },
- {
   "name": "PNG",
   "platform": "Pangolin",
   "type": "single",
@@ -2350,6 +2337,32 @@
   "token": {
    "symbol": "USDT.e",
    "address": "0xc7198437980c041c805A1EDcbA50c1Ce5db95118"
+  }
+ },
+ {
+  "name": "USDT.e",
+  "platform": "Benqi",
+  "type": "single",
+  "globe": "0xE9d842C46e3bE5Ab68b226d9329515a85DF7cEE2",
+  "strategy": "0x6d864B12051adB1E0D65362D852d6f92a59638E9",
+  "gauge": "0x4151e8F7026c7426FE560B8fb02b9B3bA8A86E0D",
+  "controller": "0x252B5fD3B1Cb07A2109bF36D5bDE6a247c6f4B59",
+  "token": {
+   "symbol": "USDT.e",
+   "address": "0xc7198437980c041c805A1EDcbA50c1Ce5db95118"
+  }
+ },
+ {
+  "name": "WAVAX",
+  "platform": "Banker Joe",
+  "type": "single",
+  "globe": "0x5d587f520590bb80153356271d33828bf499e9A2",
+  "strategy": "0xA49c03221461a3f26bdDbc347F8eCe8354559dd7",
+  "gauge": "0x57B47Ec8b37F76C83C452d02B395304C12909974",
+  "controller": "0xF2FA11Fc9247C23b3B622C41992d8555f6D01D8f",
+  "token": {
+   "symbol": "WAVAX",
+   "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
   }
  },
  {

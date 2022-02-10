@@ -3,8 +3,8 @@
   ||     Distribution Stats     ||
   ================================
 
-  - Total Distributed: 857,537 SNOB & 13,024,144 AXIAL
-  - Average Distribution: 23,177 SNOB & 1,085,345 AXIAL
+  - Total Distributed: 878,435 SNOB & 13,159,310 AXIAL
+  - Average Distribution: 23,117 SNOB & 1,012,255 AXIAL
   - List of Distributions:
       > Week  1 (27/05/2021) - 30,000 SNOB - 580.38% APR
       > Week  2 (03/06/2021) - 45,000 SNOB - 160.64% APR
@@ -36,12 +36,13 @@
       > Week 28 (02/12/2021) - 30,902 SNOB & 1,224,690 AXIAL - 248.20% APR (31.56% SNOB & 216.65% AXIAL)
       > Week 29 (09/12/2021) - 25,624 SNOB & 1,173,463 AXIAL - 147.06% APR (23.30% SNOB & 123.75% AXIAL)
       > Week 30 (16/12/2021) - 24,332 SNOB & 1,283,100 AXIAL - 99.80% APR (19.34% SNOB & 80.46% AXIAL)
-      > Week 31 (23/12/2021) - 21,515 SNOB & 1,009,389 AXIAL - 71.78% APR (16.72% SNOB & 55.06% AXIAL)
+      > Week 31 (23/12/2021) - 21,515 SNOB & 575,105 AXIAL - 48.09% APR (16.72% SNOB & 31.37% AXIAL)
       > Week 32 (30/12/2021) - 26,469 SNOB & 1,181,884 AXIAL - 77.66% APR (20.56% SNOB & 57.10% AXIAL)
-      > Week 33 (06/01/2022) - 20,512 SNOB & 1,064,910 AXIAL - 62.10% APR (15.94% SNOB & 46.16% AXIAL)
-      > Week 34 (13/01/2022) - 20,881 SNOB & 997,074 AXIAL - 46.15% APR (15.87% SNOB & 30.27% AXIAL)
+      > Week 33 (06/01/2022) - 20,512 SNOB & 844,895 AXIAL - 52.56% APR (15.94% SNOB & 36.62% AXIAL)
+      > Week 34 (13/01/2022) - 20,881 SNOB & 694,048 AXIAL - 36.95% APR (15.87% SNOB & 21.07% AXIAL)
       > Week 35 (20/01/2022) - 21,735 SNOB & 1,431,882 AXIAL - 59.61% APR (16.06% SNOB & 43.55% AXIAL)
       > Week 36 (27/01/2022) - 11,792 SNOB & 1,346,807 AXIAL - 45.11% APR (8.59% SNOB & 36.52% AXIAL)
-      > Week 37 (03/02/2022) - 8,306 SNOB & 91,387 AXIAL - 7.95% APR (6.02% SNOB & 1.93% AXIAL)
-  - Total xSNOB Supply: 7,139,831 xSNOB
-  - All-Time Average APR: 89.61%
+      > Week 37 (03/02/2022) - 8,679 SNOB & 91,387 AXIAL - 8.22% APR (6.29% SNOB & 1.93% AXIAL)
+      > Week 38 (10/02/2022) - 20,524 SNOB & 1,092,491 AXIAL - 52.08% APR (15.01% SNOB & 37.07% AXIAL)
+  - Total xSNOB Supply: 7,105,229 xSNOB
+  - All-Time Average APR: 87.52%

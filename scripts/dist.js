@@ -11,13 +11,6 @@ const axialPrices = [
   { timestamp: 1640822400, price: 0.0213 }
 ];
 
-// Manually Inputting Wrong Token Checkpoints:
-const axialCheckpoints = [
-  { timestamp: 1639612800, amount: 1009389 },
-  { timestamp: 1640822400, amount: 1064910 },
-  { timestamp: 1641427200, amount: 997074 }
-];
-
 // Initializations:
 const time = Math.round(Date.now() / 1000);
 const week = 604800;
@@ -38,13 +31,7 @@ const getDistributions = async () => {
   let distributions = [];
   let promises = timestamps.map(timestamp => (async () => {
     let snob = parseInt(await query(config.feeDistributor, config.feeDistributorABI, 'tokens_per_week', [timestamp])) / (10 ** 18);
-    let axial = 0;
-    let foundAxialAmount = axialCheckpoints.find(i => i.timestamp === timestamp);
-    if(foundAxialAmount) {
-      axial = foundAxialAmount.amount;
-    } else {
-      axial = parseInt(await query(config.axialFeeDistributor, config.feeDistributorABI, 'tokens_per_week', [timestamp])) / (10 ** 18);
-    }
+    let axial = parseInt(await query(config.axialFeeDistributor, config.feeDistributorABI, 'tokens_per_week', [timestamp])) / (10 ** 18);
     let xsnob = parseInt(await query(config.feeDistributor, config.feeDistributorABI, 've_supply', [timestamp])) / (10 ** 18);
     let apr = await getAPR(xsnob, snob, axial, timestamp);
     distributions.push({ timestamp, snob, axial, apr });
