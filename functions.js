@@ -73,6 +73,14 @@ exports.queryBlocks = async (address, abi, event, startBlock, querySize, info) =
 
 /* ====================================================================================================================================================== */
 
+// Function to get current block:
+exports.getCurrentBlock = async () => {
+  let currentBlock = await avax.getBlockNumber();
+  return currentBlock;
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to get AVAX price from CoinGecko:
 exports.getNativeTokenPrice = async () => {
   let token = 'avalanche-2';

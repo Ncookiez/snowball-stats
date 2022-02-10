@@ -1,6 +1,6 @@
 
 // Required Packages:
-const { query, queryBlocks, writeText, getTokenPrice, pad } = require('../functions.js');
+const { query, queryBlocks, writeText, writeJSON, getTokenPrice, getCurrentBlock, pad } = require('../functions.js');
 const config = require('../config.js');
 
 // Setting Up Optional Args:
@@ -86,7 +86,85 @@ const getTXs = async () => {
     console.log(`${pool.name} transactions loaded...`);
   })());
   await Promise.all(promises);
+
+  // Finding Estimated Daily Token Volume (Optional):
+  // findDailyTokenVolume(txs);
+
   return txs;
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to find estimated daily token volume:
+const findDailyTokenVolume = async (txs) => {
+
+  // Initializations:
+  let data = {};
+  let dailyBlocks = [];
+
+  // Estimating Daily Block Values:
+  for(let i = 0; i < config.axialDistributions.length; i++) {
+    if(i != config.axialDistributions.length - 1) {
+      let dailyBlockSpacing = Math.floor((config.axialDistributions[i + 1].block - config.axialDistributions[i].block) / 7);
+      for(let days = 0; days < 7; days++) {
+        let block = config.axialDistributions[i].block + (days * dailyBlockSpacing);
+        let time = config.axialDistributions[i].timestamp + (days * (week / 7));
+        dailyBlocks.push({block, time});
+      }
+    } else {
+      let block = config.axialDistributions[i].block;
+      let time = config.axialDistributions[i].timestamp;
+      let estimatedDailyBlockSpacing = Math.floor(300000 / 7);
+      let lastBlock = await getCurrentBlock();
+      while(block < lastBlock) {
+        dailyBlocks.push({block, time});
+        block += estimatedDailyBlockSpacing;
+        time += week / 7;
+      }
+    }
+  }
+
+  // Setting Up Data:
+  config.axialTokens.forEach(token => {
+    data[token.symbol] = {
+      soldTXs: [],
+      sold: [],
+      boughtTXs: [],
+      bought: []
+    };
+  });
+
+  // Allocating Daily Data:
+  for(let day = 0; day < dailyBlocks.length - 1; day++) {
+    let dailyData = {}
+    config.axialTokens.forEach(token => {
+      dailyData[token.symbol] = {
+        soldTXs: 0,
+        sold: 0,
+        boughtTXs: 0,
+        bought: 0
+      };
+    });
+    config.axialPools.forEach(pool => {
+      txs[pool.name].forEach(tx => {
+        if(tx.block >= dailyBlocks[day].block && tx.block < dailyBlocks[day + 1].block) {
+          dailyData[tx.sold.token].soldTXs += 1;
+          dailyData[tx.sold.token].sold += tx.sold.amount;
+          dailyData[tx.bought.token].boughtTXs += 1;
+          dailyData[tx.bought.token].bought += tx.bought.amount;
+        }
+      });
+    });
+    config.axialTokens.forEach(token => {
+      data[token.symbol].soldTXs.push(dailyData[token.symbol].soldTXs);
+      data[token.symbol].sold.push(Math.floor(dailyData[token.symbol].sold));
+      data[token.symbol].boughtTXs.push(dailyData[token.symbol].boughtTXs);
+      data[token.symbol].bought.push(Math.floor(dailyData[token.symbol].bought));
+    });
+  }
+
+  // Writing to JSON File:
+  writeJSON(data, 'axialDailyTokenVolume');
 }
 
 /* ====================================================================================================================================================== */
@@ -122,7 +200,7 @@ const getWeeklyVolume = (txs) => {
     for(let week = 0; week < config.axialDistributions.length - 1; week++) {
       let volume = 0;
       txs[pool.name].forEach(tx => {
-        if(tx.block > config.axialDistributions[week].block && tx.block < config.axialDistributions[week + 1].block) {
+        if(tx.block >= config.axialDistributions[week].block && tx.block < config.axialDistributions[week + 1].block) {
           volume += tx.sold.amount;
         }
       });
@@ -180,7 +258,7 @@ const getPoolWeeklyVolume = (txs) => {
     for(let week = 0; week < config.axialDistributions.length - 1; week++) {
       let volume = 0;
       txs[pool.name].forEach(tx => {
-        if(tx.block > config.axialDistributions[week].block && tx.block < config.axialDistributions[week + 1].block) {
+        if(tx.block >= config.axialDistributions[week].block && tx.block < config.axialDistributions[week + 1].block) {
           volume += tx.sold.amount;
         }
       });
