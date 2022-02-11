@@ -3,31 +3,31 @@
   ||       TEDDY Stats       ||
   =============================
 
-  - TEDDY Price: $0.0126
-  - Total TEDDY Supply: 58,673,668 TEDDY
-  - TEDDY Market Cap: $739,288
-  - Circulating TEDDY Supply: 16,070,325 TEDDY (27.39% of total supply)
-  - Circulating TEDDY Market Cap: $202,486
-  - TEDDY Holders: 1,565 Users
-  - Staked TEDDY: 10,222,267 TEDDY (63.61% of circulating supply)
-  - TSD Price: $1.00
-  - Total TSD Supply: 1,267,033 TSD
-  - TSD Holders: 1,334 Users
-  - Staked TSD: 426,398 TSD (33.65% of total supply)
-  - AVAX Collateral: 31,245 AVAX ($2,725,473)
-  - Collateral Ratio: 215.11%
+  - TEDDY Price: $0.0116
+  - Total TEDDY Supply: 82,000,000 TEDDY
+  - TEDDY Fully Diluted Market Cap: $951,200
+  - Circulating TEDDY Supply: 14,127,516 TEDDY (17.23% of total supply)
+  - Circulating TEDDY Market Cap: $163,879
+  - TEDDY Holders: 1,562 Users
+  - Staked TEDDY: 10,203,818 TEDDY (72.23% of circulating supply)
+  - TSD Price: $1.01
+  - Total TSD Supply: 1,272,032 TSD
+  - TSD Holders: 1,335 Users
+  - Staked TSD: 465,298 TSD (36.58% of total supply)
+  - AVAX Collateral: 31,259 AVAX ($2,822,983)
+  - Collateral Ratio: 221.93%
   - Trove Count: 29
   - Top 5 Largest Troves By Collateral:
-      > 0xd75aeDcD10035c9c949d2A39715D4CE3D5C8f5bC - 13,899 AVAX (510,239 TSD Minted) - Ratio: 237.62%
-      > 0x5c134a50C9caD0531CAea982cb4426a632A2C528 - 5,000 AVAX (270,553 TSD Minted) - Ratio: 161.21%
-      > 0x7722C6bF5f3365757505aa5a6F1396042372EedD - 2,069 AVAX (95,612 TSD Minted) - Ratio: 188.79%
-      > 0xF0032DB74398F6732d85D991b06351044f4773c8 - 2,000 AVAX (99,987 TSD Minted) - Ratio: 174.48%
-      > 0xD58AA88246a1CF56A48E8e184405bd7ef0BE7B83 - 1,854 AVAX (91,512 TSD Minted) - Ratio: 176.69%
+      > 0xd75aeDcD10035c9c949d2A39715D4CE3D5C8f5bC - 13,899 AVAX (510,239 TSD Minted) - Ratio: 246.01%
+      > 0x5c134a50C9caD0531CAea982cb4426a632A2C528 - 5,000 AVAX (270,553 TSD Minted) - Ratio: 166.90%
+      > 0x7722C6bF5f3365757505aa5a6F1396042372EedD - 2,069 AVAX (95,612 TSD Minted) - Ratio: 195.45%
+      > 0xF0032DB74398F6732d85D991b06351044f4773c8 - 2,000 AVAX (99,987 TSD Minted) - Ratio: 180.64%
+      > 0xD58AA88246a1CF56A48E8e184405bd7ef0BE7B83 - 1,854 AVAX (91,512 TSD Minted) - Ratio: 182.93%
   - Top 5 Riskiest Troves By Collateral Ratio:
-      > 0x24067919e98e37d6AF98D747eBaFa8AaB31db2C8 - 90 AVAX (6,201 TSD Minted) - Ratio: 127.12%
-      > 0xAD8da72fB6c0Bc3b27A67dBe0Daf8AD1476c8D20 - 37 AVAX (2,011 TSD Minted) - Ratio: 160.50%
-      > 0x5c134a50C9caD0531CAea982cb4426a632A2C528 - 5,000 AVAX (270,553 TSD Minted) - Ratio: 161.21%
-      > 0x6fb737D1Ebb73cda6CFA36Fd16D9273065D1b084 - 129 AVAX (6,734 TSD Minted) - Ratio: 167.09%
-      > 0x43BC7667BF508cE3905DC0F492f106eaE2800536 - 48 AVAX (2,401 TSD Minted) - Ratio: 174.37%
-  - Average Trove Collateral: 1,077 AVAX
-  - Average Trove TSD Minted: 43,691 TSD
+      > 0x24067919e98e37d6AF98D747eBaFa8AaB31db2C8 - 150 AVAX (11,200 TSD Minted) - Ratio: 120.95%
+      > 0xAD8da72fB6c0Bc3b27A67dBe0Daf8AD1476c8D20 - 37 AVAX (2,011 TSD Minted) - Ratio: 166.16%
+      > 0x5c134a50C9caD0531CAea982cb4426a632A2C528 - 5,000 AVAX (270,553 TSD Minted) - Ratio: 166.90%
+      > 0x6fb737D1Ebb73cda6CFA36Fd16D9273065D1b084 - 129 AVAX (6,734 TSD Minted) - Ratio: 172.99%
+      > 0x43BC7667BF508cE3905DC0F492f106eaE2800536 - 48 AVAX (2,401 TSD Minted) - Ratio: 180.53%
+  - Average Trove Collateral: 1,078 AVAX
+  - Average Trove TSD Minted: 43,863 TSD

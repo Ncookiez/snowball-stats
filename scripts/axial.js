@@ -88,7 +88,7 @@ const getTXs = async () => {
   await Promise.all(promises);
 
   // Finding Estimated Daily Token Volume (Optional):
-  // findDailyTokenVolume(txs);
+  findDailyTokenVolume(txs);
 
   return txs;
 }
@@ -128,8 +128,8 @@ const findDailyTokenVolume = async (txs) => {
   config.axialTokens.forEach(token => {
     data[token.symbol] = {
       soldTXs: [],
-      sold: [],
       boughtTXs: [],
+      sold: [],
       bought: []
     };
   });
@@ -140,8 +140,8 @@ const findDailyTokenVolume = async (txs) => {
     config.axialTokens.forEach(token => {
       dailyData[token.symbol] = {
         soldTXs: 0,
-        sold: 0,
         boughtTXs: 0,
+        sold: 0,
         bought: 0
       };
     });
@@ -149,16 +149,16 @@ const findDailyTokenVolume = async (txs) => {
       txs[pool.name].forEach(tx => {
         if(tx.block >= dailyBlocks[day].block && tx.block < dailyBlocks[day + 1].block) {
           dailyData[tx.sold.token].soldTXs += 1;
-          dailyData[tx.sold.token].sold += tx.sold.amount;
           dailyData[tx.bought.token].boughtTXs += 1;
+          dailyData[tx.sold.token].sold += tx.sold.amount;
           dailyData[tx.bought.token].bought += tx.bought.amount;
         }
       });
     });
     config.axialTokens.forEach(token => {
       data[token.symbol].soldTXs.push(dailyData[token.symbol].soldTXs);
-      data[token.symbol].sold.push(Math.floor(dailyData[token.symbol].sold));
       data[token.symbol].boughtTXs.push(dailyData[token.symbol].boughtTXs);
+      data[token.symbol].sold.push(Math.floor(dailyData[token.symbol].sold));
       data[token.symbol].bought.push(Math.floor(dailyData[token.symbol].bought));
     });
   }

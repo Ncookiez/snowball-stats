@@ -1,6 +1,7 @@
 
 // Required Packages:
 const { query, writeText, getTokenPrice, getNativeTokenPrice, getTokenHolders } = require('../functions.js');
+const axios = require('axios');
 const config = require('../config.js');
 
 // Initializations:
@@ -18,21 +19,19 @@ const getPrice = async () => {
 /* ====================================================================================================================================================== */
 
 // Function to get total TEDDY supply:
-const getTotalSupply = async () => {
-  let baseSupply = 100000000;
-  let supplyNotIssued = parseInt(await query(config.teddy, config.minABI, 'balanceOf', [config.teddyIssuance])) / (10 ** 18);
+const getTotalSupply = () => {
+  let supply = 82000000;
   console.log('TEDDY supply loaded...');
-  return baseSupply - supplyNotIssued;
+  return supply;
 }
 
 /* ====================================================================================================================================================== */
 
 // Function to get circulating TEDDY supply:
-const getCirculatingSupply = async (totalSupply) => {
-  let treasury = parseInt(await query(config.teddy, config.minABI, 'balanceOf', [config.teddyTreasury])) / (10 ** 18);
-  let devFund = parseInt(await query(config.teddy, config.minABI, 'balanceOf', [config.teddyDevFund])) / (10 ** 18);
+const getCirculatingSupply = async () => {
+  let supply = (await axios.get('https://api.teddy.cash/data.json')).data.supply.circulating;
   console.log('TEDDY circulating supply loaded...');
-  return totalSupply - treasury - devFund;
+  return supply;
 }
 
 /* ====================================================================================================================================================== */
@@ -142,8 +141,8 @@ const fetch = async () => {
 
   // Fetching Data:
   let price = await getPrice();
-  let totalSupply = await getTotalSupply();
-  let circulatingSupply = await getCirculatingSupply(totalSupply);
+  let totalSupply = getTotalSupply();
+  let circulatingSupply = await getCirculatingSupply();
   let holders = await getHolders();
   let staked = await getStaked();
   let dollarPrice = await getDollarPrice();
@@ -157,7 +156,7 @@ const fetch = async () => {
   // Writing Data:
   data += `  - TEDDY Price: $${price}\n`;
   data += `  - Total TEDDY Supply: ${totalSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} TEDDY\n`;
-  data += `  - TEDDY Market Cap: $${(price * totalSupply).toLocaleString(undefined, {maximumFractionDigits: 0})}\n`;
+  data += `  - TEDDY Fully Diluted Market Cap: $${(price * totalSupply).toLocaleString(undefined, {maximumFractionDigits: 0})}\n`;
   data += `  - Circulating TEDDY Supply: ${circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} TEDDY (${((circulatingSupply / totalSupply) * 100).toFixed(2)}% of total supply)\n`;
   data += `  - Circulating TEDDY Market Cap: $${(price * circulatingSupply).toLocaleString(undefined, {maximumFractionDigits: 0})}\n`;
   data += `  - TEDDY Holders: ${holders.toLocaleString(undefined, {maximumFractionDigits: 0})} Users\n`;
