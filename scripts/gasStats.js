@@ -6,6 +6,21 @@ const pools = require('../outputs/pools.json');
 
 // Initializations:
 let data = '';
+let progress = 0;
+let maxProgress = 0;
+
+/* ====================================================================================================================================================== */
+
+// Function to communicate script progress to user:
+const updateProgress = (text) => {
+  process.stdout.clearLine();
+  process.stdout.cursorTo(0);
+  if(++progress < maxProgress) {
+    process.stdout.write(`${text} (${progress}/${maxProgress})`);
+  } else {
+    process.stdout.write(`${text} (Done)\n`);
+  }
+}
 
 /* ====================================================================================================================================================== */
 
@@ -13,9 +28,11 @@ let data = '';
 const getGasSpentGlobes = async () => {
   let txs = [];
   let avaxSpent = 0;
+  progress = 0;
+  maxProgress = pools.length;
   for(let i = 0; i < pools.length; i++) {
     txs.push(...(await getCovalentTXs(pools[i].globe)));
-    console.log(`Loaded globe transactions... (${i + 1}/${pools.length})`);
+    updateProgress('Loading globe transactions...');
   }
   txs.forEach(tx => {
     avaxSpent += ((tx.gas_spent * tx.gas_price) / (10 ** 18));
@@ -29,9 +46,11 @@ const getGasSpentGlobes = async () => {
 const getGasSpentStrategies = async () => {
   let txs = [];
   let avaxSpent = 0;
+  progress = 0;
+  maxProgress = pools.length;
   for(let i = 0; i < pools.length; i++) {
     txs.push(...(await getCovalentTXs(pools[i].strategy)));
-    console.log(`Loaded strategy transactions... (${i + 1}/${pools.length})`);
+    updateProgress('Loading strategy transactions...');
   }
   txs.forEach(tx => {
     avaxSpent += ((tx.gas_spent * tx.gas_price) / (10 ** 18));
@@ -45,9 +64,11 @@ const getGasSpentStrategies = async () => {
 const getGasSpentGauges = async () => {
   let txs = [];
   let avaxSpent = 0;
+  progress = 0;
+  maxProgress = pools.length;
   for(let i = 0; i < pools.length; i++) {
     txs.push(...(await getCovalentTXs(pools[i].gauge)));
-    console.log(`Loaded gauge transactions... (${i + 1}/${pools.length})`);
+    updateProgress('Loading gauge transactions...');
   }
   txs.forEach(tx => {
     avaxSpent += ((tx.gas_spent * tx.gas_price) / (10 ** 18));
@@ -61,9 +82,11 @@ const getGasSpentGauges = async () => {
 const getGasSpentDeprecatedGlobes = async () => {
   let txs = [];
   let avaxSpent = 0;
+  progress = 0;
+  maxProgress = config.deprecatedGlobes.length;
   for(let i = 0; i < config.deprecatedGlobes.length; i++) {
     txs.push(...(await getCovalentTXs(config.deprecatedGlobes[i])));
-    console.log(`Loaded deprecated globe transactions... (${i + 1}/${config.deprecatedGlobes.length})`);
+    updateProgress('Loading deprecated globe transactions...');
   }
   txs.forEach(tx => {
     avaxSpent += ((tx.gas_spent * tx.gas_price) / (10 ** 18));
@@ -77,9 +100,11 @@ const getGasSpentDeprecatedGlobes = async () => {
 const getGasSpentDeprecatedGauges = async () => {
   let txs = [];
   let avaxSpent = 0;
+  progress = 0;
+  maxProgress = config.deprecatedGauges.length;
   for(let i = 0; i < config.deprecatedGauges.length; i++) {
     txs.push(...(await getCovalentTXs(config.deprecatedGauges[i])));
-    console.log(`Loaded deprecated gauge transactions... (${i + 1}/${config.deprecatedGauges.length})`);
+    updateProgress('Loading deprecated gauge transactions...');
   }
   txs.forEach(tx => {
     avaxSpent += ((tx.gas_spent * tx.gas_price) / (10 ** 18));
