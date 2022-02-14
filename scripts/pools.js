@@ -222,10 +222,10 @@ const writeMarkdown = (data) => {
         let deposit = `[Deposit](https://snowtrace.io/address/${pool.globe})`;
         let strategies = '';
         pool.strategies.forEach(strategy => {
-          strategies += `[${strategy.platform}](https://snowtrace.io/address/${strategy.address})`;
+          strategies += `[${strategy.platform}](https://snowtrace.io/address/${strategy.address}), `;
         });
         let gauge = `[Gauge](https://snowtrace.io/address/${pool.gauge})`;
-        tableData.push([name, deposit, strategies, gauge]);
+        tableData.push([name, deposit, strategies.slice(0, -2), gauge]);
       });
     }
     let table = formatTable(tableData);
