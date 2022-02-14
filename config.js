@@ -1,7 +1,13 @@
 
-// RPC:
+// RPCs:
 exports.rpc = 'https://api.avax.network/ext/bc/C/rpc';
 exports.rpc_backup = 'https://avax-mainnet.gateway.pokt.network/v1/lb/605238bf6b986eea7cf36d5e/ext/bc/C/rpc';
+
+// Other Initializations:
+exports.ckey = 'ckey_f49ab6dbd21f47a5a25eb922e0d';
+exports.zero = '0x0000000000000000000000000000000000000000';
+
+/* ====================================================================================================================================================== */
 
 // Snowball Variables:
 exports.snob = '0xC38f41A296A4493Ff429F1238e030924A1542e50';
@@ -33,7 +39,155 @@ exports.nftMarketplaces = [
   '0xd42e49c1b481817365b2fc744c9ae84ba3862429'
 ];
 exports.platforms = ['Optimized', 'Trader Joe', 'Banker Joe', 'Pangolin', 'Benqi', 'Aave', 'Axial', 'Teddy', 'Platypus'];
+exports.optimizedPoolController = '0x2f0b4e7ac032d0708c082994fb21dd75db514744';
+exports.optimizedPoolStrategies = {
+  'DAI.e': [
+    { platform: 'Aave', address: '0x13d753C651526Bf3501818813B829B339ae867AF' },
+    { platform: 'BenQi', address: '0x5618041c863228DC6298bc5fD17EADa6Fe9Df618' }
+  ],
+  'LINK.e': [
+    { platform: 'BenQi', address: '0xEbbDEC4bFDd23eCC53225214Faf4612c19Dd0347' },
+    { platform: 'Banker Joe', address: '0x702490d609BcaAf697f345D502b15F7c60F35856' }
+  ],
+  'USDC.e': [
+    { platform: 'Aave', address: '0x707090bbCfd3b4470C724aF560FE3d7D7d0590E2' },
+    { platform: 'BenQi', address: '0xE8c651B51460248457b80DFDEE0E545Bd474bd68' },
+    { platform: 'Banker Joe', address: '0x80e47C48e9375c6431bE3FCB7DCd30dcc2bb5A3b' }
+  ],
+  'USDT.e': [
+    { platform: 'Aave', address: '0x5e8B060639646117539Fd33Ee221364012332C9B' },
+    { platform: 'BenQi', address: '0xcCb342985a2963Cd3643cfb40b63D145Ec8C5A40' },
+    { platform: 'Banker Joe', address: '0x1A07f2AEec34E3CaDaf85EeEE45fcC70881178DF' }
+  ],
+  'WAVAX': [
+    { platform: 'Aave', address: '0x0f776b5b97BfA366f929FE82bd50C312C39f26f1' },
+    { platform: 'BenQi', address: '0x48f736cC619cAd053F559cF24edfa2401BeD9c76' },
+    { platform: 'Banker Joe', address: '0x5bd7bB54e3B6798Ca33AcbD1F26541053721e69f' }
+  ],
+  'WBTC.e': [
+    { platform: 'Aave', address: '0xC623a46Ebd2398db4188070Efde2f355F5832399' },
+    { platform: 'BenQi', address: '0x35C340bFFB89e00734e13b245EA2B80570D528b1' },
+    { platform: 'Banker Joe', address: '0x9DcB28e8c2dB31b44Ce0448d567f48E8a310E808' }
+  ],
+  'WETH.e': [
+    { platform: 'Aave', address: '0xBe290f7E69d5eC6941F9A3d6F1ebF93C179AD6DE' },
+    { platform: 'BenQi', address: '0x730ad83E992aE5A328a5ccEeEF26B0e821ACB524' },
+    { platform: 'Banker Joe', address: '0xfd2400B36a20a07c4ca79DfbEf4045Ea249B2a45' }
+  ]
+}
+
+/* ====================================================================================================================================================== */
+
+// Axial Variables:
+exports.axial = '0xcf8419a615c57511807236751c0af38db4ba3351';
+exports.axialFeeDistributor = '0x084cfE7BA1C91d35Fec5015ca65E92Db41A3C9f7';
+exports.axialTreasury = '0x4980AD7cCB304f7d3c5053Aa1131eD1EDaf48809';
+exports.axialSymbols = ['AS4D', 'AC4D', 'AM3D', 'AA3D'];
+exports.axialPools = [
+  { name: 'AS4D', swap: '0x2a716c4933A20Cd8B9f9D9C39Ae7196A85c24228', tokens: [{ symbol: 'TUSD', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }, { symbol: 'DAI.e', decimals: 18 }, { symbol: 'USDT.e', decimals: 6 }] },
+  { name: 'AC4D', swap: '0x8c3c1C6F971C01481150CA7942bD2bbB9Bc27bC7', tokens: [{ symbol: 'TSD', decimals: 18 }, { symbol: 'MIM', decimals: 18 }, { symbol: 'FRAX', decimals: 18 }, { symbol: 'DAI.e', decimals: 18 }] },
+  { name: 'AM3D', swap: '0x90c7b96AD2142166D001B27b5fbc128494CDfBc8', tokens: [{ symbol: 'MIM', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }, { symbol: 'DAI.e', decimals: 18 }] },
+  { name: 'AA3D', swap: '0x6EfbC734D91b229BE29137cf9fE531C1D3bf4Da6', tokens: [{ symbol: 'AVAI', decimals: 18 }, { symbol: 'MIM', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }] }
+];
+exports.paraswap = '0xdef171fe48cf0115b1d80b88dc8eab59176fee57';
+exports.axialTokens = [
+  { symbol: 'TUSD', address: '0x1c20e891bab6b1727d14da358fae2984ed9b59eb', decimals: 18 },
+  { symbol: 'USDC.e', address: '0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664', decimals: 6 },
+  { symbol: 'DAI.e', address: '0xd586e7f844cea2f87f50152665bcbc2c279d8d70', decimals: 18 },
+  { symbol: 'USDT.e', address: '0xc7198437980c041c805a1edcba50c1ce5db95118', decimals: 6 },
+  { symbol: 'TSD', address: '0x4fbf0429599460d327bd5f55625e30e4fc066095', decimals: 18 },
+  { symbol: 'MIM', address: '0x130966628846bfd36ff31a822705796e8cb8c18d', decimals: 18 },
+  { symbol: 'FRAX', address: '0xd24c2ad096400b6fbcd2ad8b24e7acbc21a1da64', decimals: 18 },
+  { symbol: 'AVAI', address: '0x346a59146b9b4a77100d369a3d18e8007a9f46a6', decimals: 18 },
+  { symbol: 'USDC', address: '0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e', decimals: 6 }
+];
+exports.axialDistributions = [ // https://api.snowtrace.io/api?module=block&action=getblocknobytime&closest=before&timestamp=<TIMESTAMP>
+  { block: 6786231, timestamp: 1636588800 },  // Nov. 11, 2021
+  { block: 7085471, timestamp: 1637193600 },  // Nov. 18, 2021
+  { block: 7386860, timestamp: 1637798400 },  // Nov. 25, 2021
+  { block: 7687393, timestamp: 1638403200 },  // Dec.  2, 2021
+  { block: 7989367, timestamp: 1639008000 },  // Dec.  9, 2021
+  { block: 8290862, timestamp: 1639612800 },  // Dec. 16, 2021
+  { block: 8589431, timestamp: 1640217600 },  // Dec. 23, 2021
+  { block: 8888076, timestamp: 1640822400 },  // Dec. 30, 2021
+  { block: 9187865, timestamp: 1641427200 },  // Jan.  6, 2022
+  { block: 9491470, timestamp: 1642032000 },  // Jan. 13, 2022
+  { block: 9797372, timestamp: 1642636800 },  // Jan. 20, 2022
+  { block: 10101236, timestamp: 1643241600 }, // Jan. 27, 2022
+  { block: 10407972, timestamp: 1643846400 }, // Feb.  3, 2022
+  { block: 10714104, timestamp: 1644451200 }, // Feb. 10, 2022
+];
+
+/* ====================================================================================================================================================== */
+
+// Teddy Variables:
+exports.teddy = '0x094bd7b2d99711a1486fb94d4395801c6d0fddcc';
+exports.tsd = '0x4fbf0429599460D327BD5F55625E30E4fC066095';
+exports.teddyStaking = '0xb4387D93B5A9392f64963cd44389e7D9D2E1053c';
+exports.stabilityPool = '0x7AEd63385C03Dc8ed2133F705bbB63E8EA607522';
+exports.teddyIssuance = '0xb4Fbc7839ce88029c8c1c6274660118e27B6f982';
+exports.troves = '0xd22b04395705144Fd12AfFD854248427A2776194';
+exports.sortedTroves = '0x5272DfB4851723328dA7730BE944502E5C965f40';
+exports.teddyTreasury = '0x7B4a14CD122BFE2e717c27914a024D05eC3061B9';
+exports.teddyDevFund = '0x41f8a18b165De90383bf23CbcE5c0244ECDeeaA7';
+
+/* ====================================================================================================================================================== */
+
+// Event ABIs:
+exports.transferEventABI = ['event Transfer(address indexed from, address indexed to, uint256 value)'];
 exports.voteEventABI = ['event NewVote(uint256 proposalId, address voter, bool support, uint256 votes)'];
+exports.axialSwapEventABI = ['event TokenSwap(address indexed buyer, uint256 tokensSold, uint256 tokensBought, uint128 soldId, uint128 boughtId)'];
+
+// Contract ABIs:
+exports.minABI = [
+  { constant: true, inputs: [{ name: "", type: "address" }], name: "balanceOf", outputs: [{ name: "", type: "uint256" }], type: "function" },
+  { constant: true, inputs: [], name: "totalSupply", outputs: [{ name: "", type: "uint256" }], type: "function" },
+  { constant: true, inputs: [], name: "symbol", outputs: [{ name: "", type: "string" }], type: "function" }
+];
+exports.xsnobABI = [
+  { constant: true, inputs: [{ name: "", type: "address" }], name: "locked", outputs: [{ name: "amount", type: "uint128" }, { name: "end", type: "uint256" }], type: "function" }
+];
+exports.gaugeProxyABI = [
+  { constant: true, inputs: [], name: "tokens", outputs: [{ name: "", type: "address[]" }], type: "function" },
+  { constant: true, inputs: [{ name: "", type: "address" }], name: "getGauge", outputs: [{ name: "", type: "address" }], type: "function" }
+];
+exports.feeDistributorABI = [
+  { constant: true, inputs: [], name: "start_time", outputs: [{ name: "", type: "uint256" }], type: "function" },
+  { constant: true, inputs: [{ name: "arg0", type: "uint256" }], name: "tokens_per_week", outputs: [{ name: "", type: "uint256" }], type: "function" },
+  { constant: true, inputs: [{ name: "arg0", type: "uint256" }], name: "ve_supply", outputs: [{ name: "", type: "uint256" }], type: "function" }
+];
+exports.snowGlobeABI = [
+  { constant: true, inputs: [], name: "controller", outputs: [{ name: "", type: "address" }], type: "function" },
+  { constant: true, inputs: [], name: "token", outputs: [{ name: "", type: "address" }], type: "function" }
+];
+exports.controllerABI = [
+  { constant: true, inputs: [{ name: "<input>", type: "address" }], name: "strategies", outputs: [{ name: "", type: "address" }], type: "function" }
+];
+exports.lpTokenABI = [
+  { constant: true, inputs: [], name: "token0", outputs: [{ name: "", type: "address" }], type: "function" },
+  { constant: true, inputs: [], name: "token1", outputs: [{ name: "", type: "address" }], type: "function" }
+];
+exports.strategyABI = [
+  { constant: true, inputs: [], name: "getName", outputs: [{ name: "", type: "string" }], type: "function" }
+]
+exports.swapABI = [
+  { constant: true, inputs: [{ name: "index", type: "uint256" }], name: "getAdminBalance", outputs: [{ name: "", type: "uint256" }], type: "function" }
+];
+exports.governanceABI = [
+  { constant: true, inputs: [{ name: "<input>", type: "uint256" }], name: "proposals", outputs: [{ name: "title", type: "string" }, { name: "metadata", type: "string" }, { name: "proposer", type: "address" }, { name: "executor", type: "address" }, { name: "startTime", type: "uint256" }, { name: "votingPeriod", type: "uint256" }, { name: "quorumVotes", type: "uint256" }, { name: "executionDelay", type: "uint256" }, { name: "forVotes", type: "uint256" }, { name: "againstVotes", type: "uint256" }], type: "function" }
+];
+exports.troveManagerABI = [
+  { constant: true, inputs: [], name: "getEntireSystemColl", outputs: [{ name: "", type: "uint256" }], type: "function" },
+  { constant: true, inputs: [{ name: "<input>", type: "uint256" }], name: "TroveOwners", outputs: [{ name: "", type: "address" }], type: "function" },
+  { constant: true, inputs: [{ name: "<input>", type: "address" }], name: "Troves", outputs: [{ name: "debt", type: "uint256" }, { name: "coll", type: "uint256" }, { name: "stake", type: "uint256" }, { name: "status", type: "uint8" }, { name: "arrayIndex", type: "uint128" }], type: "function" }
+];
+exports.sortedTrovesABI = [
+  { constant: true, inputs: [], name: "getSize", outputs: [{ name: "", type: "uint256" }], type: "function" }
+];
+
+/* ====================================================================================================================================================== */
+
+// Deprecated Snowball Contracts:
 exports.deprecatedGlobes = [
   '0xAbD637a6881a2D4bbf279aE484c2447c070f7C73',
   '0xB305856C54efC004955BC51e3D20ceF566C11eEE',
@@ -290,112 +444,4 @@ exports.deprecatedGauges = [
   '0x2194B40bF9F7d3429E30fC7451cf422c1B3cdcC0',
   '0xaBe28c3B53E8200C87aDb2b790d3594C3fcEf16d',
   '0x0Ec726BF3FF6CBf58c9f300d86F5fAd149a52039'
-];
-
-// Axial Variables:
-exports.axial = '0xcf8419a615c57511807236751c0af38db4ba3351';
-exports.axialFeeDistributor = '0x084cfE7BA1C91d35Fec5015ca65E92Db41A3C9f7';
-exports.axialTreasury = '0x4980AD7cCB304f7d3c5053Aa1131eD1EDaf48809';
-exports.axialSymbols = ['AS4D', 'AC4D', 'AM3D', 'AA3D'];
-exports.axialPools = [
-  { name: 'AS4D', swap: '0x2a716c4933A20Cd8B9f9D9C39Ae7196A85c24228', tokens: [{ symbol: 'TUSD', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }, { symbol: 'DAI.e', decimals: 18 }, { symbol: 'USDT.e', decimals: 6 }] },
-  { name: 'AC4D', swap: '0x8c3c1C6F971C01481150CA7942bD2bbB9Bc27bC7', tokens: [{ symbol: 'TSD', decimals: 18 }, { symbol: 'MIM', decimals: 18 }, { symbol: 'FRAX', decimals: 18 }, { symbol: 'DAI.e', decimals: 18 }] },
-  { name: 'AM3D', swap: '0x90c7b96AD2142166D001B27b5fbc128494CDfBc8', tokens: [{ symbol: 'MIM', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }, { symbol: 'DAI.e', decimals: 18 }] },
-  { name: 'AA3D', swap: '0x6EfbC734D91b229BE29137cf9fE531C1D3bf4Da6', tokens: [{ symbol: 'AVAI', decimals: 18 }, { symbol: 'MIM', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }] }
-];
-exports.paraswap = '0xdef171fe48cf0115b1d80b88dc8eab59176fee57';
-exports.axialSwapEventABI = ['event TokenSwap(address indexed buyer, uint256 tokensSold, uint256 tokensBought, uint128 soldId, uint128 boughtId)'];
-exports.axialTokens = [
-  { symbol: 'TUSD', address: '0x1c20e891bab6b1727d14da358fae2984ed9b59eb', decimals: 18 },
-  { symbol: 'USDC.e', address: '0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664', decimals: 6 },
-  { symbol: 'DAI.e', address: '0xd586e7f844cea2f87f50152665bcbc2c279d8d70', decimals: 18 },
-  { symbol: 'USDT.e', address: '0xc7198437980c041c805a1edcba50c1ce5db95118', decimals: 6 },
-  { symbol: 'TSD', address: '0x4fbf0429599460d327bd5f55625e30e4fc066095', decimals: 18 },
-  { symbol: 'MIM', address: '0x130966628846bfd36ff31a822705796e8cb8c18d', decimals: 18 },
-  { symbol: 'FRAX', address: '0xd24c2ad096400b6fbcd2ad8b24e7acbc21a1da64', decimals: 18 },
-  { symbol: 'AVAI', address: '0x346a59146b9b4a77100d369a3d18e8007a9f46a6', decimals: 18 },
-  { symbol: 'USDC', address: '0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e', decimals: 6 }
-];
-exports.axialDistributions = [ // https://api.snowtrace.io/api?module=block&action=getblocknobytime&closest=before&timestamp=<TIMESTAMP>
-  { block: 6786231, timestamp: 1636588800 },  // Nov. 11, 2021
-  { block: 7085471, timestamp: 1637193600 },  // Nov. 18, 2021
-  { block: 7386860, timestamp: 1637798400 },  // Nov. 25, 2021
-  { block: 7687393, timestamp: 1638403200 },  // Dec.  2, 2021
-  { block: 7989367, timestamp: 1639008000 },  // Dec.  9, 2021
-  { block: 8290862, timestamp: 1639612800 },  // Dec. 16, 2021
-  { block: 8589431, timestamp: 1640217600 },  // Dec. 23, 2021
-  { block: 8888076, timestamp: 1640822400 },  // Dec. 30, 2021
-  { block: 9187865, timestamp: 1641427200 },  // Jan.  6, 2022
-  { block: 9491470, timestamp: 1642032000 },  // Jan. 13, 2022
-  { block: 9797372, timestamp: 1642636800 },  // Jan. 20, 2022
-  { block: 10101236, timestamp: 1643241600 }, // Jan. 27, 2022
-  { block: 10407972, timestamp: 1643846400 }, // Feb.  3, 2022
-  { block: 10714104, timestamp: 1644451200 }, // Feb. 10, 2022
-];
-
-// Teddy Variables:
-exports.teddy = '0x094bd7b2d99711a1486fb94d4395801c6d0fddcc';
-exports.tsd = '0x4fbf0429599460D327BD5F55625E30E4fC066095';
-exports.teddyStaking = '0xb4387D93B5A9392f64963cd44389e7D9D2E1053c';
-exports.stabilityPool = '0x7AEd63385C03Dc8ed2133F705bbB63E8EA607522';
-exports.teddyIssuance = '0xb4Fbc7839ce88029c8c1c6274660118e27B6f982';
-exports.troves = '0xd22b04395705144Fd12AfFD854248427A2776194';
-exports.sortedTroves = '0x5272DfB4851723328dA7730BE944502E5C965f40';
-exports.teddyTreasury = '0x7B4a14CD122BFE2e717c27914a024D05eC3061B9';
-exports.teddyDevFund = '0x41f8a18b165De90383bf23CbcE5c0244ECDeeaA7';
-
-// API Keys:
-exports.ckey = 'ckey_f49ab6dbd21f47a5a25eb922e0d';
-
-// Null Address:
-exports.zero = '0x0000000000000000000000000000000000000000';
-
-// Transfer Event:
-exports.transferEventABI = ['event Transfer(address indexed from, address indexed to, uint256 value)'];
-
-// Contract ABIs:
-exports.minABI = [
-  { constant: true, inputs: [{ name: "", type: "address" }], name: "balanceOf", outputs: [{ name: "", type: "uint256" }], type: "function" },
-  { constant: true, inputs: [], name: "totalSupply", outputs: [{ name: "", type: "uint256" }], type: "function" },
-  { constant: true, inputs: [], name: "symbol", outputs: [{ name: "", type: "string" }], type: "function" }
-];
-exports.xsnobABI = [
-  { constant: true, inputs: [{ name: "", type: "address" }], name: "locked", outputs: [{ name: "amount", type: "uint128" }, { name: "end", type: "uint256" }], type: "function" }
-];
-exports.gaugeProxyABI = [
-  { constant: true, inputs: [], name: "tokens", outputs: [{ name: "", type: "address[]" }], type: "function" },
-  { constant: true, inputs: [{ name: "", type: "address" }], name: "getGauge", outputs: [{ name: "", type: "address" }], type: "function" }
-];
-exports.feeDistributorABI = [
-  { constant: true, inputs: [], name: "start_time", outputs: [{ name: "", type: "uint256" }], type: "function" },
-  { constant: true, inputs: [{ name: "arg0", type: "uint256" }], name: "tokens_per_week", outputs: [{ name: "", type: "uint256" }], type: "function" },
-  { constant: true, inputs: [{ name: "arg0", type: "uint256" }], name: "ve_supply", outputs: [{ name: "", type: "uint256" }], type: "function" }
-];
-exports.snowGlobeABI = [
-  { constant: true, inputs: [], name: "controller", outputs: [{ name: "", type: "address" }], type: "function" },
-  { constant: true, inputs: [], name: "token", outputs: [{ name: "", type: "address" }], type: "function" }
-];
-exports.controllerABI = [
-  { constant: true, inputs: [{ name: "<input>", type: "address" }], name: "strategies", outputs: [{ name: "", type: "address" }], type: "function" }
-];
-exports.lpTokenABI = [
-  { constant: true, inputs: [], name: "token0", outputs: [{ name: "", type: "address" }], type: "function" },
-  { constant: true, inputs: [], name: "token1", outputs: [{ name: "", type: "address" }], type: "function" }
-];
-exports.strategyABI = [
-  { constant: true, inputs: [], name: "getName", outputs: [{ name: "", type: "string" }], type: "function" }
-]
-exports.swapABI = [
-  { constant: true, inputs: [{ name: "index", type: "uint256" }], name: "getAdminBalance", outputs: [{ name: "", type: "uint256" }], type: "function" }
-];
-exports.governanceABI = [
-  { constant: true, inputs: [{ name: "<input>", type: "uint256" }], name: "proposals", outputs: [{ name: "title", type: "string" }, { name: "metadata", type: "string" }, { name: "proposer", type: "address" }, { name: "executor", type: "address" }, { name: "startTime", type: "uint256" }, { name: "votingPeriod", type: "uint256" }, { name: "quorumVotes", type: "uint256" }, { name: "executionDelay", type: "uint256" }, { name: "forVotes", type: "uint256" }, { name: "againstVotes", type: "uint256" }], type: "function" }
-];
-exports.troveManagerABI = [
-  { constant: true, inputs: [], name: "getEntireSystemColl", outputs: [{ name: "", type: "uint256" }], type: "function" },
-  { constant: true, inputs: [{ name: "<input>", type: "uint256" }], name: "TroveOwners", outputs: [{ name: "", type: "address" }], type: "function" },
-  { constant: true, inputs: [{ name: "<input>", type: "address" }], name: "Troves", outputs: [{ name: "debt", type: "uint256" }, { name: "coll", type: "uint256" }, { name: "stake", type: "uint256" }, { name: "status", type: "uint8" }, { name: "arrayIndex", type: "uint128" }], type: "function" }
-];
-exports.sortedTrovesABI = [
-  { constant: true, inputs: [], name: "getSize", outputs: [{ name: "", type: "uint256" }], type: "function" }
 ];

@@ -17,7 +17,6 @@ const singleTraderJoeStrats = [
 ];
 
 // Initializations:
-const optimizedPoolController = '0x2f0b4e7ac032d0708c082994fb21dd75db514744';
 const lpSymbols = ['PGL', 'JLP'];
 const batchSize = 50;
 let progress = 0;
@@ -113,7 +112,7 @@ const fetchUnderlyingTokens = async (address) => {
 // Function to fetch pool platform:
 const fetchPlatform = async (token, strategy, globe, controller) => {
   let platform = null;
-  if(controller.toLowerCase() === optimizedPoolController) {
+  if(controller.toLowerCase() === config.optimizedPoolController) {
     platform = 'Optimized';
   } else if(token.symbol === 'PGL') {
     platform = 'Pangolin';
@@ -171,7 +170,11 @@ const fetchBatch = async (globes, apiPools) => {
                 data.push({name, platform, type, globe, strategy, gauge, controller, token, underlyingTokens});
               } else {
                 let name = token.symbol;
-                data.push({name, platform, type, globe, strategy, gauge, controller, token});
+                if(platform === 'Optimized') {
+                  data.push({name, platform, type, globe, strategies: config.optimizedPoolStrategies[name], gauge, controller, token});
+                } else {
+                  data.push({name, platform, type, globe, strategy, gauge, controller, token});
+                }
               }
             } else {
               let error = 'Wrong Gauge on API';
@@ -200,15 +203,31 @@ const writeMarkdown = (data) => {
   let formattedData = '# Compounding Contracts\n\n';
   config.platforms.forEach(platform => {
     let header = `## ${platform} Strategies\n\n`;
-    let tableData = [['Name', 'Deposit', 'Strategy', 'Gauge']];
-    let pools = data.filter(pool => pool.platform === platform);
-    pools.forEach(pool => {
-      let name = `\`${pool.name}\``.replace('-', ' - ');
-      let deposit = `[Deposit](https://snowtrace.io/address/${pool.globe})`;
-      let strategy = `[Strategy](https://snowtrace.io/address/${pool.strategy})`;
-      let gauge = `[Gauge](https://snowtrace.io/address/${pool.gauge})`;
-      tableData.push([name, deposit, strategy, gauge]);
-    });
+    let tableData = [];
+    if(platform != 'Optimized') {
+      tableData.push(['Name', 'Deposit', 'Strategy', 'Gauge']);
+      let pools = data.filter(pool => pool.platform === platform);
+      pools.forEach(pool => {
+        let name = `\`${pool.name}\``.replace('-', ' - ');
+        let deposit = `[Deposit](https://snowtrace.io/address/${pool.globe})`;
+        let strategy = `[Strategy](https://snowtrace.io/address/${pool.strategy})`;
+        let gauge = `[Gauge](https://snowtrace.io/address/${pool.gauge})`;
+        tableData.push([name, deposit, strategy, gauge]);
+      });
+    } else {
+      tableData.push(['Name', 'Deposit', 'Strategies', 'Gauge']);
+      let pools = data.filter(pool => pool.platform === platform);
+      pools.forEach(pool => {
+        let name = `\`${pool.name}\``;
+        let deposit = `[Deposit](https://snowtrace.io/address/${pool.globe})`;
+        let strategies = '';
+        pool.strategies.forEach(strategy => {
+          strategies += `[${strategy.platform}](https://snowtrace.io/address/${strategy.address})`;
+        });
+        let gauge = `[Gauge](https://snowtrace.io/address/${pool.gauge})`;
+        tableData.push([name, deposit, strategies, gauge]);
+      });
+    }
     let table = formatTable(tableData);
     formattedData += header + table + '\n';
   });
