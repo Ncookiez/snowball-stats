@@ -17,6 +17,7 @@ const singleTraderJoeStrats = [
 ];
 
 // Initializations:
+const optimizedPoolController = '0x2f0b4e7ac032d0708c082994fb21dd75db514744';
 const lpSymbols = ['PGL', 'JLP'];
 const batchSize = 50;
 let progress = 0;
@@ -110,9 +111,11 @@ const fetchUnderlyingTokens = async (address) => {
 /* ====================================================================================================================================================== */
 
 // Function to fetch pool platform:
-const fetchPlatform = async (token, strategy, globe) => {
+const fetchPlatform = async (token, strategy, globe, controller) => {
   let platform = null;
-  if(token.symbol === 'PGL') {
+  if(controller.toLowerCase() === optimizedPoolController) {
+    platform = 'Optimized';
+  } else if(token.symbol === 'PGL') {
     platform = 'Pangolin';
   } else if(token.symbol === 'JLP' || singleTraderJoeStrats.includes(globe.toLowerCase())) {
     platform = 'Trader Joe';
@@ -153,7 +156,7 @@ const fetchBatch = async (globes, apiPools) => {
           let apiPool = apiPools.find(pool => pool.snowglobeAddress.toLowerCase() === globe.toLowerCase());
           if(apiPool) {
             if(apiPool.gaugeAddress.toLowerCase() === gauge.toLowerCase()) {
-              let platform = await fetchPlatform(token, strategy, globe);
+              let platform = await fetchPlatform(token, strategy, globe, controller);
               let type = lpSymbols.includes(token.symbol) ? 'lp' : 'single';
               if(type === 'lp') {
                 let underlyingTokens = await fetchUnderlyingTokens(token.address);

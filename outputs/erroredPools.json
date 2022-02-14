@@ -77,17 +77,6 @@
   "error": "Not on API (Should Probably be Deprecated)"
  },
  {
-  "globe": "0x1022baD88471d7e7d59893A86E4e2fc49F441981",
-  "strategy": "0xE8c651B51460248457b80DFDEE0E545Bd474bd68",
-  "gauge": "0x0081D28D1138Fbb9007d2Aa1F65b1B9F72F7530E",
-  "controller": "0x2F0b4e7aC032d0708C082994Fb21Dd75DB514744",
-  "token": {
-   "symbol": "USDC.e",
-   "address": "0xA7D7079b0FEaD91F3e65f86E8915Cb59c1a4C664"
-  },
-  "error": "Not on API (Should Probably be Deprecated)"
- },
- {
   "globe": "0x10EcfD99Af6f17ec70074F5E75aD19d2365bee5D",
   "strategy": "0xF6734C085D54f30eAe8620F43a495117ee4Fa39f",
   "gauge": "0x2d955F07b396cfda86E0508380024239b9D7bcfe",
@@ -161,17 +150,6 @@
   "token": {
    "symbol": "PGL",
    "address": "0x829fB5203fB2420fe71d977E884658d030564FA4"
-  },
-  "error": "Not on API (Should Probably be Deprecated)"
- },
- {
-  "globe": "0x26CBeA666139daAde08A5E6E8bc3bB7245c6b5dd",
-  "strategy": "0x35C340bFFB89e00734e13b245EA2B80570D528b1",
-  "gauge": "0x5927aa343d502aC2037eCd501095db95AcBc74e4",
-  "controller": "0x2F0b4e7aC032d0708C082994Fb21Dd75DB514744",
-  "token": {
-   "symbol": "WBTC.e",
-   "address": "0x50b7545627a5162F82A992c33b87aDc75187B218"
   },
   "error": "Not on API (Should Probably be Deprecated)"
  },
@@ -308,17 +286,6 @@
   "error": "Not on API (Should Probably be Deprecated)"
  },
  {
-  "globe": "0x3a3a0570f66cD5DfacB3c72b5214fec88e5722a8",
-  "strategy": "0x48f736cC619cAd053F559cF24edfa2401BeD9c76",
-  "gauge": "0x85b3A9256f650704365B3c1F8de38Dc7fab542CF",
-  "controller": "0x2F0b4e7aC032d0708C082994Fb21Dd75DB514744",
-  "token": {
-   "symbol": "WAVAX",
-   "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
-  },
-  "error": "Not on API (Should Probably be Deprecated)"
- },
- {
   "globe": "0x3aAF997FdDA51eBb0918e3E59021f5FDE52444d8",
   "strategy": "0xd3829B16a2A7338a15078c541BA331E49D635E29",
   "gauge": "0x55839d98536348825aB31c0c1263fbE814Bf649a",
@@ -414,17 +381,6 @@
   "token": {
    "symbol": "PGL",
    "address": "0x381CC7bCbA0afd3aEB0eaec3cb05d7796ddFd860"
-  },
-  "error": "Not on API (Should Probably be Deprecated)"
- },
- {
-  "globe": "0x4C7887F2C555ba214582D7935ed60D004816BB0C",
-  "strategy": "0xcCb342985a2963Cd3643cfb40b63D145Ec8C5A40",
-  "gauge": "0x1ca257FfBbba4ca782f9c9513664748aFd02EF80",
-  "controller": "0x2F0b4e7aC032d0708C082994Fb21Dd75DB514744",
-  "token": {
-   "symbol": "USDT.e",
-   "address": "0xc7198437980c041c805A1EDcbA50c1Ce5db95118"
   },
   "error": "Not on API (Should Probably be Deprecated)"
  },
@@ -722,17 +678,6 @@
   "token": {
    "symbol": "PGL",
    "address": "0xf277e270bc7664E6EBba19620530b83883748a13"
-  },
-  "error": "Not on API (Should Probably be Deprecated)"
- },
- {
-  "globe": "0x8665e1FAD19D14b16Eecb96A7608cD42962E7eEB",
-  "strategy": "0x5618041c863228DC6298bc5fD17EADa6Fe9Df618",
-  "gauge": "0x2dE1D367a08067447B17dd76d61B4Fc284E4DcDA",
-  "controller": "0x2F0b4e7aC032d0708C082994Fb21Dd75DB514744",
-  "token": {
-   "symbol": "DAI.e",
-   "address": "0xd586E7F844cEa2F87f50152665BCbc2C279D8d70"
   },
   "error": "Not on API (Should Probably be Deprecated)"
  },
@@ -1210,17 +1155,6 @@
   "error": "Not on API (Should Probably be Deprecated)"
  },
  {
-  "globe": "0xEBeCc1f55963F52649B71BCeCA663d2A03028f76",
-  "strategy": "0x730ad83E992aE5A328a5ccEeEF26B0e821ACB524",
-  "gauge": "0xe27C618E1a4527AD187E0f1745eE843e9D918e82",
-  "controller": "0x2F0b4e7aC032d0708C082994Fb21Dd75DB514744",
-  "token": {
-   "symbol": "WETH.e",
-   "address": "0x49D5c2BdFfac6CE2BFdB6640F4F80f226bc10bAB"
-  },
-  "error": "Not on API (Should Probably be Deprecated)"
- },
- {
   "globe": "0xEC7dA05C3FA5612f708378025fe1C0e1904aFbb5",
   "strategy": "0x823C529E4289DEEB0854c5496826c9F195a1410c",
   "gauge": "0xEF9C3D66d97C222F5Aa8e71e1A950827297B95bf",
@@ -1239,17 +1173,6 @@
   "token": {
    "symbol": "PGL",
    "address": "0xB852E8D27AB836F142DFb1509eA6cA281b24CB73"
-  },
-  "error": "Not on API (Should Probably be Deprecated)"
- },
- {
-  "globe": "0xECce05f99cc3D9252eb22699c4fa4B0268B33353",
-  "strategy": "0xEbbDEC4bFDd23eCC53225214Faf4612c19Dd0347",
-  "gauge": "0x392e70C71D14da085688ACa52f55Ea3239429112",
-  "controller": "0x2F0b4e7aC032d0708C082994Fb21Dd75DB514744",
-  "token": {
-   "symbol": "LINK.e",
-   "address": "0x5947BB275c521040051D82396192181b413227A3"
   },
   "error": "Not on API (Should Probably be Deprecated)"
  },

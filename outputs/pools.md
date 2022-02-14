@@ -1,5 +1,17 @@
 # Compounding Contracts
 
+## Optimized Strategies
+
+Name | Deposit | Strategy | Gauge
+--- | --- | --- | ---
+`DAI.e` | [Deposit](https://snowtrace.io/address/0x8665e1FAD19D14b16Eecb96A7608cD42962E7eEB) | [Strategy](https://snowtrace.io/address/0x5618041c863228DC6298bc5fD17EADa6Fe9Df618) | [Gauge](https://snowtrace.io/address/0x2dE1D367a08067447B17dd76d61B4Fc284E4DcDA)
+`LINK.e` | [Deposit](https://snowtrace.io/address/0xECce05f99cc3D9252eb22699c4fa4B0268B33353) | [Strategy](https://snowtrace.io/address/0xEbbDEC4bFDd23eCC53225214Faf4612c19Dd0347) | [Gauge](https://snowtrace.io/address/0x392e70C71D14da085688ACa52f55Ea3239429112)
+`USDC.e` | [Deposit](https://snowtrace.io/address/0x1022baD88471d7e7d59893A86E4e2fc49F441981) | [Strategy](https://snowtrace.io/address/0x80e47C48e9375c6431bE3FCB7DCd30dcc2bb5A3b) | [Gauge](https://snowtrace.io/address/0x0081D28D1138Fbb9007d2Aa1F65b1B9F72F7530E)
+`USDT.e` | [Deposit](https://snowtrace.io/address/0x4C7887F2C555ba214582D7935ed60D004816BB0C) | [Strategy](https://snowtrace.io/address/0x1A07f2AEec34E3CaDaf85EeEE45fcC70881178DF) | [Gauge](https://snowtrace.io/address/0x1ca257FfBbba4ca782f9c9513664748aFd02EF80)
+`WAVAX` | [Deposit](https://snowtrace.io/address/0x3a3a0570f66cD5DfacB3c72b5214fec88e5722a8) | [Strategy](https://snowtrace.io/address/0x48f736cC619cAd053F559cF24edfa2401BeD9c76) | [Gauge](https://snowtrace.io/address/0x85b3A9256f650704365B3c1F8de38Dc7fab542CF)
+`WBTC.e` | [Deposit](https://snowtrace.io/address/0x26CBeA666139daAde08A5E6E8bc3bB7245c6b5dd) | [Strategy](https://snowtrace.io/address/0x9DcB28e8c2dB31b44Ce0448d567f48E8a310E808) | [Gauge](https://snowtrace.io/address/0x5927aa343d502aC2037eCd501095db95AcBc74e4)
+`WETH.e` | [Deposit](https://snowtrace.io/address/0xEBeCc1f55963F52649B71BCeCA663d2A03028f76) | [Strategy](https://snowtrace.io/address/0xfd2400B36a20a07c4ca79DfbEf4045Ea249B2a45) | [Gauge](https://snowtrace.io/address/0xe27C618E1a4527AD187E0f1745eE843e9D918e82)
+
 ## Trader Joe Strategies
 
 Name | Deposit | Strategy | Gauge
@@ -12,9 +24,11 @@ Name | Deposit | Strategy | Gauge
 `AVAX - COOK` | [Deposit](https://snowtrace.io/address/0x70807713924697Cc5A4a252aCeaeD921365bbf29) | [Strategy](https://snowtrace.io/address/0x64d597123fcA932F4494396De898088a06AB19Fb) | [Gauge](https://snowtrace.io/address/0xF37298d4b07352adeDf1F47d52494d32653538d5)
 `AVAX - CRA` | [Deposit](https://snowtrace.io/address/0xE61E5291ba241027b10064ac0c99411aa51DAC52) | [Strategy](https://snowtrace.io/address/0xCF5cA9aC98E292BD1d96A3c750f652367104036d) | [Gauge](https://snowtrace.io/address/0xEdB0aBe108b36634d40685f2725Cb7c84cECFD68)
 `AVAX - CRAFT` | [Deposit](https://snowtrace.io/address/0x18b608c54440b3a952A8BA6948A2A971A1aC97A2) | [Strategy](https://snowtrace.io/address/0x923023B9cA78a1da7a5135B3E6b9750adC3FF66f) | [Gauge](https://snowtrace.io/address/0x53fcE4a05abebc619003f79c3695a5fABBFF2f7D)
+`AVAX - DOMI` | [Deposit](https://snowtrace.io/address/0x13a531D4eF7eBa06985751569Af8B1EC3Bfc0078) | [Strategy](https://snowtrace.io/address/0x340056C7162270574d1E624A53793756867651Ee) | [Gauge](https://snowtrace.io/address/0xBc7D6F16e8C3bb6EEeb5D52A7cDA27B7Aa169bc6)
 `AVAX - EGG` | [Deposit](https://snowtrace.io/address/0x42a8Bcb58e8507c8987Ca59374DaF5aeF4974BFB) | [Strategy](https://snowtrace.io/address/0xe190692bF6c3DA53B207a5F1893b05859190DD83) | [Gauge](https://snowtrace.io/address/0xe0492CE0abdf701969BeD3f77147a8E43F537211)
 `AVAX - FRAX` | [Deposit](https://snowtrace.io/address/0x620BA147D7fFf419B18eC99335C9691c4c0940D1) | [Strategy](https://snowtrace.io/address/0x4762418fC2bb0A2A930aBe5D60333d23fB52C6e3) | [Gauge](https://snowtrace.io/address/0x5aF4163E9a55e666b02E9Cd2D071E28BAeA0434e)
 `AVAX - FXS` | [Deposit](https://snowtrace.io/address/0xd84D88BDe1b5c15C78D09741D7a9d21e73929EC6) | [Strategy](https://snowtrace.io/address/0x82170090Ac185ad22e4DCeAc78030D67fe1c4269) | [Gauge](https://snowtrace.io/address/0xc86604AA0Fad70a78F7EF0d942bbeE3237373bE2)
+`AVAX - GMX` | [Deposit](https://snowtrace.io/address/0x4943489a97ac7228efFb3D6b06C6A106A1BA9E60) | [Strategy](https://snowtrace.io/address/0xC231E58f0Dcf1D67E0f98b4bF5E27D67C5bd3c1C) | [Gauge](https://snowtrace.io/address/0xC4C99cA54ea6D5D4Aeabc9215832BFeEad1993c4)
 `AVAX - gOHM` | [Deposit](https://snowtrace.io/address/0xd12661461b09C5f440191d90FcA907769453Cdf0) | [Strategy](https://snowtrace.io/address/0x3c946F6D5D7567486d506559F1706001871884c3) | [Gauge](https://snowtrace.io/address/0xb2a66a60D74E908F90665c13898DD431B8e9D21A)
 `AVAX - GRO` | [Deposit](https://snowtrace.io/address/0x82A4F9e0F3612227Dc86D293244467935A96c7dB) | [Strategy](https://snowtrace.io/address/0x6e0F5DE3d2a4d458345ECDf2Fb3B1DC286FC8F75) | [Gauge](https://snowtrace.io/address/0xea4CC3192d2CFe76F968890BD611B332f53Fbac4)
 `AVAX - H2O` | [Deposit](https://snowtrace.io/address/0x3CE30991623Dc1398C10A9f933D7a614A42Cc597) | [Strategy](https://snowtrace.io/address/0x7849Ec4B73f08370E4686eB0F54c53D0B13fc277) | [Gauge](https://snowtrace.io/address/0x266f912e789c98c9ae1E63B5c09E0D374bdd88e6)

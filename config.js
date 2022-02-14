@@ -32,7 +32,7 @@ exports.nftMarketplaces = [
   '0x14390f57ccfdb45f969381e7e107acf062d3a592',
   '0xd42e49c1b481817365b2fc744c9ae84ba3862429'
 ];
-exports.platforms = ['Trader Joe', 'Banker Joe', 'Pangolin', 'Benqi', 'Aave', 'Axial', 'Teddy', 'Platypus'];
+exports.platforms = ['Optimized', 'Trader Joe', 'Banker Joe', 'Pangolin', 'Benqi', 'Aave', 'Axial', 'Teddy', 'Platypus'];
 exports.voteEventABI = ['event NewVote(uint256 proposalId, address voter, bool support, uint256 votes)'];
 exports.deprecatedGlobes = [
   '0xAbD637a6881a2D4bbf279aE484c2447c070f7C73',
