@@ -61,7 +61,7 @@ exports.optimizedPoolStrategies = {
   ],
   'WAVAX': [
     { platform: 'Aave', address: '0x0f776b5b97BfA366f929FE82bd50C312C39f26f1' },
-    { platform: 'BenQi', address: '0x48f736cC619cAd053F559cF24edfa2401BeD9c76' },
+    { platform: 'BenQi', address: '0x51B29aA47588A0dCAE748297C7A9ddE10035522E' },
     { platform: 'Banker Joe', address: '0x5bd7bB54e3B6798Ca33AcbD1F26541053721e69f' }
   ],
   'WBTC.e': [
