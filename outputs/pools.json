@@ -1403,6 +1403,29 @@
   }
  },
  {
+  "name": "AVAX-sAVAX",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0x2ca2F78D38D05489C95f4499E6abB669b5E42546",
+  "strategy": "0x37ffC9cDf0c3b9aFC5E0D979cd0aCD145a86347C",
+  "gauge": "0xceb1ce6a47557CbDC87E647049e3153299e23128",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0x4b946c91C2B1a7d7C40FB3C130CdfBaf8389094d"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "sAVAX",
+    "address": "0x2b2C81e08f1Af8835a78Bb2A90AE924ACE0eA4bE"
+   },
+   "token1": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   }
+  }
+ },
+ {
   "name": "AVAX-SNOB",
   "platform": "Trader Joe",
   "type": "lp",
@@ -2215,7 +2238,7 @@
    },
    {
     "platform": "BenQi",
-    "address": "0x5618041c863228DC6298bc5fD17EADa6Fe9Df618"
+    "address": "0x1Ab9ab0260736Cebbf1FdA8E0e31650Cf14B93DA"
    }
   ],
   "gauge": "0x2dE1D367a08067447B17dd76d61B4Fc284E4DcDA",
@@ -2506,7 +2529,7 @@
    },
    {
     "platform": "BenQi",
-    "address": "0x51B29aA47588A0dCAE748297C7A9ddE10035522E"
+    "address": "0xcC6f8BEf7387A9aD0e6041530367D66Cfd2adDfE"
    },
    {
     "platform": "Banker Joe",

@@ -43,7 +43,7 @@ exports.optimizedPoolController = '0x2f0b4e7ac032d0708c082994fb21dd75db514744';
 exports.optimizedPoolStrategies = {
   'DAI.e': [
     { platform: 'Aave', address: '0x13d753C651526Bf3501818813B829B339ae867AF' },
-    { platform: 'BenQi', address: '0x5618041c863228DC6298bc5fD17EADa6Fe9Df618' }
+    { platform: 'BenQi', address: '0x1Ab9ab0260736Cebbf1FdA8E0e31650Cf14B93DA' }
   ],
   'LINK.e': [
     { platform: 'BenQi', address: '0xEbbDEC4bFDd23eCC53225214Faf4612c19Dd0347' },
@@ -61,7 +61,7 @@ exports.optimizedPoolStrategies = {
   ],
   'WAVAX': [
     { platform: 'Aave', address: '0x0f776b5b97BfA366f929FE82bd50C312C39f26f1' },
-    { platform: 'BenQi', address: '0x51B29aA47588A0dCAE748297C7A9ddE10035522E' },
+    { platform: 'BenQi', address: '0xcC6f8BEf7387A9aD0e6041530367D66Cfd2adDfE' },
     { platform: 'Banker Joe', address: '0x5bd7bB54e3B6798Ca33AcbD1F26541053721e69f' }
   ],
   'WBTC.e': [
