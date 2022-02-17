@@ -49,7 +49,13 @@ const getGasSpentStrategies = async () => {
   progress = 0;
   maxProgress = pools.length;
   for(let i = 0; i < pools.length; i++) {
-    txs.push(...(await getCovalentTXs(pools[i].strategy)));
+    if(pools[i].strategy != undefined) {
+      txs.push(...(await getCovalentTXs(pools[i].strategy)));
+    } else {
+      for(let j = 0; j < pools[i].strategies.length; j++) {
+        txs.push(...(await getCovalentTXs(pools[i].strategies[j].address)));
+      }
+    }
     updateProgress('Loading strategy transactions...');
   }
   txs.forEach(tx => {

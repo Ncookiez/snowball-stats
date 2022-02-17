@@ -3,8 +3,8 @@
   ||     Distribution Stats     ||
   ================================
 
-  - Total Distributed: 878,435 SNOB & 13,159,310 AXIAL
-  - Average Distribution: 23,117 SNOB & 1,012,255 AXIAL
+  - Total Distributed: 898,380 SNOB & 14,781,134 AXIAL
+  - Average Distribution: 23,035 SNOB & 1,055,795 AXIAL
   - List of Distributions:
       > Week  1 (27/05/2021) - 30,000 SNOB - 580.38% APR
       > Week  2 (03/06/2021) - 45,000 SNOB - 160.64% APR
@@ -44,5 +44,6 @@
       > Week 36 (27/01/2022) - 11,792 SNOB & 1,346,807 AXIAL - 45.11% APR (8.59% SNOB & 36.52% AXIAL)
       > Week 37 (03/02/2022) - 8,679 SNOB & 91,387 AXIAL - 8.22% APR (6.29% SNOB & 1.93% AXIAL)
       > Week 38 (10/02/2022) - 20,524 SNOB & 1,092,491 AXIAL - 52.08% APR (15.01% SNOB & 37.07% AXIAL)
-  - Total xSNOB Supply: 7,105,229 xSNOB
-  - All-Time Average APR: 87.52%
+      > Week 39 (17/02/2022) - 19,945 SNOB & 1,621,824 AXIAL - 73.83% APR (14.59% SNOB & 59.24% AXIAL)
+  - Total xSNOB Supply: 7,124,195 xSNOB
+  - All-Time Average APR: 87.17%
