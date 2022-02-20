@@ -1426,6 +1426,29 @@
   }
  },
  {
+  "name": "AVAX-sAVAX",
+  "platform": "Pangolin",
+  "type": "lp",
+  "globe": "0x51D914129E4EAf1BFA34e0194CE36F9C46112a65",
+  "strategy": "0xB5E785D1e349E1DE6c03701B88980eb8430e1447",
+  "gauge": "0x5B2a130C256661A991075bEf4EeBE55327417015",
+  "controller": "0xf7B8D9f8a82a7a6dd448398aFC5c77744Bd6cb85",
+  "token": {
+   "symbol": "PGL",
+   "address": "0x4E9A38F05c38106C1cf5c145Df24959ec50ff70D"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "sAVAX",
+    "address": "0x2b2C81e08f1Af8835a78Bb2A90AE924ACE0eA4bE"
+   },
+   "token1": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   }
+  }
+ },
+ {
   "name": "AVAX-SNOB",
   "platform": "Trader Joe",
   "type": "lp",
