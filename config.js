@@ -116,8 +116,18 @@ exports.axialDistributions = [ // https://api.snowtrace.io/api?module=block&acti
   { block: 10101236, timestamp: 1643241600 }, // Jan. 27, 2022
   { block: 10407972, timestamp: 1643846400 }, // Feb.  3, 2022
   { block: 10714104, timestamp: 1644451200 }, // Feb. 10, 2022
-  { block: 11015462, timestamp: 1645056000 }  // Feb. 17, 2022
+  { block: 11015462, timestamp: 1645056000 }, // Feb. 17, 2022
+  { block: 11312497, timestamp: 1645660800 }  // Feb. 24, 2022
+  // { block: , timestamp: 1646265600 }, // Mar.  3, 2022
+  // { block: , timestamp: 1646870400 }, // Mar. 10, 2022
+  // { block: , timestamp: 1647475200 }, // Mar. 17, 2022
+  // { block: , timestamp: 1648080000 }, // Mar. 24, 2022
+  // { block: , timestamp: 1648684800 }, // Mar. 31, 2022
+  // { block: , timestamp: 1649289600 }, // Apr.  7, 2022
+  // { block: , timestamp: 1649894400 }  // Apr. 14, 2022
 ];
+
+604800
 
 /* ====================================================================================================================================================== */
 
