@@ -67,18 +67,27 @@ const getTXs = async () => {
   let txs = {};
   let promises = config.axialPools.map(pool => (async () => {
     txs[pool.name] = [];
-    let events = await queryBlocks(pool.swap, config.axialSwapEventABI, 'TokenSwap', config.axialDistributions[0].block, 50000, []);
+    let events;
+    if(pool.name.includes('-')) {
+      events = await queryBlocks(pool.swap, config.axialMetapoolSwapEventABI, 'TokenSwapUnderlying', config.axialDistributions[0].block, 50000, []);
+    } else {
+      events = await queryBlocks(pool.swap, config.axialSwapEventABI, 'TokenSwap', config.axialDistributions[0].block, 50000, []);
+    }
     let event_promises = events.map(event => (async () => {
+      let soldTokenSymbol = pool.name.includes('-') ? pool.metaTokens[parseInt(event.args.soldId)].symbol : pool.tokens[parseInt(event.args.soldId)].symbol;
+      let soldTokenDecimals = pool.name.includes('-') ? pool.metaTokens[parseInt(event.args.soldId)].decimals : pool.tokens[parseInt(event.args.soldId)].decimals;
+      let boughtTokenSymbol = pool.name.includes('-') ? pool.metaTokens[parseInt(event.args.boughtId)].symbol : pool.tokens[parseInt(event.args.boughtId)].symbol;
+      let boughtTokenDecimals = pool.name.includes('-') ? pool.metaTokens[parseInt(event.args.boughtId)].decimals : pool.tokens[parseInt(event.args.boughtId)].decimals;
       txs[pool.name].push({
         wallet: event.args.buyer.toLowerCase(),
         block: event.blockNumber,
         sold: {
-          token: pool.tokens[parseInt(event.args.soldId)].symbol,
-          amount: parseInt(event.args.tokensSold) / (10 ** pool.tokens[parseInt(event.args.soldId)].decimals)
+          token: soldTokenSymbol,
+          amount: parseInt(event.args.tokensSold) / (10 ** soldTokenDecimals)
         },
         bought: {
-          token: pool.tokens[parseInt(event.args.boughtId)].symbol,
-          amount: parseInt(event.args.tokensBought) / (10 ** pool.tokens[parseInt(event.args.boughtId)].decimals)
+          token: boughtTokenSymbol,
+          amount: parseInt(event.args.tokensBought) / (10 ** boughtTokenDecimals)
         }
       });
     })());
@@ -88,7 +97,7 @@ const getTXs = async () => {
   await Promise.all(promises);
 
   // Finding Estimated Daily Token Volume (Optional):
-  findDailyTokenVolume(txs);
+  // findDailyTokenVolume(txs);
 
   return txs;
 }

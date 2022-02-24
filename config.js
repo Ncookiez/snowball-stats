@@ -87,7 +87,8 @@ exports.axialPools = [
   { name: 'AS4D', swap: '0x2a716c4933A20Cd8B9f9D9C39Ae7196A85c24228', tokens: [{ symbol: 'TUSD', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }, { symbol: 'DAI.e', decimals: 18 }, { symbol: 'USDT.e', decimals: 6 }] },
   { name: 'AC4D', swap: '0x8c3c1C6F971C01481150CA7942bD2bbB9Bc27bC7', tokens: [{ symbol: 'TSD', decimals: 18 }, { symbol: 'MIM', decimals: 18 }, { symbol: 'FRAX', decimals: 18 }, { symbol: 'DAI.e', decimals: 18 }] },
   { name: 'AM3D', swap: '0x90c7b96AD2142166D001B27b5fbc128494CDfBc8', tokens: [{ symbol: 'MIM', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }, { symbol: 'DAI.e', decimals: 18 }] },
-  { name: 'AA3D', swap: '0x6EfbC734D91b229BE29137cf9fE531C1D3bf4Da6', tokens: [{ symbol: 'AVAI', decimals: 18 }, { symbol: 'MIM', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }] }
+  { name: 'AA3D', swap: '0x6EfbC734D91b229BE29137cf9fE531C1D3bf4Da6', tokens: [{ symbol: 'AVAI', decimals: 18 }, { symbol: 'MIM', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }] },
+  { name: 'USDC-AM3D', swap: '0x26694e4047eA77cC96341f0aC491773aC5469d72', tokens: [{ symbol: 'USDC', decimals: 6 }, { symbol: 'AM3D', decimals: 18 }], metaTokens: [{ symbol: 'USDC', decimals: 6 }, { symbol: 'MIM', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }, { symbol: 'DAI.e', decimals: 18 }] }
 ];
 exports.paraswap = '0xdef171fe48cf0115b1d80b88dc8eab59176fee57';
 exports.axialTokens = [
@@ -148,6 +149,7 @@ exports.teddyDevFund = '0x41f8a18b165De90383bf23CbcE5c0244ECDeeaA7';
 exports.transferEventABI = ['event Transfer(address indexed from, address indexed to, uint256 value)'];
 exports.voteEventABI = ['event NewVote(uint256 proposalId, address voter, bool support, uint256 votes)'];
 exports.axialSwapEventABI = ['event TokenSwap(address indexed buyer, uint256 tokensSold, uint256 tokensBought, uint128 soldId, uint128 boughtId)'];
+exports.axialMetapoolSwapEventABI = ['event TokenSwapUnderlying(address indexed buyer, uint256 tokensSold, uint256 tokensBought, uint128 soldId, uint128 boughtId)'];
 
 // Contract ABIs:
 exports.minABI = [
