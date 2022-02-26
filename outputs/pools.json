@@ -483,6 +483,29 @@
   }
  },
  {
+  "name": "AVAX-FIEF",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0x3F1Ba471A9945cD97F519225b578223D75C5155f",
+  "strategy": "0x4CA781d0F79fd161Ace98772f03063D1aD0CBF12",
+  "gauge": "0x0d70E45857c51E00Eb4d46bFe5276f9c94C1BAa6",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0x939D6eD8a0f7FC90436BA6842D7372250a03fA7c"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   },
+   "token1": {
+    "symbol": "FIEF",
+    "address": "0xeA068Fba19CE95f12d252aD8Cb2939225C4Ea02D"
+   }
+  }
+ },
+ {
   "name": "AVAX-FRAX",
   "platform": "Trader Joe",
   "type": "lp",
@@ -1560,6 +1583,29 @@
    "token1": {
     "symbol": "TIME",
     "address": "0xb54f16fB19478766A268F172C9480f8da1a7c9C3"
+   }
+  }
+ },
+ {
+  "name": "AVAX-TUS",
+  "platform": "Pangolin",
+  "type": "lp",
+  "globe": "0x445182E6FCb4c41fC5eaC224929A0514F9FE0178",
+  "strategy": "0x776e12e282DD3685705265ff384e81B12D16d592",
+  "gauge": "0xDeb2e399Ec151BFd014f760E04D98d043f8b65fE",
+  "controller": "0xf7B8D9f8a82a7a6dd448398aFC5c77744Bd6cb85",
+  "token": {
+   "symbol": "PGL",
+   "address": "0xbCEd3B6D759B9CA8Fc7706E46Aa81627b2e9EAE8"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   },
+   "token1": {
+    "symbol": "TUS",
+    "address": "0xf693248F96Fe03422FEa95aC0aFbBBc4a8FdD172"
    }
   }
  },
