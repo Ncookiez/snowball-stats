@@ -1,11 +1,10 @@
 {
   "name": "snowball-stats",
-  "version": "2.8.7",
+  "version": "2.8.8",
   "description": "Tracking Snowball statistics.",
   "scripts": {
     "all": "npm run snob basic && npm run axial basic && npm run dist && npm run nfts && npm run pools && npm run gasStats && npm run snob && npm run axial && npm run teddy && npm run axialDistCheck",
     "snob": "node scripts/snob.js",
-    "comp": "node scripts/comp.js",
     "nfts": "node scripts/nfts.js",
     "dist": "node scripts/dist.js",
     "axial": "node scripts/axial.js",

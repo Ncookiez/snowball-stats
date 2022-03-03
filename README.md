@@ -18,24 +18,6 @@ The `basic` optional parameter will cover only the simplest queries - getting yo
 npm run snob basic
 ```
 
-## Compounder Stats (WIP)
-
-This script grabs data from Snowball's auto-compounding strategies.
-
-```
-npm run comp
-```
-
-The optional time parameters can be used to fetch data from specific periods of time.
-
-```
-npm run comp <start_time> <end_time>
-```
-
-Entering only a start time but not an end time is also an option. The current time will thus be used for the end time.
-
-You can use the link [here](https://www.unixtimestamp.com/) to get Unix timestamps.
-
 ## NFT Stats
 
 This script grabs ownership data for every one of Snowball's NFTs.
