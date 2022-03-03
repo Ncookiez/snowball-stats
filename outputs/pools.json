@@ -161,6 +161,29 @@
   }
  },
  {
+  "name": "AVAX-BRIBE",
+  "platform": "Pangolin",
+  "type": "lp",
+  "globe": "0xaA80f9CC2121c690C8De19990a0D3242cb59cffe",
+  "strategy": "0x08434E42f02a3De0e528fd0F0E16E46f9d6d2CDb",
+  "gauge": "0x919C030E299fe513F21Af119a5854740A0f74442",
+  "controller": "0xf7B8D9f8a82a7a6dd448398aFC5c77744Bd6cb85",
+  "token": {
+   "symbol": "PGL",
+   "address": "0x7472887De3B0aA65168a1Da22164C81DE5fd4044"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   },
+   "token1": {
+    "symbol": "BRIBE",
+    "address": "0xCe2fbed816E320258161CeD52c2d0CEBcdFd8136"
+   }
+  }
+ },
+ {
   "name": "AVAX-CLY",
   "platform": "Pangolin",
   "type": "lp",
@@ -1698,6 +1721,29 @@
    "token1": {
     "symbol": "WAVAX",
     "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   }
+  }
+ },
+ {
+  "name": "DLAUNCH-UST",
+  "platform": "Pangolin",
+  "type": "lp",
+  "globe": "0x5e50be947a629a7bE56b143A1271651B832B0Ad6",
+  "strategy": "0x394d7Cd603ad37154D39B898e387D0F8E71655d6",
+  "gauge": "0x3fF53DcB9374CD7c73cf2F998ea61fDb1A287BD0",
+  "controller": "0xf7B8D9f8a82a7a6dd448398aFC5c77744Bd6cb85",
+  "token": {
+   "symbol": "PGL",
+   "address": "0x7e6BC3A57fBcbAb72b0CbB4B2eCBAdD26373593F"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "DLAUNCH",
+    "address": "0x0659133127749Cc0616Ed6632912ddF7cc8D7545"
+   },
+   "token1": {
+    "symbol": "UST",
+    "address": "0x260Bbf5698121EB85e7a74f2E45E16Ce762EbE11"
    }
   }
  },
