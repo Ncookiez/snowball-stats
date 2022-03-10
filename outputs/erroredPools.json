@@ -275,6 +275,17 @@
   "error": "Not on API (Should Probably be Deprecated)"
  },
  {
+  "globe": "0x2f504817200D690BB508125022857FE08808f43b",
+  "strategy": "0xd92389266914B0528C853DF01B7624EE5E23673C",
+  "gauge": "0xA73C7b570451e5Db389982ddD36A746FAe798987",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JOE",
+   "address": "0x6e84a6216eA6dACC71eE8E6b0a5B7322EEbC0fDd"
+  },
+  "error": "Not on API (Should Probably be Deprecated)"
+ },
+ {
   "globe": "0x322094FDB02677E7a993E735826c9E183fc605a6",
   "strategy": "0xE9141904272BB15b4913E3730eaE7cf17908423B",
   "gauge": "0xC2a09e4753bB62eF8e18b86aA1D4D8Ba40DAb14A",
