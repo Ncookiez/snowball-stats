@@ -368,6 +368,29 @@
   }
  },
  {
+  "name": "AVAX-DFIAT",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0x9c502eF4149dAFBF40BCb651E4D275Dee68E887b",
+  "strategy": "0x4FA536e8756016472e2DB072679ce617Ab07BA34",
+  "gauge": "0x70b50373175B42C928711e106f754D809fcEe193",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0x7Ca8e6a11466f8542f2b65B845C77D425182CbDe"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "DFIAT",
+    "address": "0xAfE3d2A31231230875DEe1fa1eEF14a412443d22"
+   },
+   "token1": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   }
+  }
+ },
+ {
   "name": "AVAX-DOMI",
   "platform": "Trader Joe",
   "type": "lp",
@@ -990,6 +1013,29 @@
  },
  {
   "name": "AVAX-MONEY",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0x0a4F87EC5291175403CA0b290bCB00c37Df213a7",
+  "strategy": "0xaE399489E56A03b1882a3be498a52741aEbD5C97",
+  "gauge": "0xa02f8880597CE2d9D7400066a07C1D50b6AF981b",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0x66D12e1cb13EAbAB21f1Fb6628B1Ef33C6dED5a7"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "MONEY",
+    "address": "0x0f577433Bf59560Ef2a79c124E9Ff99fCa258948"
+   },
+   "token1": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   }
+  }
+ },
+ {
+  "name": "AVAX-MONEY",
   "platform": "Pangolin",
   "type": "lp",
   "globe": "0x0Ca13F6cfd20eF14e140e7E8D69D04Bc60B77EfC",
@@ -1487,6 +1533,29 @@
    "token0": {
     "symbol": "UST",
     "address": "0x260Bbf5698121EB85e7a74f2E45E16Ce762EbE11"
+   },
+   "token1": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   }
+  }
+ },
+ {
+  "name": "AVAX-VTX",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0x217c51E85205ae8278c08583C9f2C89f85c26a99",
+  "strategy": "0x443EA91CaD685e8985AC056175a03a899A35742F",
+  "gauge": "0x7aa58A93666A81094F9C76726A38e9f432807591",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0x9EF0C12b787F90F59cBBE0b611B82D30CAB92929"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "VTX",
+    "address": "0x5817D4F0b62A59b17f75207DA1848C2cE75e7AF4"
    },
    "token1": {
     "symbol": "WAVAX",

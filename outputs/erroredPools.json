@@ -176,6 +176,17 @@
   "error": "Not on API (Should Probably be Deprecated)"
  },
  {
+  "globe": "0x1f6bBFa40E1589cd2EA32Ef203023e5d009950FE",
+  "strategy": "0x1fF96b1e175eC10F355De6f5968413FaFb3D2D0B",
+  "gauge": "0x51140712B937871229EA34Dc4d230C9286D8189F",
+  "controller": "0x10A2B0cc29d36f2816cDC3F3db17a4f0f91E7313",
+  "token": {
+   "symbol": "USDT.e",
+   "address": "0xc7198437980c041c805A1EDcbA50c1Ce5db95118"
+  },
+  "error": "Not on API (Should Probably be Deprecated)"
+ },
+ {
   "globe": "0x2070Bf205a649dE46F92c4f187Ae941a13688850",
   "strategy": "0x766A5531C82EED7AEA2d7fA0b59beE0C5cd4ddc8",
   "gauge": "0x8dB4Eb81c1faf39D1e47508EdeF9aC29c13CFf26",
@@ -183,6 +194,17 @@
   "token": {
    "symbol": "PGL",
    "address": "0x829fB5203fB2420fe71d977E884658d030564FA4"
+  },
+  "error": "Not on API (Should Probably be Deprecated)"
+ },
+ {
+  "globe": "0x231D3DB9d74B4b155D00514eDdA7Af5B19c44106",
+  "strategy": "0x974A70fF0926a43fb12a08c0883fE91b0e721675",
+  "gauge": "0x6964aF53B094d230e68A015038115e3bf07166E7",
+  "controller": "0x10A2B0cc29d36f2816cDC3F3db17a4f0f91E7313",
+  "token": {
+   "symbol": "JLP",
+   "address": "0xc8898e2eEE8a1d08742bb3173311697966451F61"
   },
   "error": "Not on API (Should Probably be Deprecated)"
  },
@@ -491,6 +513,17 @@
   "token": {
    "symbol": "PGL",
    "address": "0x82Ab53e405fa94448597aFCC0BA86143b1AB2628"
+  },
+  "error": "Not on API (Should Probably be Deprecated)"
+ },
+ {
+  "globe": "0x5136A6af8b8470E270570d9d54204C93229fEbA9",
+  "strategy": "0x4E02c1F006b1DB56405582c0B52a08EC7BC116E3",
+  "gauge": "0xf923BBA74a9f78E9869Eb7141D348b958f965CDf",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0x218e6A0AD170460F93eA784FbcC92B57DF13316E"
   },
   "error": "Not on API (Should Probably be Deprecated)"
  },
@@ -880,6 +913,17 @@
   "error": "Not on API (Should Probably be Deprecated)"
  },
  {
+  "globe": "0x90Aca2958AB913D0b2568800Fc7FD43eD5A9Cd8F",
+  "strategy": "0x63387DE71F03276F26ba8e21C786DF815c07d63E",
+  "gauge": "0x5B33d8544C1d04aC26EfF28e8EBc61aD1e8c40c5",
+  "controller": "0x10A2B0cc29d36f2816cDC3F3db17a4f0f91E7313",
+  "token": {
+   "symbol": "USDt",
+   "address": "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7"
+  },
+  "error": "Not on API (Should Probably be Deprecated)"
+ },
+ {
   "globe": "0x916aEbEE43E2bE7ed126A21208db4092392d80AD",
   "strategy": "0x1713f3a63581A380568c5dB145a2AFE76387ff13",
   "gauge": "0xd5e34221a42b291460AC855BcE4a02af1f20C0A9",
@@ -942,6 +986,17 @@
   "token": {
    "symbol": "JLP",
    "address": "0xb5c9e891AF3063004a441BA4FaB4cA3D6DEb5626"
+  },
+  "error": "Not on API (Should Probably be Deprecated)"
+ },
+ {
+  "globe": "0x9E38849FD0Df9e5A69A22d68e218f07A79A1dAC5",
+  "strategy": "0x6897da4Cd9043f25d061154D287d78dfCF9E94Fa",
+  "gauge": "0xbD246BEc6a3c42D94e32c06b04620A969f9Da8eA",
+  "controller": "0x10A2B0cc29d36f2816cDC3F3db17a4f0f91E7313",
+  "token": {
+   "symbol": "JLP",
+   "address": "0x218e6A0AD170460F93eA784FbcC92B57DF13316E"
   },
   "error": "Not on API (Should Probably be Deprecated)"
  },
@@ -1023,6 +1078,17 @@
   "error": "Not on API (Should Probably be Deprecated)"
  },
  {
+  "globe": "0xACe7ED26750156008275cb29d7b950c8bcaF43B8",
+  "strategy": "0x23380f176614566cA8212AF5a1ED9aAEb29D3b09",
+  "gauge": "0x63EE236617776FAb69ac6950E7CdEAC04207d28C",
+  "controller": "0x5a068C00E32D18A354755Cddb01aC65ca074Aa06",
+  "token": {
+   "symbol": "USDt",
+   "address": "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7"
+  },
+  "error": "Not on API (Should Probably be Deprecated)"
+ },
+ {
   "globe": "0xAf931ded9dBb9D8f84baE9748E71485C45dd69C5",
   "strategy": "0xd06E4a8A7AEF46B488BD4c558a3513F9782647B8",
   "gauge": "0x2846B650618044d736eCaD75C8B4949F821F6571",
@@ -1030,6 +1096,17 @@
   "token": {
    "symbol": "PGL",
    "address": "0xAa9A58792CBFA3DE9Cef36a5CF0E3608a6a106B7"
+  },
+  "error": "Not on API (Should Probably be Deprecated)"
+ },
+ {
+  "globe": "0xb0fF02AB1fA36858F7aF62Ddf2Bddd48c01bfa59",
+  "strategy": "0xac28A5910a47C7E40E037BD06B4eb5f813C76d4C",
+  "gauge": "0x7b9D45F5DA96bB442df0BE55796C1fA59B888d33",
+  "controller": "0x10A2B0cc29d36f2816cDC3F3db17a4f0f91E7313",
+  "token": {
+   "symbol": "DAI.e",
+   "address": "0xd586E7F844cEa2F87f50152665BCbc2C279D8d70"
   },
   "error": "Not on API (Should Probably be Deprecated)"
  },
@@ -1485,6 +1562,17 @@
   "error": "Not on API (Should Probably be Deprecated)"
  },
  {
+  "globe": "0xF2a295Ab7A1a677Db98233F4bEF9af0141c32ED1",
+  "strategy": "0xf8224cE22473c129E7C9fD177096C9cA4e87240b",
+  "gauge": "0x7634fFE6763C7E978C508Bd7efcEBDf09C01dc8E",
+  "controller": "0x10A2B0cc29d36f2816cDC3F3db17a4f0f91E7313",
+  "token": {
+   "symbol": "ecdPTP",
+   "address": "0xb2C5172E5C15aF6aDD1ec92e518A5Ea1c7DeD2ad"
+  },
+  "error": "Not on API (Should Probably be Deprecated)"
+ },
+ {
   "globe": "0xf5b4Ba166b8b351C0dF92BdD6bf7d46d537185fB",
   "strategy": "0x5C97cd512093bc1b4a89fE543E60eF2002789F9c",
   "gauge": "0x44A67a7BEFEFE04EB483fE421d9548d3C568e729",
@@ -1547,6 +1635,17 @@
   "token": {
    "symbol": "PGL",
    "address": "0xE9DfCABaCA5E45C0F3C151f97900511f3E73Fb47"
+  },
+  "error": "Not on API (Should Probably be Deprecated)"
+ },
+ {
+  "globe": "0xFFa18894152f4B1869C9dfEFB28459468f065e31",
+  "strategy": "0x6605A199D6c86f2f6c5089A9cc081eEC345AB783",
+  "gauge": "0x7FaB30D2361c14C155596A6E4DF0812495909e87",
+  "controller": "0x5a068C00E32D18A354755Cddb01aC65ca074Aa06",
+  "token": {
+   "symbol": "JLP",
+   "address": "0xC4B7121b4FC065dECd26C33FB32e42C543E8850d"
   },
   "error": "Not on API (Should Probably be Deprecated)"
  }
