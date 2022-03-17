@@ -114,7 +114,7 @@ exports.getTokenHolders = async (token) => {
     let holders = (await axios.get(`https://api.covalenthq.com/v1/43114/tokens/${token}/token_holders/?page-size=50000&key=${config.ckey}`)).data.data.items;
     return holders;
   } catch(err) {
-    console.error(err);
+    console.error(`COVALENT ERROR: Code ${err.response.data.error_code} - ${err.response.data.error_message}.`);
     process.exit(1);
   }
 }
@@ -141,7 +141,7 @@ exports.getCovalentTXs = async (address) => {
         await Promise.all(promises);
       } catch(err) {
         if(++errors === 50) {
-          console.error(`API ERROR: Code ${err.response.data.error_code} - ${err.response.data.error_message}.`);
+          console.error(`COVALENT ERROR: Code ${err.response.data.error_code} - ${err.response.data.error_message}.`);
           process.exit(1);
         }
       }
