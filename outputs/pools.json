@@ -46,6 +46,29 @@
   }
  },
  {
+  "name": "AVAX-APE",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0x9A4DaeCEb0b205507b901cbA6e669E32A38262eB",
+  "strategy": "0x7F23a92E0e05317B0c468f196456d08b582d06C2",
+  "gauge": "0x87C654572b27E45dC3Ffac5Dea4fC5c1acF1b2De",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0x11bBfA2Fa3b995ceA99D20DFA618fd32e252d8F2"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "APE",
+    "address": "0x0802d66f029c46E042b74d543fC43B6705ccb4ba"
+   },
+   "token1": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   }
+  }
+ },
+ {
   "name": "AVAX-AVXT",
   "platform": "Pangolin",
   "type": "lp",
@@ -345,6 +368,29 @@
   }
  },
  {
+  "name": "AVAX-DEG",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0x63F9dF540085Bb5e0f9375197Af9904330381B6a",
+  "strategy": "0x65558dAF77c4496f0FabD2E1d89CdA654080999b",
+  "gauge": "0x6F0534f74ADae55F31E812870c68de35181351Fb",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0x465460F46969F2bf969432956491dEE95A6ba493"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "DEG",
+    "address": "0x9f285507Ea5B4F33822CA7aBb5EC8953ce37A645"
+   },
+   "token1": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   }
+  }
+ },
+ {
   "name": "AVAX-DEP",
   "platform": "Pangolin",
   "type": "lp",
@@ -525,6 +571,29 @@
    "token1": {
     "symbol": "FIRE",
     "address": "0xfcc6CE74f4cd7eDEF0C5429bB99d38A3608043a5"
+   }
+  }
+ },
+ {
+  "name": "AVAX-FLY",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0xcb5fbE1EEE42aDC9C85E009593e4a586373F62CB",
+  "strategy": "0x40f9c78CE39b4Ce12B65dAEdca7f3f699613FF42",
+  "gauge": "0xa8A0C62d1fa894432F331888Dc7B435B41b85Cdf",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0x1371a6d8CBe2Ca66d0911f270e1cAA7C12A3045A"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "FLY",
+    "address": "0x78Ea3fef1c1f07348199Bf44f45b803b9B0Dbe28"
+   },
+   "token1": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
    }
   }
  },
@@ -993,7 +1062,7 @@
   "platform": "Trader Joe",
   "type": "lp",
   "globe": "0xf561EAE92039ab1540a75FDFD50ce8C6800bC078",
-  "strategy": "0xAFCa35AE5Dd4D8FC900AD7b08d7f3e96E498B2B8",
+  "strategy": "0xa29B26ee5a1DaE68Bf994bD8313bb4d697Aa728f",
   "gauge": "0x6C505f553A07E04B1E059D4aA8fe1C72c0aD7D97",
   "controller": "0xf7B8D9f8a82a7a6dd448398aFC5c77744Bd6cb85",
   "token": {
