@@ -809,7 +809,7 @@
   "platform": "Trader Joe",
   "type": "lp",
   "globe": "0xcC757081C972D0326de42875E0DA2c54af523622",
-  "strategy": "0x22b79F4859daEE9E1C1CA83862f4161585E488de",
+  "strategy": "0x51918e67A3160B3A94826fE141FAb7AD116083f1",
   "gauge": "0x606E5d9F9d368C2f049431D876C7d1cAb4eD988F",
   "controller": "0xf7B8D9f8a82a7a6dd448398aFC5c77744Bd6cb85",
   "token": {
@@ -1062,7 +1062,7 @@
   "platform": "Trader Joe",
   "type": "lp",
   "globe": "0xf561EAE92039ab1540a75FDFD50ce8C6800bC078",
-  "strategy": "0xa29B26ee5a1DaE68Bf994bD8313bb4d697Aa728f",
+  "strategy": "0x0e34ad6a2610353B5A4322c0003000e5A2169663",
   "gauge": "0x6C505f553A07E04B1E059D4aA8fe1C72c0aD7D97",
   "controller": "0xf7B8D9f8a82a7a6dd448398aFC5c77744Bd6cb85",
   "token": {
@@ -1472,6 +1472,29 @@
   }
  },
  {
+  "name": "AVAX-USDC",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0x4D91F4aCE55472df8863957CF69D2bE497B43be4",
+  "strategy": "0x9e61dA0111a844b1E1dBbc027edC51d8398097Bb",
+  "gauge": "0x542baef5a78Aa9EAB505b38E52b16F930d07835d",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0xf4003F4efBE8691B60249E6afbD307aBE7758adb"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   },
+   "token1": {
+    "symbol": "USDC",
+    "address": "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E"
+   }
+  }
+ },
+ {
   "name": "AVAX-USDC.e",
   "platform": "Pangolin",
   "type": "lp",
@@ -1499,7 +1522,7 @@
   "platform": "Trader Joe",
   "type": "lp",
   "globe": "0xf25f6f5dad18a16033d05c1f2F558119665fDEF4",
-  "strategy": "0x753949E85E50ede6B800D0dFD1e8d1882B966Bb2",
+  "strategy": "0x66cDE39A8Ad2BE17D3060d4a5e77Fe13DB89A995",
   "gauge": "0x6F5a949Bd831E6Ad921690c29C981FA9B0466095",
   "controller": "0xf7B8D9f8a82a7a6dd448398aFC5c77744Bd6cb85",
   "token": {
@@ -1545,7 +1568,7 @@
   "platform": "Trader Joe",
   "type": "lp",
   "globe": "0xc72901E3dBE5258728B329352fC4742f4966Bc1f",
-  "strategy": "0x92dAD9EA5027Df9A3f1417E2597DA718c9DDAC5F",
+  "strategy": "0xE8Ea39447A42566387efb38062348C20375A05fc",
   "gauge": "0xC634e98c9d1b57a8e8Ea4B4767C66d049B693Ad0",
   "controller": "0xf7B8D9f8a82a7a6dd448398aFC5c77744Bd6cb85",
   "token": {
@@ -1660,7 +1683,7 @@
   "platform": "Trader Joe",
   "type": "lp",
   "globe": "0x5c52587bD441A6e6916D2C2d32A84735b9Ee4ccD",
-  "strategy": "0x5eED5F460aC62AF90147df981C6BF29C7B166919",
+  "strategy": "0x8A757940f003109726995C507237EDab521471a4",
   "gauge": "0xBc1fd03A8F153cBB5F0dbbf1f67442b886120650",
   "controller": "0xf7B8D9f8a82a7a6dd448398aFC5c77744Bd6cb85",
   "token": {
@@ -1683,7 +1706,7 @@
   "platform": "Trader Joe",
   "type": "lp",
   "globe": "0xe13E1a491eDc640b0591D70390897620f31bbF6E",
-  "strategy": "0x6f69C5819c42659AF865d28C0E6Ea5dCf3F1E41F",
+  "strategy": "0x54e0ea713E9D96BB390C89Ebde33d1C90F36c0D7",
   "gauge": "0x4360a7a98f7618232e1fEb3568d7bD8015254689",
   "controller": "0xf7B8D9f8a82a7a6dd448398aFC5c77744Bd6cb85",
   "token": {
@@ -1882,6 +1905,29 @@
    "token1": {
     "symbol": "UST",
     "address": "0x260Bbf5698121EB85e7a74f2E45E16Ce762EbE11"
+   }
+  }
+ },
+ {
+  "name": "JOE-USDC",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0x1a838403f3fAb35867b29CF3f9f8aFa89BA5ba95",
+  "strategy": "0xA10248624402AcC8733f9697f6E22e10087F7B34",
+  "gauge": "0x419F61313957Ea97d3F299aF46920CCE39cC6a97",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0x3bc40d4307cD946157447CD55d70ee7495bA6140"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "JOE",
+    "address": "0x6e84a6216eA6dACC71eE8E6b0a5B7322EEbC0fDd"
+   },
+   "token1": {
+    "symbol": "USDC",
+    "address": "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E"
    }
   }
  },
@@ -2238,45 +2284,6 @@
   "token": {
    "symbol": "LINK.e",
    "address": "0x5947BB275c521040051D82396192181b413227A3"
-  }
- },
- {
-  "name": "LP-DAI.e",
-  "platform": "Platypus",
-  "type": "single",
-  "globe": "0xf332d93A556A556a785AC0B010791918d7b8E927",
-  "strategy": "0x50C4Bb8eeCD05E2353367c0C9D464ed2D1242133",
-  "gauge": "0xFAc93ba9623EC5239686b329E186C1F9B9f3C9B9",
-  "controller": "0x14559fb4d15Cf8DCbc35b7EDd1215d56c0468202",
-  "token": {
-   "symbol": "LP-DAI.e",
-   "address": "0xc1Daa16E6979C2D1229cB1fd0823491eA44555Be"
-  }
- },
- {
-  "name": "LP-USDC.e",
-  "platform": "Platypus",
-  "type": "single",
-  "globe": "0x54FfFEedA53a49F0fe59A89E8Cc44d4D80FC4eC4",
-  "strategy": "0x76F722DaCBA4620563563E05db291B965227c38A",
-  "gauge": "0xDB22761685E44b04f6C48984d79C4CDE72544579",
-  "controller": "0x14559fb4d15Cf8DCbc35b7EDd1215d56c0468202",
-  "token": {
-   "symbol": "LP-USDC.e",
-   "address": "0x909B0ce4FaC1A0dCa78F8Ca7430bBAfeEcA12871"
-  }
- },
- {
-  "name": "LP-USDT.e",
-  "platform": "Platypus",
-  "type": "single",
-  "globe": "0x6D1be2cdE72ABc0a0A02B723c1ef880fa61eBCd3",
-  "strategy": "0x40ADE0b3Baa99D3074F398D42Fa0Ab9D5Ee3fe09",
-  "gauge": "0xc30a42Ab7a9bD6889eFD2a4DDA83dA7839D99842",
-  "controller": "0x14559fb4d15Cf8DCbc35b7EDd1215d56c0468202",
-  "token": {
-   "symbol": "LP-USDT.e",
-   "address": "0x0D26D103c91F63052Fbca88aAF01d5304Ae40015"
   }
  },
  {
