@@ -31,7 +31,9 @@ exports.nfts = [
   { name: 'Rolling Sasquatch - Blue', address: '0xae88bE7d3fE6545C688b640B427aF4bAb90e2638' },
   { name: 'Rolling Sasquatch - Green', address: '0x5edd9bC699B6A613875E6760B4978d14d6EB3899' },
   { name: 'Rolling Sasquatch - Laser Eyes', address: '0xd66Df640A2f213B6e5087204cAee2b2145A1c1c9' },
-  { name: 'Snowball Holiday Beanie', address: '0x9fF1918d212c435AD1F1734E9C4DC2DB835161Af' }
+  { name: 'Snowball Unclaimed Holiday Beanie', address: '0x9fF1918d212c435AD1F1734E9C4DC2DB835161Af' },
+  { name: 'Snowball Claimed Holiday Beanie', address: '0x16437ED3d48315865173B85A81972f42B08732E4' },
+  { name: 'Snowball Birthday NFT', address: '0x3555cAB4b6628BeEA81d20Cb8a832A16B69671F7' }
 ];
 exports.nftMarketplaces = [
   '0xb61294df4cbf2a6af0c90d46e99bbdf4b750be3e',
