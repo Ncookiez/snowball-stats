@@ -3,29 +3,29 @@
   ||        AXIAL Stats        ||
   ===============================
 
-  - AXIAL Price: $0.0086
-  - Total AXIAL Supply: 94,891,258 AXIAL
-  - AXIAL Market Cap: $816,065
-  - Treasury: $153,882 (14,233,688 AXIAL & 31,472 Peggies)
-  - Unclaimed Swap Fees: $10,468
-      > AM3D - $3,397
-      > AA3D - $2,551
-      > AC4D - $2,415
-      > USDC-AM3D - $1,422
-      > AS4D - $683
-  - Circulating AXIAL Supply: 66,447,382 AXIAL (70.02% of total supply)
-  - Total Value Swapped: $606,387,658 ($242,555 Swap Fees)
-      > AM3D - $319,299,604 ($127,720 Swap Fees)
-      > AC4D - $160,240,893 ($64,096 Swap Fees)
-      > AS4D - $107,435,523 ($42,974 Swap Fees)
-      > AA3D - $14,222,442 ($5,689 Swap Fees)
-      > USDC-AM3D - $5,189,196 ($2,076 Swap Fees)
-  - Total # of Swap Transactions: 62,740 TXs
-      > AC4D - 22,943 TXs
-      > AM3D - 20,637 TXs
-      > AS4D - 14,933 TXs
-      > AA3D - 3,112 TXs
-      > USDC-AM3D - 1,115 TXs
+  - AXIAL Price: $0.0092
+  - Total AXIAL Supply: 98,651,643 AXIAL
+  - AXIAL Market Cap: $907,595
+  - Treasury: $171,052 (14,797,746 AXIAL & 34,913 Peggies)
+  - Unclaimed Swap Fees: $151
+      > AM3D - $144
+      > AS4D - $3
+      > AC4D - $3
+      > USDC-AM3D - $1
+      > AA3D - $0
+  - Circulating AXIAL Supply: 69,079,651 AXIAL (70.02% of total supply)
+  - Total Value Swapped: $621,275,436 ($248,510 Swap Fees)
+      > AM3D - $330,404,567 ($132,162 Swap Fees)
+      > AC4D - $163,049,871 ($65,220 Swap Fees)
+      > AS4D - $108,091,936 ($43,237 Swap Fees)
+      > AA3D - $14,467,927 ($5,787 Swap Fees)
+      > USDC-AM3D - $5,261,134 ($2,104 Swap Fees)
+  - Total # of Swap Transactions: 64,810 TXs
+      > AC4D - 23,374 TXs
+      > AM3D - 21,910 TXs
+      > AS4D - 15,156 TXs
+      > AA3D - 3,214 TXs
+      > USDC-AM3D - 1,156 TXs
   - Weekly Value Swapped:
       > Week 1 (11/11/2021 to 17/11/2021) - $22,611,177 ($9,044 Swap Fees)
         - AS4D - $13,260,467 ($5,304 Swap Fees)
@@ -133,6 +133,12 @@
         - AM3D - $6,334,142 ($2,534 Swap Fees)
         - AA3D - $52,608 ($21 Swap Fees)
         - USDC-AM3D - $125,588 ($50 Swap Fees)
+      > Week 20 (24/03/2022 to 30/03/2022) - $15,472,917 ($6,189 Swap Fees)
+        - AS4D - $752,844 ($301 Swap Fees)
+        - AC4D - $2,882,745 ($1,153 Swap Fees)
+        - AM3D - $11,524,911 ($4,610 Swap Fees)
+        - AA3D - $237,955 ($95 Swap Fees)
+        - USDC-AM3D - $74,462 ($30 Swap Fees)
   - Largest Swaps:
       > AS4D - $704,258
       > AC4D - $912,280
@@ -140,30 +146,30 @@
       > AA3D - $326,372
       > USDC-AM3D - $53,896
   - Average Swap:
-      > AS4D - $7,195
-      > AC4D - $6,984
-      > AM3D - $15,472
-      > AA3D - $4,570
-      > USDC-AM3D - $4,654
+      > AS4D - $7,132
+      > AC4D - $6,976
+      > AM3D - $15,080
+      > AA3D - $4,502
+      > USDC-AM3D - $4,551
   - Swap Size Distribution (Swap % Above):
-      > AS4D - $1k: 55.17%, $5k: 22.80%, $10k: 14.54%, $25k:  6.78%, $50k: 2.77%, $100k: 0.98%, $250k: 0.15%, $500k: 0.02%, $1M: 0.00%
-      > AC4D - $1k: 65.06%, $5k: 25.83%, $10k: 16.88%, $25k:  6.01%, $50k: 1.82%, $100k: 0.55%, $250k: 0.16%, $500k: 0.07%, $1M: 0.00%
-      > AM3D - $1k: 83.74%, $5k: 53.81%, $10k: 37.04%, $25k: 16.09%, $50k: 6.22%, $100k: 2.02%, $250k: 0.21%, $500k: 0.04%, $1M: 0.01%
-      > AA3D - $1k: 54.24%, $5k: 21.34%, $10k: 8.71%, $25k:  3.08%, $50k: 0.90%, $100k: 0.35%, $250k: 0.06%, $500k: 0.00%, $1M: 0.00%
-      > USDC-AM3D - $1k: 69.87%, $5k: 24.75%, $10k: 11.21%, $25k:  1.52%, $50k: 0.18%, $100k: 0.00%, $250k: 0.00%, $500k: 0.00%, $1M: 0.00%
+      > AS4D - $1k: 55.07%, $5k: 22.68%, $10k: 14.42%, $25k:  6.69%, $50k: 2.74%, $100k: 0.97%, $250k: 0.15%, $500k: 0.02%, $1M: 0.00%
+      > AC4D - $1k: 64.95%, $5k: 25.96%, $10k: 16.94%, $25k:  6.02%, $50k: 1.81%, $100k: 0.54%, $250k: 0.15%, $500k: 0.06%, $1M: 0.00%
+      > AM3D - $1k: 83.63%, $5k: 53.13%, $10k: 36.34%, $25k: 15.74%, $50k: 5.97%, $100k: 1.92%, $250k: 0.20%, $500k: 0.04%, $1M: 0.01%
+      > AA3D - $1k: 53.73%, $5k: 20.85%, $10k: 8.56%, $25k:  3.05%, $50k: 0.90%, $100k: 0.34%, $250k: 0.06%, $500k: 0.00%, $1M: 0.00%
+      > USDC-AM3D - $1k: 68.86%, $5k: 24.13%, $10k: 11.07%, $25k:  1.47%, $50k: 0.17%, $100k: 0.00%, $250k: 0.00%, $500k: 0.00%, $1M: 0.00%
   - Token Swap Demand:
-      > MIM - $211,378,025
-      > USDC.e - $175,292,532
-      > DAI.e - $133,414,705
-      > USDT.e - $35,938,761
-      > FRAX - $24,425,217
-      > TUSD - $12,164,808
-      > TSD - $6,183,945
-      > AVAI - $4,942,488
-      > USDC - $2,580,776
+      > MIM - $217,654,786
+      > USDC.e - $180,561,685
+      > DAI.e - $136,224,622
+      > USDT.e - $36,015,921
+      > FRAX - $24,728,360
+      > TUSD - $12,208,727
+      > TSD - $6,228,053
+      > AVAI - $4,964,378
+      > USDC - $2,607,997
   - Top 5 Biggest Swappers:
-      > 0xb40bf51c104cc9e3a45f745e81d3aa9f9e9fc7f4 - $232,950,574 (31,995 TXs) 
-      > 0xdef171fe48cf0115b1d80b88dc8eab59176fee57 - $136,182,274 (8,398 TXs) (ParaSwap Router)
-      > 0x8d2b7e5501eb6d92f8e349f2febe785dd070be74 - $27,403,460 (2,052 TXs) 
-      > 0xd12bcdfb9a39be79da3bdf02557efdcd5ca59e77 - $26,579,243 (3,386 TXs) 
-      > 0xe12424c3a50f50aed8b7e906703bb1ce93d7edc8 - $21,744,426 (2,359 TXs) 
+      > 0xb40bf51c104cc9e3a45f745e81d3aa9f9e9fc7f4 - $235,677,078 (32,466 TXs) 
+      > 0xdef171fe48cf0115b1d80b88dc8eab59176fee57 - $138,944,949 (8,636 TXs) (ParaSwap Router)
+      > 0xd12bcdfb9a39be79da3bdf02557efdcd5ca59e77 - $29,555,547 (3,831 TXs) 
+      > 0x8d2b7e5501eb6d92f8e349f2febe785dd070be74 - $28,359,269 (2,123 TXs) 
+      > 0xe12424c3a50f50aed8b7e906703bb1ce93d7edc8 - $21,773,502 (2,370 TXs) 

@@ -84,4 +84,6 @@ npm run teddy
 
 You can use `npm run all` to run all scripts. This can take a while.
 
+Alternatively, you can also run `npm run quick` to run only the most important/relevant scripts.
+
 If you encounter any RPC errors, wait a minute before trying again, or change the RPCs listed on `config.js`.

@@ -4,6 +4,7 @@
   "description": "Tracking Snowball statistics.",
   "scripts": {
     "all": "npm run snob basic && npm run axial basic && npm run dist && npm run nfts && npm run pools && npm run gasStats && npm run snob && npm run axial && npm run teddy && npm run axialDistCheck",
+    "quick": "npm run snob && npm run axial && npm run teddy && npm run dist && npm run pools",
     "snob": "node scripts/snob.js",
     "nfts": "node scripts/nfts.js",
     "dist": "node scripts/dist.js",
