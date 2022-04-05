@@ -1100,17 +1100,6 @@
   "error": "Not on API (Should Probably be Deprecated)"
  },
  {
-  "globe": "0xACe7ED26750156008275cb29d7b950c8bcaF43B8",
-  "strategy": "0x23380f176614566cA8212AF5a1ED9aAEb29D3b09",
-  "gauge": "0x63EE236617776FAb69ac6950E7CdEAC04207d28C",
-  "controller": "0x5a068C00E32D18A354755Cddb01aC65ca074Aa06",
-  "token": {
-   "symbol": "USDt",
-   "address": "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7"
-  },
-  "error": "Not on API (Should Probably be Deprecated)"
- },
- {
   "globe": "0xAf931ded9dBb9D8f84baE9748E71485C45dd69C5",
   "strategy": "0xd06E4a8A7AEF46B488BD4c558a3513F9782647B8",
   "gauge": "0x2846B650618044d736eCaD75C8B4949F821F6571",
@@ -1668,17 +1657,6 @@
   "token": {
    "symbol": "PGL",
    "address": "0xE9DfCABaCA5E45C0F3C151f97900511f3E73Fb47"
-  },
-  "error": "Not on API (Should Probably be Deprecated)"
- },
- {
-  "globe": "0xFFa18894152f4B1869C9dfEFB28459468f065e31",
-  "strategy": "0x6605A199D6c86f2f6c5089A9cc081eEC345AB783",
-  "gauge": "0x7FaB30D2361c14C155596A6E4DF0812495909e87",
-  "controller": "0x5a068C00E32D18A354755Cddb01aC65ca074Aa06",
-  "token": {
-   "symbol": "JLP",
-   "address": "0xC4B7121b4FC065dECd26C33FB32e42C543E8850d"
   },
   "error": "Not on API (Should Probably be Deprecated)"
  }

@@ -1590,6 +1590,52 @@
   "name": "AVAX-UST",
   "platform": "Trader Joe",
   "type": "lp",
+  "globe": "0x3430aeF4c648e1838f7d702179b372765226966D",
+  "strategy": "0xb2615417EDE134fD458eaAC340682Ae910f76bc0",
+  "gauge": "0x463986834235720Dee33108609715aba1E81c7AF",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0xeCD6D33555183Bc82264dbC8bebd77A1f02e421E"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   },
+   "token1": {
+    "symbol": "UST",
+    "address": "0xb599c3590F42f8F995ECfa0f85D2980B76862fc1"
+   }
+  }
+ },
+ {
+  "name": "AVAX-UST",
+  "platform": "Pangolin",
+  "type": "lp",
+  "globe": "0x4B1A41c327A29961c57833bAde1C05a9C78c1656",
+  "strategy": "0x7118946c7786e7503D9b0ECF49585637a3dBd34b",
+  "gauge": "0xe7FBcD496f6eb8B0d2624d9659160790Bf31Dd34",
+  "controller": "0xf7B8D9f8a82a7a6dd448398aFC5c77744Bd6cb85",
+  "token": {
+   "symbol": "PGL",
+   "address": "0x9D563afF8B0017868DbA57eB3E04298C157d0aF5"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   },
+   "token1": {
+    "symbol": "UST",
+    "address": "0xb599c3590F42f8F995ECfa0f85D2980B76862fc1"
+   }
+  }
+ },
+ {
+  "name": "AVAX-UST",
+  "platform": "Trader Joe",
+  "type": "lp",
   "globe": "0xAD53e02601eca3ebD828646A80539868543c1747",
   "strategy": "0xCB63CDD4ca868e18Bf6C6EB8618Acd76DB32801f",
   "gauge": "0xc33544374CBfd4d7eBA8b3cc854837DF71ec314e",
@@ -2001,6 +2047,29 @@
   }
  },
  {
+  "name": "PNG-UST",
+  "platform": "Pangolin",
+  "type": "lp",
+  "globe": "0xFAAF43102A439F37A0EA016EC3DE23176dF20885",
+  "strategy": "0xb6f159bd14FC33EECC39c9eF5049Ca9F85d5e289",
+  "gauge": "0x4441C62F1DA14c404d51A8e57bCD692F4eb1dCa0",
+  "controller": "0xf7B8D9f8a82a7a6dd448398aFC5c77744Bd6cb85",
+  "token": {
+   "symbol": "PGL",
+   "address": "0x2a0f65C76008EcBC469b0850454E57310E770557"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "PNG",
+    "address": "0x60781C2586D68229fde47564546784ab3fACA982"
+   },
+   "token1": {
+    "symbol": "UST",
+    "address": "0xb599c3590F42f8F995ECfa0f85D2980B76862fc1"
+   }
+  }
+ },
+ {
   "name": "USDC.e-DAI.e",
   "platform": "Pangolin",
   "type": "lp",
@@ -2093,6 +2162,29 @@
   }
  },
  {
+  "name": "UST-USDC",
+  "platform": "Pangolin",
+  "type": "lp",
+  "globe": "0x96E94AE06c49dCE4a401AfDFaA20f19c3dba845d",
+  "strategy": "0x8E8d14f0Db2BEb74016c216930887157c13ba7e9",
+  "gauge": "0x8D24BD94EC2b4951d87ADfbffE8A8497bf402f16",
+  "controller": "0xf7B8D9f8a82a7a6dd448398aFC5c77744Bd6cb85",
+  "token": {
+   "symbol": "PGL",
+   "address": "0xE1f75E2E74BA938abD6C3BE18CCc5C7f71925C4B"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "UST",
+    "address": "0xb599c3590F42f8F995ECfa0f85D2980B76862fc1"
+   },
+   "token1": {
+    "symbol": "USDC",
+    "address": "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E"
+   }
+  }
+ },
+ {
   "name": "WBTC.e-USDC.e",
   "platform": "Trader Joe",
   "type": "lp",
@@ -2135,6 +2227,29 @@
    "token1": {
     "symbol": "USDC.e",
     "address": "0xA7D7079b0FEaD91F3e65f86E8915Cb59c1a4C664"
+   }
+  }
+ },
+ {
+  "name": "xPTP-PTP",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0xFFa18894152f4B1869C9dfEFB28459468f065e31",
+  "strategy": "0x6605A199D6c86f2f6c5089A9cc081eEC345AB783",
+  "gauge": "0x7FaB30D2361c14C155596A6E4DF0812495909e87",
+  "controller": "0x5a068C00E32D18A354755Cddb01aC65ca074Aa06",
+  "token": {
+   "symbol": "JLP",
+   "address": "0xC4B7121b4FC065dECd26C33FB32e42C543E8850d"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "xPTP",
+    "address": "0x060556209E507d30f2167a101bFC6D256Ed2f3e1"
+   },
+   "token1": {
+    "symbol": "PTP",
+    "address": "0x22d4002028f537599bE9f666d1c4Fa138522f9c8"
    }
   }
  },
@@ -2188,6 +2303,19 @@
   "token": {
    "symbol": "AS4D",
    "address": "0x3A7387f8BA3ebFFa4A0ECcB1733e940CE2275D3f"
+  }
+ },
+ {
+  "name": "DAI.e",
+  "platform": null,
+  "type": "single",
+  "globe": "0x3f43263e79CAc36fF9963fC860d70083dA6EC3c9",
+  "strategy": "0x9078e4249d308F2a995C82D577dBdc1966f8eE81",
+  "gauge": "0x1b4a6e4992e3966a5be0979F0a429336313077C4",
+  "controller": "0x5a068C00E32D18A354755Cddb01aC65ca074Aa06",
+  "token": {
+   "symbol": "DAI.e",
+   "address": "0xd586E7F844cEa2F87f50152665BCbc2C279D8d70"
   }
  },
  {
@@ -2326,6 +2454,19 @@
   }
  },
  {
+  "name": "USDC",
+  "platform": null,
+  "type": "single",
+  "globe": "0x12CC8944Db2cec67d5A6ED0b33146712C43C20E2",
+  "strategy": "0x3B673cb89B228F3c80Ffee189ae5B060D301dc30",
+  "gauge": "0x613fd1e50c82d0906f1c24D187B38Aa6B1e7f9a7",
+  "controller": "0x5a068C00E32D18A354755Cddb01aC65ca074Aa06",
+  "token": {
+   "symbol": "USDC",
+   "address": "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E"
+  }
+ },
+ {
   "name": "USDC.e",
   "platform": "Aave",
   "type": "single",
@@ -2391,6 +2532,19 @@
   }
  },
  {
+  "name": "USDt",
+  "platform": null,
+  "type": "single",
+  "globe": "0xACe7ED26750156008275cb29d7b950c8bcaF43B8",
+  "strategy": "0x23380f176614566cA8212AF5a1ED9aAEb29D3b09",
+  "gauge": "0x63EE236617776FAb69ac6950E7CdEAC04207d28C",
+  "controller": "0x5a068C00E32D18A354755Cddb01aC65ca074Aa06",
+  "token": {
+   "symbol": "USDt",
+   "address": "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7"
+  }
+ },
+ {
   "name": "USDT.e",
   "platform": "Optimized",
   "type": "single",
@@ -2431,6 +2585,19 @@
  },
  {
   "name": "USDT.e",
+  "platform": null,
+  "type": "single",
+  "globe": "0x5a85f533717965e7eaB88B7425c3172350f4AFe0",
+  "strategy": "0xfD1d72843653CC794fD604B61d25c03919D8d3a5",
+  "gauge": "0x14DEE8E79A785DA606f60208Ff7ecEB7588E912b",
+  "controller": "0x5a068C00E32D18A354755Cddb01aC65ca074Aa06",
+  "token": {
+   "symbol": "USDT.e",
+   "address": "0xc7198437980c041c805A1EDcbA50c1Ce5db95118"
+  }
+ },
+ {
+  "name": "USDT.e",
   "platform": "Banker Joe",
   "type": "single",
   "globe": "0xc7Ca863275b2D0F7a07cA6e2550504362705aA1A",
@@ -2453,6 +2620,19 @@
   "token": {
    "symbol": "USDT.e",
    "address": "0xc7198437980c041c805A1EDcbA50c1Ce5db95118"
+  }
+ },
+ {
+  "name": "VTX",
+  "platform": null,
+  "type": "single",
+  "globe": "0x06e847a2bf7b2a63eBBD59594D553AEbe2F2c474",
+  "strategy": "0xacD26B78778d75c672ABD320Cf6c25E76BE2bd32",
+  "gauge": "0xf2d66ED69C0d6F5Aa1A54DfFFC0EB6D788F1455f",
+  "controller": "0x5a068C00E32D18A354755Cddb01aC65ca074Aa06",
+  "token": {
+   "symbol": "VTX",
+   "address": "0x5817D4F0b62A59b17f75207DA1848C2cE75e7AF4"
   }
  },
  {
