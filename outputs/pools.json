@@ -2307,7 +2307,7 @@
  },
  {
   "name": "DAI.e",
-  "platform": null,
+  "platform": "Vector",
   "type": "single",
   "globe": "0x3f43263e79CAc36fF9963fC860d70083dA6EC3c9",
   "strategy": "0x9078e4249d308F2a995C82D577dBdc1966f8eE81",
@@ -2455,7 +2455,7 @@
  },
  {
   "name": "USDC",
-  "platform": null,
+  "platform": "Vector",
   "type": "single",
   "globe": "0x12CC8944Db2cec67d5A6ED0b33146712C43C20E2",
   "strategy": "0x3B673cb89B228F3c80Ffee189ae5B060D301dc30",
@@ -2533,7 +2533,7 @@
  },
  {
   "name": "USDt",
-  "platform": null,
+  "platform": "Vector",
   "type": "single",
   "globe": "0xACe7ED26750156008275cb29d7b950c8bcaF43B8",
   "strategy": "0x23380f176614566cA8212AF5a1ED9aAEb29D3b09",
@@ -2585,7 +2585,7 @@
  },
  {
   "name": "USDT.e",
-  "platform": null,
+  "platform": "Vector",
   "type": "single",
   "globe": "0x5a85f533717965e7eaB88B7425c3172350f4AFe0",
   "strategy": "0xfD1d72843653CC794fD604B61d25c03919D8d3a5",
@@ -2624,7 +2624,7 @@
  },
  {
   "name": "VTX",
-  "platform": null,
+  "platform": "Vector",
   "type": "single",
   "globe": "0x06e847a2bf7b2a63eBBD59594D553AEbe2F2c474",
   "strategy": "0xacD26B78778d75c672ABD320Cf6c25E76BE2bd32",

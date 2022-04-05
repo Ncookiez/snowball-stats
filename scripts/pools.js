@@ -134,6 +134,10 @@ const fetchPlatform = async (token, strategy, globe, controller) => {
       platform = 'Banker Joe';
     } else if(name.startsWith('Platypus')) {
       platform = 'Platypus';
+    } else if(name.startsWith('Vtx')) {
+      platform = 'Vector';
+    } else {
+      console.warn(` - Unidentified pool platform detected: ${name}`);
     }
   }
   return platform;

@@ -40,7 +40,7 @@ exports.nftMarketplaces = [
   '0x14390f57ccfdb45f969381e7e107acf062d3a592',
   '0xd42e49c1b481817365b2fc744c9ae84ba3862429'
 ];
-exports.platforms = ['Optimized', 'Trader Joe', 'Banker Joe', 'Pangolin', 'Benqi', 'Aave', 'Axial', 'Teddy', 'Platypus'];
+exports.platforms = ['Optimized', 'Trader Joe', 'Banker Joe', 'Pangolin', 'Benqi', 'Aave', 'Axial', 'Teddy', 'Platypus', 'Vector'];
 exports.optimizedPoolController = '0x2f0b4e7ac032d0708c082994fb21dd75db514744';
 exports.optimizedPoolStrategies = {
   'DAI.e': [

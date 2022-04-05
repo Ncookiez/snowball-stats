@@ -176,3 +176,13 @@ Name | Deposit | Strategy | Gauge
 Name | Deposit | Strategy | Gauge
 --- | --- | --- | ---
 
+## Vector Strategies
+
+Name | Deposit | Strategy | Gauge
+--- | --- | --- | ---
+`DAI.e` | [Deposit](https://snowtrace.io/address/0x3f43263e79CAc36fF9963fC860d70083dA6EC3c9) | [Strategy](https://snowtrace.io/address/0x9078e4249d308F2a995C82D577dBdc1966f8eE81) | [Gauge](https://snowtrace.io/address/0x1b4a6e4992e3966a5be0979F0a429336313077C4)
+`USDC` | [Deposit](https://snowtrace.io/address/0x12CC8944Db2cec67d5A6ED0b33146712C43C20E2) | [Strategy](https://snowtrace.io/address/0x3B673cb89B228F3c80Ffee189ae5B060D301dc30) | [Gauge](https://snowtrace.io/address/0x613fd1e50c82d0906f1c24D187B38Aa6B1e7f9a7)
+`USDt` | [Deposit](https://snowtrace.io/address/0xACe7ED26750156008275cb29d7b950c8bcaF43B8) | [Strategy](https://snowtrace.io/address/0x23380f176614566cA8212AF5a1ED9aAEb29D3b09) | [Gauge](https://snowtrace.io/address/0x63EE236617776FAb69ac6950E7CdEAC04207d28C)
+`USDT.e` | [Deposit](https://snowtrace.io/address/0x5a85f533717965e7eaB88B7425c3172350f4AFe0) | [Strategy](https://snowtrace.io/address/0xfD1d72843653CC794fD604B61d25c03919D8d3a5) | [Gauge](https://snowtrace.io/address/0x14DEE8E79A785DA606f60208Ff7ecEB7588E912b)
+`VTX` | [Deposit](https://snowtrace.io/address/0x06e847a2bf7b2a63eBBD59594D553AEbe2F2c474) | [Strategy](https://snowtrace.io/address/0xacD26B78778d75c672ABD320Cf6c25E76BE2bd32) | [Gauge](https://snowtrace.io/address/0xf2d66ED69C0d6F5Aa1A54DfFFC0EB6D788F1455f)
+
