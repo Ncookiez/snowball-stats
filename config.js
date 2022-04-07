@@ -125,15 +125,15 @@ exports.axialDistributions = [ // https://api.snowtrace.io/api?module=block&acti
   { block: 11909364, timestamp: 1646870400 }, // Mar. 10, 2022
   { block: 12201830, timestamp: 1647475200 }, // Mar. 17, 2022
   { block: 12493787, timestamp: 1648080000 }, // Mar. 24, 2022
-  { block: 12791423, timestamp: 1648684800 }  // Mar. 31, 2022
-  // { block: , timestamp: 1649289600 }, // Apr.  7, 2022
-  // { block: , timestamp: 1649894400 }, // Apr. 14, 2022
-  // { block: , timestamp: 1650499200 }, // Apr. 21, 2022
-  // { block: , timestamp: 1651104000 }, // Apr. 28, 2022
-  // { block: , timestamp: 1651708800 }, // May.  5, 2022
-  // { block: , timestamp: 1652313600 }, // May. 12, 2022
-  // { block: , timestamp: 1652918400 }, // May. 19, 2022
-  // { block: , timestamp: 1653523200 }, // May. 26, 2022
+  { block: 12791423, timestamp: 1648684800 }, // Mar. 31, 2022
+  { block: 13086674, timestamp: 1649289600 }  // Apr.  7, 2022
+  // { block: , timestamp: 1649894400 }  // Apr. 14, 2022
+  // { block: , timestamp: 1650499200 }  // Apr. 21, 2022
+  // { block: , timestamp: 1651104000 }  // Apr. 28, 2022
+  // { block: , timestamp: 1651708800 }  // May.  5, 2022
+  // { block: , timestamp: 1652313600 }  // May. 12, 2022
+  // { block: , timestamp: 1652918400 }  // May. 19, 2022
+  // { block: , timestamp: 1653523200 }  // May. 26, 2022
 ];
 
 /* ====================================================================================================================================================== */
