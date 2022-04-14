@@ -3,27 +3,27 @@
   ||        AXIAL Stats        ||
   ===============================
 
-  - AXIAL Price: $0.0075
-  - Total AXIAL Supply: 105,149,681 AXIAL
-  - AXIAL Market Cap: $788,623
-  - Treasury: $124,248 (15,772,452 AXIAL & 5,955 Peggies)
-  - Unclaimed Swap Fees: $1,789
+  - AXIAL Price: $0.0074
+  - Total AXIAL Supply: 105,167,430 AXIAL
+  - AXIAL Market Cap: $778,239
+  - Treasury: $122,691 (15,775,114 AXIAL & 5,955 Peggies)
+  - Unclaimed Swap Fees: $1,790
       > AM3D - $1,069
       > AC4D - $356
       > USDC-AM3D - $160
       > AS4D - $141
       > AA3D - $64
-  - Circulating AXIAL Supply: 73,628,277 AXIAL (70.02% of total supply)
-  - Total Value Swapped: $635,340,839 ($254,136 Swap Fees)
-      > AM3D - $338,814,856 ($135,526 Swap Fees)
+  - Circulating AXIAL Supply: 73,640,702 AXIAL (70.02% of total supply)
+  - Total Value Swapped: $635,352,577 ($254,141 Swap Fees)
+      > AM3D - $338,821,193 ($135,528 Swap Fees)
       > AC4D - $166,542,968 ($66,617 Swap Fees)
-      > AS4D - $109,468,393 ($43,787 Swap Fees)
+      > AS4D - $109,473,794 ($43,790 Swap Fees)
       > AA3D - $15,029,803 ($6,012 Swap Fees)
       > USDC-AM3D - $5,484,819 ($2,194 Swap Fees)
-  - Total # of Swap Transactions: 66,952 TXs
+  - Total # of Swap Transactions: 66,955 TXs
       > AC4D - 24,048 TXs
-      > AM3D - 22,864 TXs
-      > AS4D - 15,417 TXs
+      > AM3D - 22,866 TXs
+      > AS4D - 15,418 TXs
       > AA3D - 3,418 TXs
       > USDC-AM3D - 1,205 TXs
   - Weekly Value Swapped:
@@ -145,6 +145,11 @@
         - AM3D - $7,026,850 ($2,811 Swap Fees)
         - AA3D - $291,307 ($117 Swap Fees)
         - USDC-AM3D - $224,994 ($90 Swap Fees)
+      > Week 22 (07/04/2022 to 13/04/2022) - $3,793,015 ($1,517 Swap Fees)
+        - AS4D - $459,490 ($184 Swap Fees)
+        - AC4D - $1,374,313 ($550 Swap Fees)
+        - AM3D - $1,684,913 ($674 Swap Fees)
+        - AA3D - $274,299 ($110 Swap Fees)
   - Largest Swaps:
       > AS4D - $704,258
       > AC4D - $912,280
@@ -154,19 +159,19 @@
   - Average Swap:
       > AS4D - $7,100
       > AC4D - $6,925
-      > AM3D - $14,819
+      > AM3D - $14,818
       > AA3D - $4,397
       > USDC-AM3D - $4,552
   - Swap Size Distribution (Swap % Above):
-      > AS4D - $1k: 55.17%, $5k: 22.75%, $10k: 14.42%, $25k:  6.65%, $50k: 2.70%, $100k: 0.95%, $250k: 0.15%, $500k: 0.02%, $1M: 0.00%
+      > AS4D - $1k: 55.17%, $5k: 22.76%, $10k: 14.42%, $25k:  6.65%, $50k: 2.70%, $100k: 0.95%, $250k: 0.15%, $500k: 0.02%, $1M: 0.00%
       > AC4D - $1k: 64.45%, $5k: 25.84%, $10k: 16.88%, $25k:  6.01%, $50k: 1.78%, $100k: 0.53%, $250k: 0.15%, $500k: 0.06%, $1M: 0.00%
-      > AM3D - $1k: 83.39%, $5k: 52.66%, $10k: 35.87%, $25k: 15.52%, $50k: 5.79%, $100k: 1.86%, $250k: 0.19%, $500k: 0.04%, $1M: 0.01%
+      > AM3D - $1k: 83.39%, $5k: 52.65%, $10k: 35.87%, $25k: 15.52%, $50k: 5.79%, $100k: 1.86%, $250k: 0.19%, $500k: 0.04%, $1M: 0.01%
       > AA3D - $1k: 53.10%, $5k: 20.28%, $10k: 8.40%, $25k:  2.98%, $50k: 0.91%, $100k: 0.32%, $250k: 0.06%, $500k: 0.00%, $1M: 0.00%
       > USDC-AM3D - $1k: 68.22%, $5k: 24.23%, $10k: 10.95%, $25k:  1.49%, $50k: 0.25%, $100k: 0.00%, $250k: 0.00%, $500k: 0.00%, $1M: 0.00%
   - Token Swap Demand:
       > MIM - $223,595,240
-      > USDC.e - $184,738,249
-      > DAI.e - $138,584,519
+      > USDC.e - $184,744,578
+      > DAI.e - $138,589,918
       > USDT.e - $36,217,978
       > FRAX - $25,231,289
       > TUSD - $12,563,713
@@ -174,8 +179,8 @@
       > AVAI - $5,203,228
       > USDC - $2,912,747
   - Top 5 Biggest Swappers:
-      > 0xb40bf51c104cc9e3a45f745e81d3aa9f9e9fc7f4 - $237,088,747 (33,012 TXs) 
-      > 0xdef171fe48cf0115b1d80b88dc8eab59176fee57 - $140,564,600 (8,868 TXs) (ParaSwap Router)
+      > 0xb40bf51c104cc9e3a45f745e81d3aa9f9e9fc7f4 - $237,091,929 (33,013 TXs) 
+      > 0xdef171fe48cf0115b1d80b88dc8eab59176fee57 - $140,570,001 (8,869 TXs) (ParaSwap Router)
       > 0xd12bcdfb9a39be79da3bdf02557efdcd5ca59e77 - $32,187,768 (4,073 TXs) 
       > 0x8d2b7e5501eb6d92f8e349f2febe785dd070be74 - $28,766,950 (2,163 TXs) 
       > 0xe12424c3a50f50aed8b7e906703bb1ce93d7edc8 - $21,878,684 (2,388 TXs) 
