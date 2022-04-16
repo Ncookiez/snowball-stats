@@ -943,6 +943,52 @@
   }
  },
  {
+  "name": "AVAX-LOST",
+  "platform": "Trader Joe",
+  "type": "lp",
+  "globe": "0x91667cA26c0d81B2134ee210aCeD5a93d22fbD20",
+  "strategy": "0xc66Af7148559Cc59dC98c9a64ad159e730E20719",
+  "gauge": "0x5E8f09169083D515fc7b6F63EC80A1A358Abb519",
+  "controller": "0xCEB829a0881350689dAe8CBD77D0E012cf7a6a3f",
+  "token": {
+   "symbol": "JLP",
+   "address": "0x9C396cF96319C8EF2b662Af57DEA6EE374b9959F"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "LOST",
+    "address": "0x449674B82F05d498E126Dd6615a1057A9c088f2C"
+   },
+   "token1": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   }
+  }
+ },
+ {
+  "name": "AVAX-LOST",
+  "platform": "Pangolin",
+  "type": "lp",
+  "globe": "0xF19e161736746DDbE8bAEd66B87beaDa8b9476A6",
+  "strategy": "0x073AD5c55383007c83bD6fB8d283bDFcD55424ce",
+  "gauge": "0x2d3F879B3637d8d48Ca7617e0F540285E9782342",
+  "controller": "0xf7B8D9f8a82a7a6dd448398aFC5c77744Bd6cb85",
+  "token": {
+   "symbol": "PGL",
+   "address": "0x8461681211B49c15e20B3Cfd4c63BE258878B7D9"
+  },
+  "underlyingTokens": {
+   "token0": {
+    "symbol": "LOST",
+    "address": "0x449674B82F05d498E126Dd6615a1057A9c088f2C"
+   },
+   "token1": {
+    "symbol": "WAVAX",
+    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+   }
+  }
+ },
+ {
   "name": "AVAX-LUNA",
   "platform": "Pangolin",
   "type": "lp",
@@ -2467,6 +2513,19 @@
   }
  },
  {
+  "name": "USDC",
+  "platform": "Benqi",
+  "type": "single",
+  "globe": "0x527AA1d955c75EDb206B698CB74cBF08682633ca",
+  "strategy": "0x87A54204755A06F7e52066C388142397BBf6A332",
+  "gauge": "0xF3efBC4E26bFE5d3Af4CbD3A28ACD9d6F021B846",
+  "controller": "0x252B5fD3B1Cb07A2109bF36D5bDE6a247c6f4B59",
+  "token": {
+   "symbol": "USDC",
+   "address": "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E"
+  }
+ },
+ {
   "name": "USDC.e",
   "platform": "Aave",
   "type": "single",
@@ -2533,6 +2592,19 @@
  },
  {
   "name": "USDt",
+  "platform": "Benqi",
+  "type": "single",
+  "globe": "0x4F8050eCb2F95ED7ddD6EaE3eE223C71C2BfA0E2",
+  "strategy": "0xd0917321D44c2A413453fc37b0b87FA982D5e1b4",
+  "gauge": "0x5Ac7D6df4884663157Ab612E2e944A09FdB6B6F9",
+  "controller": "0x252B5fD3B1Cb07A2109bF36D5bDE6a247c6f4B59",
+  "token": {
+   "symbol": "USDt",
+   "address": "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7"
+  }
+ },
+ {
+  "name": "USDt",
   "platform": "Vector",
   "type": "single",
   "globe": "0xACe7ED26750156008275cb29d7b950c8bcaF43B8",
@@ -2552,7 +2624,7 @@
   "strategies": [
    {
     "platform": "Aave",
-    "address": "0x5e8B060639646117539Fd33Ee221364012332C9B"
+    "address": "0x661f427d855CB5Fb3571FE3aC7f5E46192B14C63"
    },
    {
     "platform": "BenQi",

@@ -8,7 +8,8 @@ const fs = require('fs');
 // Setting Up Ignore Addresses:
 const ignoreAddresses = [
   '0xb91124ecef333f17354add2a8b944c76979fe3ec', // StableVault
-  '0x53b37b9a6631c462d74d65d61e1c056ea9daa637'  // Weird PNG-ETH LP Token
+  '0x53b37b9a6631c462d74d65d61e1c056ea9daa637', // Weird PNG-ETH LP Token
+  '0xa9ff3d5de5dd50a0b64c7e82f158de9c3be611ce'  // Misplaced Kyber Strategy
 ];
 
 // Setting Up Single-Asset Trader Joe Strategies:

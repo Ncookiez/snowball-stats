@@ -57,7 +57,7 @@ exports.optimizedPoolStrategies = {
     { platform: 'Banker Joe', address: '0x80e47C48e9375c6431bE3FCB7DCd30dcc2bb5A3b' }
   ],
   'USDT.e': [
-    { platform: 'Aave', address: '0x5e8B060639646117539Fd33Ee221364012332C9B' },
+    { platform: 'Aave', address: '0x661f427d855CB5Fb3571FE3aC7f5E46192B14C63' },
     { platform: 'BenQi', address: '0xcCb342985a2963Cd3643cfb40b63D145Ec8C5A40' },
     { platform: 'Banker Joe', address: '0x1A07f2AEec34E3CaDaf85EeEE45fcC70881178DF' }
   ],
