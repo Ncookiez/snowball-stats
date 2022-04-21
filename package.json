@@ -1,10 +1,10 @@
 {
   "name": "snowball-stats",
-  "version": "2.8.10",
+  "version": "2.9.0",
   "description": "Tracking Snowball statistics.",
   "scripts": {
-    "all": "npm run snob basic && npm run axial basic && npm run dist && npm run nfts && npm run pools && npm run gasStats && npm run snob && npm run axial && npm run teddy && npm run axialDistCheck",
-    "quick": "npm run snob && npm run axial && npm run teddy && npm run dist && npm run pools",
+    "all": "npm run snob basic && npm run axial basic && npm run dist && npm run nfts && npm run pools && npm run gasStats && npm run snob && npm run axial && npm run teddy && npm run axialDistCheck && npm run revenue",
+    "quick": "npm run snob && npm run axial && npm run teddy && npm run dist && npm run pools && npm run revenue",
     "snob": "node scripts/snob.js",
     "nfts": "node scripts/nfts.js",
     "dist": "node scripts/dist.js",
@@ -12,7 +12,8 @@
     "pools": "node scripts/pools.js",
     "axialDistCheck": "node scripts/axialDistCheck.js",
     "gasStats": "node scripts/gasStats.js",
-    "teddy": "node scripts/teddy.js"
+    "teddy": "node scripts/teddy.js",
+    "revenue": "node scripts/revenue.js"
   },
   "author": "Ncookie",
   "dependencies": {
