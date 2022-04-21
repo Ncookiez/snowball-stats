@@ -48,7 +48,7 @@ Name | Deposit | Strategy | Gauge
 `AVAX - WETH.e` | [Deposit](https://snowtrace.io/address/0xe13E1a491eDc640b0591D70390897620f31bbF6E) | [Strategy](https://snowtrace.io/address/0x54e0ea713E9D96BB390C89Ebde33d1C90F36c0D7) | [Gauge](https://snowtrace.io/address/0x4360a7a98f7618232e1fEb3568d7bD8015254689)
 `AVAX - XAVA` | [Deposit](https://snowtrace.io/address/0x0B2C4f6C54182EDeE30DFF69Be972f9E04888321) | [Strategy](https://snowtrace.io/address/0x7F623a88180BD44773Aa89de41E53909Fcfe34da) | [Gauge](https://snowtrace.io/address/0x8De1b4015E9313fF381eBF95F3393BBCA6Bf1D15)
 `JOE - USDC` | [Deposit](https://snowtrace.io/address/0x1a838403f3fAb35867b29CF3f9f8aFa89BA5ba95) | [Strategy](https://snowtrace.io/address/0xA10248624402AcC8733f9697f6E22e10087F7B34) | [Gauge](https://snowtrace.io/address/0x419F61313957Ea97d3F299aF46920CCE39cC6a97)
-`xPTP - PTP` | [Deposit](https://snowtrace.io/address/0xFFa18894152f4B1869C9dfEFB28459468f065e31) | [Strategy](https://snowtrace.io/address/0x6605A199D6c86f2f6c5089A9cc081eEC345AB783) | [Gauge](https://snowtrace.io/address/0x7FaB30D2361c14C155596A6E4DF0812495909e87)
+`xPTP - PTP` | [Deposit](https://snowtrace.io/address/0xFFa18894152f4B1869C9dfEFB28459468f065e31) | [Strategy](https://snowtrace.io/address/0x39e2e980071b2247365b7ACdfd0c6395798d1965) | [Gauge](https://snowtrace.io/address/0x7FaB30D2361c14C155596A6E4DF0812495909e87)
 
 ## Banker Joe Strategies
 

@@ -1637,7 +1637,7 @@
   "platform": "Trader Joe",
   "type": "lp",
   "globe": "0xFFa18894152f4B1869C9dfEFB28459468f065e31",
-  "strategy": "0x6605A199D6c86f2f6c5089A9cc081eEC345AB783",
+  "strategy": "0x39e2e980071b2247365b7ACdfd0c6395798d1965",
   "gauge": "0x7FaB30D2361c14C155596A6E4DF0812495909e87",
   "controller": "0x5a068C00E32D18A354755Cddb01aC65ca074Aa06",
   "token": {
