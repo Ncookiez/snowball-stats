@@ -1,15 +1,7 @@
 
 // Required Packages:
-const { query, writeText, pad, getTokenPrice } = require('../functions.js');
-const axios = require('axios');
+const { query, writeText, pad } = require('../functions.js');
 const config = require('../config.js');
-
-// Manually Inputting Wrong CoinGecko AXIAL Prices:
-const axialPrices = [
-  { timestamp: 1639612800, price: 0.0480 },
-  { timestamp: 1640217600, price: 0.0313 },
-  { timestamp: 1640822400, price: 0.0213 }
-];
 
 // Initializations:
 const time = Math.round(Date.now() / 1000);
@@ -32,7 +24,7 @@ const getDistributions = async () => {
     let snob = parseInt(await query(config.feeDistributor, config.feeDistributorABI, 'tokens_per_week', [timestamp])) / (10 ** 18);
     let axial = parseInt(await query(config.axialFeeDistributor, config.feeDistributorABI, 'tokens_per_week', [timestamp])) / (10 ** 18);
     let xsnob = parseInt(await query(config.feeDistributor, config.feeDistributorABI, 've_supply', [timestamp])) / (10 ** 18);
-    let apr = await getAPR(xsnob, snob, axial, timestamp);
+    let apr = getAPR(xsnob, snob, axial, timestamp);
     distributions.push({ timestamp, snob, axial, apr });
   })());
   await Promise.all(promises);
@@ -82,35 +74,20 @@ const getXSNOBSupply = async () => {
 /* ====================================================================================================================================================== */
 
 // Function to get distribution APR:
-const getAPR = async (xsnob, snob, axial, timestamp) => {
+const getAPR = (xsnob, snob, axial, timestamp) => {
   let snobAPR = ((snob * 52) / xsnob) * 100;
   let axialAPR = 0;
   if(axial > 0) {
-    let rawDate = new Date((timestamp + week) * 1000);
-    let date = `${pad(rawDate.getUTCDate())}-${pad(rawDate.getUTCMonth() + 1)}-${rawDate.getUTCFullYear()}`;
-    let snobPrice;
-    try {
-      snobPrice = (await axios.get(`https://api.coingecko.com/api/v3/coins/snowball-token/history?date=${date}&localization=false`)).data.market_data.current_price.usd;
-    } catch {
-      if((timestamp + week) > (time - (week / 7))) {
-        snobPrice = await getTokenPrice(config.snob);
-      }
-    }
-    let axialPrice = 0;
-    let foundAxialPrice = axialPrices.find(i => i.timestamp === timestamp);
-    if(foundAxialPrice) {
-      axialPrice = foundAxialPrice.price;
+    let data = config.weeklyData.find(i => i.timestamp === timestamp + week);
+    if(data) {
+      let snobPrice = data.snob;
+      let axialPrice = data.axial;
+      let ratio = snobPrice / axialPrice;
+      axialAPR = (((axial / ratio) * 52) / xsnob) * 100;
     } else {
-      try {
-        axialPrice = (await axios.get(`https://api.coingecko.com/api/v3/coins/axial-token/history?date=${date}&localization=false`)).data.market_data.current_price.usd;
-      } catch {
-        if((timestamp + week) > (time - (week / 7))) {
-          axialPrice = await getTokenPrice(config.axial);
-        }
-      }
+      console.error(`No weekly data found for timestamp ${timestamp + week}.`);
+      process.exit(1);
     }
-    let ratio = snobPrice / axialPrice;
-    axialAPR = (((axial / ratio) * 52) / xsnob) * 100;
   }
   return [snobAPR, axialAPR];
 }

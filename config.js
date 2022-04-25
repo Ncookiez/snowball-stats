@@ -153,32 +153,32 @@ exports.teddyDevFund = '0x41f8a18b165De90383bf23CbcE5c0244ECDeeaA7';
 
 // Historical Weekly Data:
 exports.weeklyData = [ // https://api.snowtrace.io/api?module=block&action=getblocknobytime&closest=before&timestamp=<TIMESTAMP>
-  { block: 1927506, timestamp: 1621468800, snob: 0.285, axial: 0 },  // May. 20, 2021
-  { block: 2082630, timestamp: 1622073600, snob: 0.273, axial: 0 },  // May. 27, 2021
-  { block: 2189759, timestamp: 1622678400, snob: 0.214, axial: 0 },  // Jun.  3, 2021
-  { block: 2274184, timestamp: 1623283200, snob: 0.177, axial: 0 },  // Jun. 10, 2021
-  { block: 2354999, timestamp: 1623888000, snob: 0.183, axial: 0 },  // Jun. 17, 2021
-  { block: 2433776, timestamp: 1624492800, snob: 0.145, axial: 0 },  // Jun. 24, 2021
-  { block: 2524073, timestamp: 1625097600, snob: 0.184, axial: 0 },  // Jul.  1, 2021
-  { block: 2600536, timestamp: 1625702400, snob: 0.208, axial: 0 },  // Jul.  8, 2021
-  { block: 2669534, timestamp: 1626307200, snob: 0.202, axial: 0 },  // Jul. 15, 2021
-  { block: 2736556, timestamp: 1626912000, snob: 0.222, axial: 0 },  // Jul. 22, 2021
-  { block: 2803260, timestamp: 1627516800, snob: 0.271, axial: 0 },  // Jul. 29, 2021
-  { block: 2875564, timestamp: 1628121600, snob: 0.247, axial: 0 },  // Aug.  5, 2021
-  { block: 2953921, timestamp: 1628726400, snob: 0.264, axial: 0 },  // Aug. 12, 2021
-  { block: 3061641, timestamp: 1629331200, snob: 0.365, axial: 0 },  // Aug. 19, 2021
-  { block: 3384161, timestamp: 1629936000, snob: 2.736, axial: 0 },  // Aug. 26, 2021
-  { block: 3733784, timestamp: 1630540800, snob: 1.105, axial: 0 },  // Sep.  2, 2021
-  { block: 4035367, timestamp: 1631145600, snob: 0.804, axial: 0 },  // Sep.  9, 2021
-  { block: 4391466, timestamp: 1631750400, snob: 1.337, axial: 0 },  // Sep. 16, 2021
-  { block: 4722935, timestamp: 1632355200, snob: 1.439, axial: 0 },  // Sep. 23, 2021
-  { block: 5013414, timestamp: 1632960000, snob: 1.107, axial: 0 },  // Sep. 30, 2021
-  { block: 5307997, timestamp: 1633564800, snob: 0.845, axial: 0 },  // Oct.  7, 2021
-  { block: 5603733, timestamp: 1634169600, snob: 0.668, axial: 0 },  // Oct. 14, 2021
-  { block: 5894287, timestamp: 1634774400, snob: 0.770, axial: 0 },  // Oct. 21, 2021
-  { block: 6193063, timestamp: 1635379200, snob: 0.874, axial: 0 },  // Oct. 28, 2021
-  { block: 6490989, timestamp: 1635984000, snob: 0.880, axial: 0 },  // Nov.  4, 2021
-  { block: 6786231, timestamp: 1636588800, snob: 1.061, axial: 0 },  // Nov. 11, 2021
+  { block: 1927506, timestamp: 1621468800, snob: 0.285, axial: 0 },       // May. 20, 2021
+  { block: 2082630, timestamp: 1622073600, snob: 0.273, axial: 0 },       // May. 27, 2021
+  { block: 2189759, timestamp: 1622678400, snob: 0.214, axial: 0 },       // Jun.  3, 2021
+  { block: 2274184, timestamp: 1623283200, snob: 0.177, axial: 0 },       // Jun. 10, 2021
+  { block: 2354999, timestamp: 1623888000, snob: 0.183, axial: 0 },       // Jun. 17, 2021
+  { block: 2433776, timestamp: 1624492800, snob: 0.145, axial: 0 },       // Jun. 24, 2021
+  { block: 2524073, timestamp: 1625097600, snob: 0.184, axial: 0 },       // Jul.  1, 2021
+  { block: 2600536, timestamp: 1625702400, snob: 0.208, axial: 0 },       // Jul.  8, 2021
+  { block: 2669534, timestamp: 1626307200, snob: 0.202, axial: 0 },       // Jul. 15, 2021
+  { block: 2736556, timestamp: 1626912000, snob: 0.222, axial: 0 },       // Jul. 22, 2021
+  { block: 2803260, timestamp: 1627516800, snob: 0.271, axial: 0 },       // Jul. 29, 2021
+  { block: 2875564, timestamp: 1628121600, snob: 0.247, axial: 0 },       // Aug.  5, 2021
+  { block: 2953921, timestamp: 1628726400, snob: 0.264, axial: 0 },       // Aug. 12, 2021
+  { block: 3061641, timestamp: 1629331200, snob: 0.365, axial: 0 },       // Aug. 19, 2021
+  { block: 3384161, timestamp: 1629936000, snob: 2.736, axial: 0 },       // Aug. 26, 2021
+  { block: 3733784, timestamp: 1630540800, snob: 1.105, axial: 0 },       // Sep.  2, 2021
+  { block: 4035367, timestamp: 1631145600, snob: 0.804, axial: 0 },       // Sep.  9, 2021
+  { block: 4391466, timestamp: 1631750400, snob: 1.337, axial: 0 },       // Sep. 16, 2021
+  { block: 4722935, timestamp: 1632355200, snob: 1.439, axial: 0 },       // Sep. 23, 2021
+  { block: 5013414, timestamp: 1632960000, snob: 1.107, axial: 0 },       // Sep. 30, 2021
+  { block: 5307997, timestamp: 1633564800, snob: 0.845, axial: 0 },       // Oct.  7, 2021
+  { block: 5603733, timestamp: 1634169600, snob: 0.668, axial: 0 },       // Oct. 14, 2021
+  { block: 5894287, timestamp: 1634774400, snob: 0.770, axial: 0 },       // Oct. 21, 2021
+  { block: 6193063, timestamp: 1635379200, snob: 0.874, axial: 0 },       // Oct. 28, 2021
+  { block: 6490989, timestamp: 1635984000, snob: 0.880, axial: 0 },       // Nov.  4, 2021
+  { block: 6786231, timestamp: 1636588800, snob: 1.061, axial: 0 },       // Nov. 11, 2021
   { block: 7085471, timestamp: 1637193600, snob: 1.043, axial: 0.3087 },  // Nov. 18, 2021
   { block: 7386860, timestamp: 1637798400, snob: 1.007, axial: 0.3572 },  // Nov. 25, 2021
   { block: 7687393, timestamp: 1638403200, snob: 0.870, axial: 0.1507 },  // Dec.  2, 2021
