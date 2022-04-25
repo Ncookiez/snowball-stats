@@ -61,6 +61,10 @@ const getSnowballEarnRevenue = async () => {
   // <TODO>
   // console.log(`Snowball Earn harvests fetched...`);
 
+  // Fetching SNOB distributed:
+  // <TODO>
+  // console.log(`Snowball Earn SNOB distributions fetched...`);
+
   // Calculating Revenue:
   harvestStats.forEach(harvest => {
     revenue += harvest;
@@ -106,6 +110,7 @@ const getSnowballStakingRevenue = async () => {
       }
     } else {
       console.error(`No weekly data found for timestamp: ${distribution.timestamp + week}`);
+      process.exit(1);
     }
   });
 
@@ -125,9 +130,9 @@ const getAxialRevenue = async () => {
   let promises = config.axialPools.map(pool => (async () => {
     let events;
     if(pool.name.includes('-')) {
-      events = await queryBlocks(pool.swap, config.axialMetapoolSwapEventABI, 'TokenSwapUnderlying', config.axialDistributions[0].block, 50000, []);
+      events = await queryBlocks(pool.swap, config.axialMetapoolSwapEventABI, 'TokenSwapUnderlying', config.axialFirstDistribution.block, 50000, []);
     } else {
-      events = await queryBlocks(pool.swap, config.axialSwapEventABI, 'TokenSwap', config.axialDistributions[0].block, 50000, []);
+      events = await queryBlocks(pool.swap, config.axialSwapEventABI, 'TokenSwap', config.axialFirstDistribution.block, 50000, []);
     }
     events.forEach(event => {
       let soldTokenDecimals = pool.name.includes('-') ? pool.metaTokens[parseInt(event.args.soldId)].decimals : pool.tokens[parseInt(event.args.soldId)].decimals;

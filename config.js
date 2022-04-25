@@ -104,37 +104,7 @@ exports.axialTokens = [
   { symbol: 'AVAI', address: '0x346a59146b9b4a77100d369a3d18e8007a9f46a6', decimals: 18 },
   { symbol: 'USDC', address: '0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e', decimals: 6 }
 ];
-exports.axialDistributions = [
-  { block: 6786231, timestamp: 1636588800 },  // Nov. 11, 2021
-  { block: 7085471, timestamp: 1637193600 },  // Nov. 18, 2021
-  { block: 7386860, timestamp: 1637798400 },  // Nov. 25, 2021
-  { block: 7687393, timestamp: 1638403200 },  // Dec.  2, 2021
-  { block: 7989367, timestamp: 1639008000 },  // Dec.  9, 2021
-  { block: 8290862, timestamp: 1639612800 },  // Dec. 16, 2021
-  { block: 8589431, timestamp: 1640217600 },  // Dec. 23, 2021
-  { block: 8888076, timestamp: 1640822400 },  // Dec. 30, 2021
-  { block: 9187865, timestamp: 1641427200 },  // Jan.  6, 2022
-  { block: 9491470, timestamp: 1642032000 },  // Jan. 13, 2022
-  { block: 9797372, timestamp: 1642636800 },  // Jan. 20, 2022
-  { block: 10101236, timestamp: 1643241600 }, // Jan. 27, 2022
-  { block: 10407972, timestamp: 1643846400 }, // Feb.  3, 2022
-  { block: 10714104, timestamp: 1644451200 }, // Feb. 10, 2022
-  { block: 11015462, timestamp: 1645056000 }, // Feb. 17, 2022
-  { block: 11312497, timestamp: 1645660800 }, // Feb. 24, 2022
-  { block: 11608960, timestamp: 1646265600 }, // Mar.  3, 2022
-  { block: 11909364, timestamp: 1646870400 }, // Mar. 10, 2022
-  { block: 12201830, timestamp: 1647475200 }, // Mar. 17, 2022
-  { block: 12493787, timestamp: 1648080000 }, // Mar. 24, 2022
-  { block: 12791423, timestamp: 1648684800 }, // Mar. 31, 2022
-  { block: 13086674, timestamp: 1649289600 }, // Apr.  7, 2022
-  { block: 13385655, timestamp: 1649894400 }, // Apr. 14, 2022
-  { block: 13686854, timestamp: 1650499200 }  // Apr. 21, 2022
-  // { block: , timestamp: 1651104000 }  // Apr. 28, 2022
-  // { block: , timestamp: 1651708800 }  // May.  5, 2022
-  // { block: , timestamp: 1652313600 }  // May. 12, 2022
-  // { block: , timestamp: 1652918400 }  // May. 19, 2022
-  // { block: , timestamp: 1653523200 }  // May. 26, 2022
-];
+exports.axialFirstDistribution = { block: 6786231, timestamp: 1636588800 } // Nov. 11, 2021
 
 /* ====================================================================================================================================================== */
 

@@ -4,16 +4,29 @@ const { query, queryBlocks, writeText, pad } = require('../functions.js');
 const config = require('../config.js');
 
 // Initializations:
+const time = Math.round(Date.now() / 1000);
 const week = 604800;
 let data = '';
 
 /* ====================================================================================================================================================== */
 
+// Function to get distribution timestamps:
+const getDistributionTimestamps = () => {
+  let timestamps = [];
+  let tempTime = config.axialFirstDistribution.timestamp;
+  while(tempTime < (time - week)) {
+    timestamps.push(tempTime);
+    tempTime += week;
+  }
+  return timestamps;
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to get AXIAL distributions from fee distributor contract:
-const getContractDistributions = async () => {
+const getContractDistributions = async (timestamps) => {
   let distributions = [];
-  let promises = config.axialDistributions.slice(0, -1).map(dist => (async () => {
-    let timestamp = dist.timestamp;
+  let promises = timestamps.map(timestamp => (async () => {
     let amount = parseInt(await query(config.axialFeeDistributor, config.feeDistributorABI, 'tokens_per_week', [timestamp])) / (10 ** 18);
     distributions.push({timestamp, amount});
   })());
@@ -26,24 +39,42 @@ const getContractDistributions = async () => {
 /* ====================================================================================================================================================== */
 
 // Function to get AXIAL distributions from council transactions:
-const getCouncilDistributions = async () => {
+const getCouncilDistributions = async (timestamps) => {
   let distributions = [];
   let txs = await getCouncilTXs();
-  for(let i = 0; i < config.axialDistributions.length; i++) {
-    let amount = 0;
-    txs.forEach(tx => {
-      let block = config.axialDistributions[i].block;
-      if(i === config.axialDistributions.length - 1) {
-        if(tx.block > block) {
-          amount += tx.amount;
+  let lastData = config.weeklyData[config.weeklyData.length - 1];
+  if(lastData) {
+    let lastBlock = lastData.block;
+    timestamps.forEach(timestamp => {
+      let amount = 0;
+      txs.forEach(tx => {
+        let data = config.weeklyData.find(i => i.timestamp === timestamp);
+        if(data) {
+          if(timestamps.indexOf(timestamp) === timestamps.length - 2) {
+            if(tx.block > data.block) {
+              amount += tx.amount;
+            }
+          } else {
+            let nextData = config.weeklyData.find(i => i.timestamp === timestamp + week);
+            if(nextData) {
+              if(tx.block > data.block && tx.block < nextData.block) {
+                amount += tx.amount;
+              }
+            } else {
+              console.error(`No weekly data found for timestamp: ${timestamp + week}`);
+              process.exit(1);
+            }
+          }
+        } else {
+          console.error(`No weekly data found for timestamp: ${timestamp}`);
+          process.exit(1);
         }
-      } else {
-        if(tx.block > block && tx.block < config.axialDistributions[i + 1].block) {
-          amount += tx.amount;
-        }
-      }
+      });
+      distributions.push({timestamp, amount});
     });
-    distributions.push({timestamp: config.axialDistributions[i].timestamp, amount});
+  } else {
+    console.error(`No weekly data found for last datapoint.`);
+    process.exit(1);
   }
   distributions.sort((a, b) => a.timestamp - b.timestamp);
   console.log('Distributions from council TXs fetched...');
@@ -55,7 +86,7 @@ const getCouncilDistributions = async () => {
 // Function to get council transactions:
 const getCouncilTXs = async () => {
   let txs = [];
-  let events = await queryBlocks(config.axial, config.transferEventABI, 'Transfer', 7052000, 100000, [null, config.axialFeeDistributor]);
+  let events = await queryBlocks(config.axial, config.transferEventABI, 'Transfer', config.axialFirstDistribution.block, 100000, [null, config.axialFeeDistributor]);
   let promises = events.map(event => (async () => {
     let block = event.blockNumber;
     let amount = parseInt(event.args.value) / 10 ** 18;
@@ -87,16 +118,16 @@ const fetch = async () => {
   data += '  ===============================\n\n'
 
   // Fetching Data:
-  let contractDistributions = await getContractDistributions();
-  let councilDistributions = await getCouncilDistributions();
+  let distributionTimestamps = getDistributionTimestamps();
+  let contractDistributions = await getContractDistributions(distributionTimestamps);
+  let councilDistributions = await getCouncilDistributions(distributionTimestamps);
   let totalContractDistribution = getTotalDist(contractDistributions);
   let totalCouncilDistribution = getTotalDist(councilDistributions);
 
   // Writing Data:
   data += `  - Total Contract Distributions: ${totalContractDistribution.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL\n`;
   data += `  - Total Council Distributions:  ${totalCouncilDistribution.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL\n\n`;
-  config.axialDistributions.slice(0, -1).forEach(axialDistribution => {
-    let timestamp = axialDistribution.timestamp;
+  distributionTimestamps.forEach(timestamp => {
     let rawDate = new Date((timestamp + week) * 1000);
     let date = pad(rawDate.getUTCDate()) + '/' + pad(rawDate.getUTCMonth() + 1) + '/' + rawDate.getUTCFullYear();
     data += `  - ${date}:\n`;

@@ -62,16 +62,16 @@ const getCirculatingSupply = (total, treasury, axialTreasury) => {
 
 /* ====================================================================================================================================================== */
 
-// Function to get transactions:
+// Function to get swap transactions:
 const getTXs = async () => {
   let txs = {};
   let promises = config.axialPools.map(pool => (async () => {
     txs[pool.name] = [];
     let events;
     if(pool.name.includes('-')) {
-      events = await queryBlocks(pool.swap, config.axialMetapoolSwapEventABI, 'TokenSwapUnderlying', config.axialDistributions[0].block, 50000, []);
+      events = await queryBlocks(pool.swap, config.axialMetapoolSwapEventABI, 'TokenSwapUnderlying', config.axialFirstDistribution.block, 50000, []);
     } else {
-      events = await queryBlocks(pool.swap, config.axialSwapEventABI, 'TokenSwap', config.axialDistributions[0].block, 50000, []);
+      events = await queryBlocks(pool.swap, config.axialSwapEventABI, 'TokenSwap', config.axialFirstDistribution.block, 50000, []);
     }
     let event_promises = events.map(event => (async () => {
       let soldTokenSymbol = pool.name.includes('-') ? pool.metaTokens[parseInt(event.args.soldId)].symbol : pool.tokens[parseInt(event.args.soldId)].symbol;
@@ -112,23 +112,25 @@ const findDailyTokenVolume = async (txs) => {
   let dailyBlocks = [];
 
   // Estimating Daily Block Values:
-  for(let i = 0; i < config.axialDistributions.length; i++) {
-    if(i != config.axialDistributions.length - 1) {
-      let dailyBlockSpacing = Math.floor((config.axialDistributions[i + 1].block - config.axialDistributions[i].block) / 7);
-      for(let days = 0; days < 7; days++) {
-        let block = config.axialDistributions[i].block + (days * dailyBlockSpacing);
-        let time = config.axialDistributions[i].timestamp + (days * (week / 7));
-        dailyBlocks.push({block, time});
-      }
-    } else {
-      let block = config.axialDistributions[i].block;
-      let time = config.axialDistributions[i].timestamp;
-      let estimatedDailyBlockSpacing = Math.floor(300000 / 7);
-      let lastBlock = await getCurrentBlock();
-      while(block < lastBlock) {
-        dailyBlocks.push({block, time});
-        block += estimatedDailyBlockSpacing;
-        time += week / 7;
+  for(let i = 0; i < config.weeklyData.length; i++) {
+    if(config.weeklyData[i].block >= config.axialFirstDistribution.block) {
+      if(i != config.weeklyData.length - 1) {
+        let dailyBlockSpacing = Math.floor((config.weeklyData[i + 1].block - config.weeklyData[i].block) / 7);
+        for(let days = 0; days < 7; days++) {
+          let block = config.weeklyData[i].block + (days * dailyBlockSpacing);
+          let time = config.weeklyData[i].timestamp + (days * (week / 7));
+          dailyBlocks.push({block, time});
+        }
+      } else {
+        let block = config.weeklyData[i].block;
+        let time = config.weeklyData[i].timestamp;
+        let estimatedDailyBlockSpacing = Math.floor((config.weeklyData[i].block - config.weeklyData[i - 1].block) / 7);
+        let lastBlock = await getCurrentBlock();
+        while(block < lastBlock) {
+          dailyBlocks.push({block, time});
+          block += estimatedDailyBlockSpacing;
+          time += week / 7;
+        }
       }
     }
   }
@@ -206,19 +208,23 @@ const getTotalSwapped = (txs) => {
 const getWeeklyVolume = (txs) => {
   let values = [];
   config.axialPools.forEach(pool => {
-    for(let week = 0; week < config.axialDistributions.length - 1; week++) {
-      let volume = 0;
-      txs[pool.name].forEach(tx => {
-        if(tx.block >= config.axialDistributions[week].block && tx.block < config.axialDistributions[week + 1].block) {
-          volume += tx.sold.amount;
+    let week = 0;
+    for(let i = 0; i < config.weeklyData.length - 1; i++) {
+      if(config.weeklyData[i].block >= config.axialFirstDistribution.block) {
+        let volume = 0;
+        txs[pool.name].forEach(tx => {
+          if(tx.block >= config.weeklyData[i].block && tx.block < config.weeklyData[i + 1].block) {
+            volume += tx.sold.amount;
+          }
+        });
+        let entry = values.find(j => j.week === week);
+        if(entry) {
+          entry.volume += volume;
+        } else {
+          let time = config.weeklyData[i].timestamp;
+          values.push({week, time, volume});
         }
-      });
-      let entry = values.find(i => i.week === week);
-      if(entry) {
-        entry.volume += volume;
-      } else {
-        let time = config.axialDistributions[week].timestamp;
-        values.push({week, time, volume});
+        week++;
       }
     }
   });
@@ -264,15 +270,17 @@ const getPoolWeeklyVolume = (txs) => {
   let values = [];
   config.axialPools.forEach(pool => {
     let weeks = [];
-    for(let week = 0; week < config.axialDistributions.length - 1; week++) {
-      let volume = 0;
-      txs[pool.name].forEach(tx => {
-        if(tx.block >= config.axialDistributions[week].block && tx.block < config.axialDistributions[week + 1].block) {
-          volume += tx.sold.amount;
-        }
-      });
-      let time = config.axialDistributions[week].timestamp;
-      weeks.push({time, volume});
+    for(let i = 0; i < config.weeklyData.length - 1; i++) {
+      if(config.weeklyData[i].block >= config.axialFirstDistribution.block) {
+        let volume = 0;
+        txs[pool.name].forEach(tx => {
+          if(tx.block >= config.weeklyData[i].block && tx.block < config.weeklyData[i + 1].block) {
+            volume += tx.sold.amount;
+          }
+        });
+        let time = config.weeklyData[i].timestamp;
+        weeks.push({time, volume});
+      }
     }
     let name = pool.name;
     values.push({name, weeks});
