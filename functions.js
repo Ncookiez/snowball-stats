@@ -131,14 +131,13 @@ exports.getCovalentTXs = async (address) => {
     let result;
     while(!result) {
       try {
-        result = await axios.get(`https://api.covalenthq.com/v1/43114/address/${address}/transactions_v2/?no-logs=true&page-size=1000&page-number=${page++}&key=${config.ckey}`);
+        result = await axios.get(`https://api.covalenthq.com/v1/43114/address/${address}/transactions_v2/?no-logs=true&page-size=99999&page-number=${page++}&key=${config.ckey}`); // <TODO> Revert to more sensible page size once Covalent pagination is fixed.
         hasNextPage = result.data.data.pagination.has_more;
-        let promises = result.data.data.items.map(tx => (async () => {
+        result.data.data.items.forEach(tx => {
           if(tx.successful) {
             txs.push(tx);
           }
-        })());
-        await Promise.all(promises);
+        });
       } catch(err) {
         if(++errors === 50) {
           console.error(`COVALENT ERROR: Code ${err.response.data.error_code} - ${err.response.data.error_message}.`);

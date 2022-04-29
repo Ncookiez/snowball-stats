@@ -55,5 +55,5 @@
       > Week 47 (14/04/2022) - 9,970 SNOB & 771,415 AXIAL - 50.40% APR (7.06% SNOB & 43.34% AXIAL)
       > Week 48 (21/04/2022) - 12,566 SNOB & 427,619 AXIAL - 26.76% APR (8.99% SNOB & 17.77% AXIAL)
       > Week 49 (28/04/2022) - 6,789 SNOB & 188,209 AXIAL - 12.25% APR (4.71% SNOB & 7.54% AXIAL)
-  - Total xSNOB Supply: 7,392,683 xSNOB
+  - Total xSNOB Supply: 7,396,546 xSNOB
   - All-Time Average APR: 79.15%
