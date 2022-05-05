@@ -172,8 +172,8 @@ exports.weeklyData = [ // https://api.snowtrace.io/api?module=block&action=getbl
   { block: 13086674, timestamp: 1649289600, snob: 0.137, axial: 0.0073 }, // Apr.  7, 2022
   { block: 13385655, timestamp: 1649894400, snob: 0.097, axial: 0.0077 }, // Apr. 14, 2022
   { block: 13686854, timestamp: 1650499200, snob: 0.136, axial: 0.0079 }, // Apr. 21, 2022
-  { block: 13987020, timestamp: 1651104000, snob: 0.111, axial: 0.0064 }  // Apr. 28, 2022
-  // { block: , timestamp: 1651708800, snob: , axial:  }  // May.  5, 2022
+  { block: 13987020, timestamp: 1651104000, snob: 0.111, axial: 0.0064 }, // Apr. 28, 2022
+  { block: 14281312, timestamp: 1651708800, snob: 0.079, axial: 0.0053 }  // May.  5, 2022
   // { block: , timestamp: 1652313600, snob: , axial:  }  // May. 12, 2022
   // { block: , timestamp: 1652918400, snob: , axial:  }  // May. 19, 2022
   // { block: , timestamp: 1653523200, snob: , axial:  }  // May. 26, 2022
