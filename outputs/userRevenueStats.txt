@@ -3,9 +3,9 @@
   ||        User Revenue Stats        ||
   ======================================
 
-  - Total Snowball Ecosystem User Revenue Generated: $15,523,854
+  - Total Snowball Ecosystem User Revenue Generated: $15,526,965
       > Snowball Earn Revenue: $13,356,998
-      > xSNOB Revenue: $1,959,353
-      > Axial Revenue: $207,503
+      > xSNOB Revenue: $1,960,820
+      > Axial Revenue: $209,147
       > TEDDY Staking Revenue: $0
       > TSD Staking Revenue: $0
