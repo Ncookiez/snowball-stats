@@ -177,7 +177,25 @@ exports.weeklyData = [ // https://api.snowtrace.io/api?module=block&action=getbl
   { block: 14575124, timestamp: 1652313600, snob: 0.040, axial: 0.0024 }, // May. 12, 2022
   { block: 14877266, timestamp: 1652918400, snob: 0.045, axial: 0.0021 }, // May. 19, 2022
   { block: 15178580, timestamp: 1653523200, snob: 0.041, axial: 0.0016 }, // May. 26, 2022
-  { block: 15480261, timestamp: 1654128000, snob: 0.041, axial: 0.0016 }  // Jun.  2, 2022
+  { block: 15480261, timestamp: 1654128000, snob: 0.041, axial: 0.0016 }, // Jun.  2, 2022
+  { block: 15780748, timestamp: 1654732800, snob: 0.036, axial: 0.0019 }  // Jun.  9, 2022
+  // { block: , timestamp: 1655337600, snob: , axial:  }  // Jun. 16, 2022
+  // { block: , timestamp: 1655942400, snob: , axial:  }  // Jun. 23, 2022
+  // { block: , timestamp: 1656547200, snob: , axial:  }  // Jun. 30, 2022
+  // { block: , timestamp: 1657152000, snob: , axial:  }  // Jul.  7, 2022
+  // { block: , timestamp: 1657756800, snob: , axial:  }  // Jul. 14, 2022
+  // { block: , timestamp: 1658361600, snob: , axial:  }  // Jul. 21, 2022
+  // { block: , timestamp: 1658966400, snob: , axial:  }  // Jul. 28, 2022
+  // { block: , timestamp: 1659571200, snob: , axial:  }  // Aug.  4, 2022
+  // { block: , timestamp: 1660176000, snob: , axial:  }  // Aug. 11, 2022
+  // { block: , timestamp: 1660780800, snob: , axial:  }  // Aug. 18, 2022
+  // { block: , timestamp: 1661385600, snob: , axial:  }  // Aug. 24, 2022
+  // { block: , timestamp: 1661990400, snob: , axial:  }  // Sep.  1, 2022
+  // { block: , timestamp: 1662595200, snob: , axial:  }  // Sep.  8, 2022
+  // { block: , timestamp: 1663200000, snob: , axial:  }  // Sep. 15, 2022
+  // { block: , timestamp: 1663804800, snob: , axial:  }  // Sep. 22, 2022
+  // { block: , timestamp: 1664409600, snob: , axial:  }  // Sep. 29, 2022
+  // { block: , timestamp: 1665014400, snob: , axial:  }  // Oct.  6, 2022
 ];
 
 /* ====================================================================================================================================================== */
