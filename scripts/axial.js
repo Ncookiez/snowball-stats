@@ -393,6 +393,65 @@ const getUnclaimedPeggies = async () => {
 
 /* ====================================================================================================================================================== */
 
+// Function to get sAXIAL token holders:
+const getsAXIALHolders = async () => {
+  let balances = [];
+  let wallets = await query(config.sAXIAL, config.saxialABI, 'getAllUsers', []);
+  let promises = wallets.map(wallet => (async () => {
+    let balance = parseInt(await query(config.sAXIAL, config.saxialABI, 'getBalance', [wallet])) / (10 ** 18);
+    if(balance > 0) {
+      balances.push({ wallet, balance });
+    }
+  })());
+  await Promise.all(promises);
+  console.log('sAXIAL holders loaded...');
+  return balances.sort((a, b) => b.balance - a.balance);
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to get veAXIAL token holders:
+const getveAXIALHolders = async () => {
+  let balances = [];
+  let wallets = await query(config.veAXIAL, config.veaxialABI, 'getAllUsers', []);
+  let promises = wallets.map(wallet => (async () => {
+    let accrued = parseInt(await query(config.veAXIAL, config.veaxialABI, 'getAccrued', [wallet])) / (10 ** 18);
+    if(accrued > 0) {
+      let staked = parseInt(await query(config.veAXIAL, config.veaxialABI, 'getStaked', [wallet])) / (10 ** 18);
+      if(staked > 0) {
+        balances.push({ wallet, accrued, staked });
+      }
+    }
+  })());
+  await Promise.all(promises);
+  console.log('veAXIAL holders loaded...');
+  return balances.sort((a, b) => b.accrued - a.accrued);
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to get total sAXIAL supply:
+const getTotalsAXIALSupply = (saxialHolders) => {
+  let sum = 0;
+  saxialHolders.forEach(holder => {
+    sum += holder.balance;
+  });
+  return sum;
+}
+
+/* ====================================================================================================================================================== */
+
+// Function to get total veAXIAL supply:
+const getTotalveAXIALSupply = (veaxialHolders) => {
+  let sum = 0;
+  veaxialHolders.forEach(holder => {
+    sum += holder.accrued;
+  });
+  return sum;
+}
+
+/* ====================================================================================================================================================== */
+
 // Function to fetch all stats:
 const fetch = async () => {
 
@@ -412,6 +471,10 @@ const fetch = async () => {
     let axialTreasuryPeggies = await getAxialTreasuryPeggies();
     let unclaimedTreasuryPeggies = await getUnclaimedPeggies();
     let circulatingSupply = getCirculatingSupply(totalSupply, snowballTreasuryBalance, axialTreasuryBalance);
+    let saxialHolders = await getsAXIALHolders();
+    let veaxialHolders = await getveAXIALHolders();
+    let totalsaxialSupply = getTotalsAXIALSupply(saxialHolders);
+    let totalveaxialSupply = getTotalveAXIALSupply(veaxialHolders);
     let txs = await getTXs();
     let numTXs = getNumTXs(txs);
     let totalSwapped = getTotalSwapped(txs);
@@ -433,6 +496,14 @@ const fetch = async () => {
       data += `      > ${pool.name} - $${pool.amount.toLocaleString(undefined, {maximumFractionDigits: 0})}\n`;
     });
     data += `  - Circulating AXIAL Supply: ${circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL (${((circulatingSupply / totalSupply) * 100).toFixed(2)}% of total supply)\n`;
+    data += `  - sAXIAL Holders:\n`
+    saxialHolders.forEach(holder => {
+      data += `      > ${holder.wallet} - ${holder.balance.toLocaleString(undefined, {maximumFractionDigits: 2})} AXIAL (${((holder.balance / totalsaxialSupply) * 100).toFixed(2)}%)\n`;
+    });
+    data += `  - veAXIAL Holders:\n`
+    veaxialHolders.forEach(holder => {
+      data += `      > ${holder.wallet} - ${holder.staked.toLocaleString(undefined, {maximumFractionDigits: 2})} AXIAL / ${holder.accrued.toLocaleString(undefined, {maximumFractionDigits: 0})} veAXIAL (${((holder.accrued / totalveaxialSupply) * 100).toFixed(2)}%)\n`;
+    });
     data += `  - Total Value Swapped: $${totalSwapped.toLocaleString(undefined, {maximumFractionDigits: 0})} ($${(totalSwapped * 0.0004).toLocaleString(undefined, {maximumFractionDigits: 0})} Swap Fees)\n`;
     poolValueSwapped.forEach(pool => {
       data += `      > ${pool.name} - $${pool.volume.toLocaleString(undefined, {maximumFractionDigits: 0})} ($${(pool.volume * 0.0004).toLocaleString(undefined, {maximumFractionDigits: 0})} Swap Fees)\n`;
@@ -489,6 +560,10 @@ const fetch = async () => {
     let axialTreasuryPeggies = await getAxialTreasuryPeggies();
     let unclaimedTreasuryPeggies = await getUnclaimedPeggies();
     let circulatingSupply = getCirculatingSupply(totalSupply, snowballTreasuryBalance, axialTreasuryBalance);
+    let saxialHolders = await getsAXIALHolders();
+    let veaxialHolders = await getveAXIALHolders();
+    let totalsaxialSupply = getTotalsAXIALSupply(saxialHolders);
+    let totalveaxialSupply = getTotalveAXIALSupply(veaxialHolders);
 
     // Writing Data:
     data += `  - AXIAL Price: $${price}\n`;
@@ -500,6 +575,14 @@ const fetch = async () => {
       data += `      > ${pool.name} - $${pool.amount.toLocaleString(undefined, {maximumFractionDigits: 0})}\n`;
     });
     data += `  - Circulating AXIAL Supply: ${circulatingSupply.toLocaleString(undefined, {maximumFractionDigits: 0})} AXIAL (${((circulatingSupply / totalSupply) * 100).toFixed(2)}% of total supply)\n`;
+    data += `  - sAXIAL Holders:\n`
+    saxialHolders.forEach(holder => {
+      data += `      > ${holder.wallet} - ${holder.balance.toLocaleString(undefined, {maximumFractionDigits: 2})} AXIAL (${((holder.balance / totalsaxialSupply) * 100).toFixed(2)}%)\n`;
+    });
+    data += `  - veAXIAL Holders:\n`
+    veaxialHolders.forEach(holder => {
+      data += `      > ${holder.wallet} - ${holder.staked.toLocaleString(undefined, {maximumFractionDigits: 2})} AXIAL / ${holder.accrued.toLocaleString(undefined, {maximumFractionDigits: 0})} veAXIAL (${((holder.accrued / totalveaxialSupply) * 100).toFixed(2)}%)\n`;
+    });
   
     // Updating Text File:
     writeText(data, 'axialBasicStats');

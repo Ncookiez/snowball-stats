@@ -82,6 +82,8 @@ exports.optimizedPoolStrategies = {
 
 // Axial Variables:
 exports.axial = '0xcf8419a615c57511807236751c0af38db4ba3351';
+exports.sAXIAL = '0xed7f93C8FD3B96B53c924F601B3948175D2820D8';
+exports.veAXIAL = '0x3f563F7efc6dC55adFc1B64BC6Bd4bC5F394c4b2';
 exports.axialFeeDistributor = '0x084cfE7BA1C91d35Fec5015ca65E92Db41A3C9f7';
 exports.axialTreasury = '0x4980AD7cCB304f7d3c5053Aa1131eD1EDaf48809';
 exports.axialSymbols = ['AS4D', 'AC4D', 'AM3D', 'AA3D'];
@@ -251,6 +253,15 @@ exports.troveManagerABI = [
 ];
 exports.sortedTrovesABI = [
   { constant: true, inputs: [], name: "getSize", outputs: [{ name: "", type: "uint256" }], type: "function" }
+];
+exports.saxialABI = [
+  { constant: true, inputs: [], name: "getAllUsers", outputs: [{ name: "", type: "address[]" }], type: "function" },
+  { constant: true, inputs: [{ name: "_userAddr", type: "address" }], name: "getBalance", outputs: [{ name: "", type: "uint256" }], type: "function" }
+];
+exports.veaxialABI = [
+  { constant: true, inputs: [], name: "getAllUsers", outputs: [{ name: "", type: "address[]" }], type: "function" },
+  { constant: true, inputs: [{ name: "_userAddr", type: "address" }], name: "getAccrued", outputs: [{ name: "", type: "uint256" }], type: "function" },
+  { constant: true, inputs: [{ name: "_userAddr", type: "address" }], name: "getStaked", outputs: [{ name: "", type: "uint256" }], type: "function" }
 ];
 
 /* ====================================================================================================================================================== */
