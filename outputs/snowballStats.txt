@@ -3,34 +3,34 @@
   ||        SNOB Stats        ||
   ==============================
 
-  - SNOB Price: $0.0236
-  - Total SNOB Supply: 17,681,171 SNOB
-  - SNOB Market Cap: $417,276
-  - SNOB Holders: 7,174 Users
-  - Treasury: $29,128 (1,234,237 SNOB)
-  - Staked SNOB: 11,373,100 SNOB (64.32% of total supply)
-  - Circulating SNOB Supply: 5,073,834 SNOB (28.70% of total supply)
-  - xSNOB Holders: 1,255 Users
-  - Average SNOB Amount Staked: 8,475 SNOB
-  - Average SNOB Locked Time: 1.21 Years
-  - Total xSNOB Supply: 6,901,095 xSNOB
-  - Average xSNOB Amount Held: 5,143 xSNOB
-  - xSNOB Holders w/ 50k+: 19 Users
-  - Forgetful xSNOB Holders: 650 Users
-  - SNOB Forgotten: 736,959 SNOB
-  - Unclaimed SNOB (From xSNOB): 92,846 SNOB
-  - Unclaimed AXIAL (From xSNOB): 5,975,841 AXIAL
+  - SNOB Price: $0.0217
+  - Total SNOB Supply: 17,694,816 SNOB
+  - SNOB Market Cap: $383,977
+  - SNOB Holders: 7,187 Users
+  - Treasury: $26,783 (1,234,237 SNOB)
+  - Staked SNOB: 11,396,501 SNOB (64.41% of total supply)
+  - Circulating SNOB Supply: 5,064,077 SNOB (28.62% of total supply)
+  - xSNOB Holders: 1,249 Users
+  - Average SNOB Amount Staked: 8,711 SNOB
+  - Average SNOB Locked Time: 1.22 Years
+  - Total xSNOB Supply: 6,976,649 xSNOB
+  - Average xSNOB Amount Held: 5,332 xSNOB
+  - xSNOB Holders w/ 50k+: 22 Users
+  - Forgetful xSNOB Holders: 653 Users
+  - SNOB Forgotten: 515,428 SNOB
+  - Unclaimed SNOB (From xSNOB): 98,884 SNOB
+  - Unclaimed AXIAL (From xSNOB): 6,640,127 AXIAL
   - Top 5 xSNOB Holders:
-      > 0xc73df1e68fc203f6e4b6270240d6f82a850e8d38 - 1,221,468 xSNOB (17.70% of possible votes)
-      > 0x125789ecf75a6bf8e29db4df0222b1e7e3b7680a - 799,734 xSNOB (11.59% of possible votes)
-      > 0xac9be1372ab5fc54cdf4dd2afe7a678e94706e82 - 598,724 xSNOB (8.68% of possible votes)
-      > 0xdbc195a0ed72c0b059f8906e97a90636d2b6409f - 338,439 xSNOB (4.90% of possible votes)
-      > 0x9dc1eb2f96a03f4054e5fe2e80cf23c75d0fe93f - 337,720 xSNOB (4.89% of possible votes)
-  - Allocation Voters: 901 Users
+      > 0xc73df1e68fc203f6e4b6270240d6f82a850e8d38 - 1,195,838 xSNOB (17.14% of possible votes)
+      > 0x125789ecf75a6bf8e29db4df0222b1e7e3b7680a - 763,378 xSNOB (10.94% of possible votes)
+      > 0xac9be1372ab5fc54cdf4dd2afe7a678e94706e82 - 587,492 xSNOB (8.42% of possible votes)
+      > 0x9dc1eb2f96a03f4054e5fe2e80cf23c75d0fe93f - 341,669 xSNOB (4.90% of possible votes)
+      > 0xdbc195a0ed72c0b059f8906e97a90636d2b6409f - 329,511 xSNOB (4.72% of possible votes)
+  - Allocation Voters: 903 Users
   - Proposal Voters: 289 Users
-  - Total Allocation Votes: 2,744 Votes
+  - Total Allocation Votes: 2,748 Votes
   - Total Proposal Votes: 784 Votes
-  - % of Current Stakers Voted: 40.80%
+  - % of Current Stakers Voted: 40.67%
   - Proposal Participation & Results:
       > Proposal  8 - 1,176,138 xSNOB - 84.96% In Favor
       > Proposal  9 - 1,799,957 xSNOB - 68.19% In Favor
@@ -49,5 +49,5 @@
       > Proposal 22 - 1,486,431 xSNOB - 82.55% In Favor
       > Proposal 23 - 1,813,817 xSNOB - 92.22% In Favor
       > Proposal 24 - 1,682,474 xSNOB - 97.72% In Favor
-      > Proposal 25 - 1,194,483 xSNOB - 100.00% In Favor (Ongoing)
-      > Proposal 26 - 1,196,207 xSNOB - 100.00% In Favor (Ongoing)
+      > Proposal 25 - 1,194,483 xSNOB - 100.00% In Favor
+      > Proposal 26 - 1,196,207 xSNOB - 100.00% In Favor
