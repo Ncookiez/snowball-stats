@@ -86,13 +86,17 @@ exports.sAXIAL = '0xed7f93C8FD3B96B53c924F601B3948175D2820D8';
 exports.veAXIAL = '0x3f563F7efc6dC55adFc1B64BC6Bd4bC5F394c4b2';
 exports.axialFeeDistributor = '0x084cfE7BA1C91d35Fec5015ca65E92Db41A3C9f7';
 exports.axialTreasury = '0x4980AD7cCB304f7d3c5053Aa1131eD1EDaf48809';
-exports.axialSymbols = ['AS4D', 'AC4D', 'AM3D', 'AA3D'];
+exports.axialSymbols = ['AS4D', 'AC4D', 'AM3D', 'AA3D', 'SCALES', 'HERO', 'HERCULES', 'PERSEUS'];
 exports.axialPools = [
   { name: 'AS4D', swap: '0x2a716c4933A20Cd8B9f9D9C39Ae7196A85c24228', tokens: [{ symbol: 'TUSD', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }, { symbol: 'DAI.e', decimals: 18 }, { symbol: 'USDT.e', decimals: 6 }] },
   { name: 'AC4D', swap: '0x8c3c1C6F971C01481150CA7942bD2bbB9Bc27bC7', tokens: [{ symbol: 'TSD', decimals: 18 }, { symbol: 'MIM', decimals: 18 }, { symbol: 'FRAX', decimals: 18 }, { symbol: 'DAI.e', decimals: 18 }] },
   { name: 'AM3D', swap: '0x90c7b96AD2142166D001B27b5fbc128494CDfBc8', tokens: [{ symbol: 'MIM', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }, { symbol: 'DAI.e', decimals: 18 }] },
   { name: 'AA3D', swap: '0x6EfbC734D91b229BE29137cf9fE531C1D3bf4Da6', tokens: [{ symbol: 'AVAI', decimals: 18 }, { symbol: 'MIM', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }] },
-  { name: 'USDC-AM3D', swap: '0x26694e4047eA77cC96341f0aC491773aC5469d72', tokens: [{ symbol: 'USDC', decimals: 6 }, { symbol: 'AM3D', decimals: 18 }], metaTokens: [{ symbol: 'USDC', decimals: 6 }, { symbol: 'MIM', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }, { symbol: 'DAI.e', decimals: 18 }] }
+  { name: 'USDC-AM3D', swap: '0x26694e4047eA77cC96341f0aC491773aC5469d72', tokens: [{ symbol: 'USDC', decimals: 6 }, { symbol: 'AM3D', decimals: 18 }], metaTokens: [{ symbol: 'USDC', decimals: 6 }, { symbol: 'MIM', decimals: 18 }, { symbol: 'USDC.e', decimals: 6 }, { symbol: 'DAI.e', decimals: 18 }] },
+  { name: 'SCALES', swap: '0xfD24d41B7C4C7C8Cd363Dd3FF6f49C99c8280430', tokens: [{ symbol: 'DAI.e', decimals: 18 }, { symbol: 'USDT.e', decimals: 6 }, { symbol: 'USDC.e', decimals: 6 }, { symbol: 'USDC', decimals: 6 }] },
+  { name: 'HERO', swap: '0xa0f6397FEBB03021F9BeF25134DE79835a24D76e', tokens: [{ symbol: 'USDC', decimals: 6 }, { symbol: 'USDt', decimals: 6 }, { symbol: 'MIM', decimals: 18 }, { symbol: 'YUSD', decimals: 18 }] },
+  // { name: 'HERCULES', swap: '0x21645EddC5EcB865b3909c989B8d208978CF7E16', tokens: [{ symbol: 'renBTC', decimals: 8 }, { symbol: 'WBTC.e', decimals: 8 }] },
+  // { name: 'PERSEUS', swap: '0x001a7904FEc3eed1184FEf5cBE232CfC06fa14dE', tokens: [{ symbol: 'WBTC.e', decimals: 8 }, { symbol: 'BTC.b', decimals: 8 }] }
 ];
 exports.paraswap = '0xdef171fe48cf0115b1d80b88dc8eab59176fee57';
 exports.axialTokens = [
@@ -104,7 +108,12 @@ exports.axialTokens = [
   { symbol: 'MIM', address: '0x130966628846bfd36ff31a822705796e8cb8c18d', decimals: 18 },
   { symbol: 'FRAX', address: '0xd24c2ad096400b6fbcd2ad8b24e7acbc21a1da64', decimals: 18 },
   { symbol: 'AVAI', address: '0x346a59146b9b4a77100d369a3d18e8007a9f46a6', decimals: 18 },
-  { symbol: 'USDC', address: '0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e', decimals: 6 }
+  { symbol: 'USDC', address: '0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e', decimals: 6 },
+  { symbol: 'USDt', address: '0x9702230a8ea53601f5cd2dc00fdbc13d4df4a8c7', decimals: 6 },
+  { symbol: 'YUSD', address: '0x111111111111ed1D73f860F57b2798b683f2d325', decimals: 18 },
+  // { symbol: 'renBTC', address: '0xdbf31df14b66535af65aac99c32e9ea844e14501', decimals: 8 },
+  // { symbol: 'WBTC.e', address: '0x50b7545627a5162f82a992c33b87adc75187b218', decimals: 8 },
+  // { symbol: 'BTC.b', address: '0x152b9d0fdc40c096757f570a51e494bd4b943e50', decimals: 8 }
 ];
 exports.axialFirstDistribution = { block: 6786231, timestamp: 1636588800 } // Nov. 11, 2021
 
