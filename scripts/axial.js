@@ -14,6 +14,7 @@ if(args.length > 0) {
 
 // Initializations:
 const week = 604800;
+const blockQuerySize = 100000;
 let data = '';
 
 /* ====================================================================================================================================================== */
@@ -69,9 +70,9 @@ const getTXs = async () => {
     txs[pool.name] = [];
     let events;
     if(pool.name.includes('-')) {
-      events = await queryBlocks(pool.swap, config.axialMetapoolSwapEventABI, 'TokenSwapUnderlying', config.axialFirstDistribution.block, 50000, []);
+      events = await queryBlocks(pool.swap, config.axialMetapoolSwapEventABI, 'TokenSwapUnderlying', config.axialFirstDistribution.block, blockQuerySize, []);
     } else {
-      events = await queryBlocks(pool.swap, config.axialSwapEventABI, 'TokenSwap', config.axialFirstDistribution.block, 50000, []);
+      events = await queryBlocks(pool.swap, config.axialSwapEventABI, 'TokenSwap', config.axialFirstDistribution.block, blockQuerySize, []);
     }
     let event_promises = events.map(event => (async () => {
       let soldTokenSymbol = pool.name.includes('-') ? pool.metaTokens[parseInt(event.args.soldId)].symbol : pool.tokens[parseInt(event.args.soldId)].symbol;
